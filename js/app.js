@@ -389,6 +389,10 @@
 	let __isAwaitingNext = false;
 	let __questionToken = 0;
 	let currentModalHandler = null;
+	let questionTimer = null;
+	let questionTimeLeft = 10;
+	let testStartTime = null;
+	let totalTestTime = 0;
         const vocabularyData = {
             unidad_1: {
                 sustantivos: [
@@ -819,6 +823,7 @@
             currentCount = count;
             currentQuestionIndex = 0;
             score = 0;
+            testStartTime = Date.now();
 
             const words = vocabularyData[currentUnidad][currentCategory];
             const shuffled = [...words].sort(() => Math.random() - 0.5);
@@ -840,7 +845,7 @@
 		__questionToken++;
 
             const question = currentQuestions[currentQuestionIndex];
-            document.getElementById('questionProgress').textContent = 
+            document.getElementById('questionProgress').textContent =
                 `Вопрос ${currentQuestionIndex + 1} из ${currentQuestions.length}`;
 
             // ═══════════════════════════════════════════════════════════════
@@ -850,7 +855,7 @@
             // Medium: RU→ES, Multiple Choice (вопрос русский, ответы испанские)
             // Hard: RU→ES, Manual Input (вопрос русский, ввод испанского)
             // ═══════════════════════════════════════════════════════════════
-            
+
             if (currentLevel === 'easy') {
                 // Easy: ES→RU, ABCD
                 document.getElementById('questionText').textContent = question.spanish;
@@ -864,6 +869,45 @@
                 document.getElementById('questionText').textContent = question.ru;
                 showManualInput();
             }
+
+            // Start question timer
+            if (questionTimer) clearInterval(questionTimer);
+            questionTimeLeft = 10;
+            updateTimerDisplay();
+
+            questionTimer = setInterval(() => {
+                questionTimeLeft--;
+                updateTimerDisplay();
+
+                if (questionTimeLeft <= 0) {
+                    clearInterval(questionTimer);
+                    handleQuestionTimeout();
+                }
+            }, 1000);
+        }
+
+        function updateTimerDisplay() {
+            const timerEl = document.getElementById('questionTimer');
+            const secondsEl = document.getElementById('timerSeconds');
+            secondsEl.textContent = questionTimeLeft;
+
+            // Change color based on time left
+            if (questionTimeLeft > 6) {
+                timerEl.style.color = '#27ae60'; // Green
+            } else if (questionTimeLeft > 3) {
+                timerEl.style.color = '#f39c12'; // Yellow
+            } else {
+                timerEl.style.color = '#e74c3c'; // Red
+            }
+        }
+
+        function handleQuestionTimeout() {
+            if (__isAwaitingNext) return;
+            __isAwaitingNext = true;
+
+            const question = currentQuestions[currentQuestionIndex];
+            const correctText = currentLevel === 'easy' ? question.ru : question.spanish;
+            showFeedback(false, `⏰ Время истекло! Правильный ответ: ${correctText}`);
         }
 
         function showMultipleChoice(question, level) {
@@ -906,6 +950,12 @@
 	    if (__isAwaitingNext) return;
 	    __isAwaitingNext = true;
 
+            // Stop timer
+            if (questionTimer) {
+                clearInterval(questionTimer);
+                questionTimer = null;
+            }
+
             if (isCorrect) {
                 score++;
                 showFeedback(true, 'Правильно!');
@@ -925,6 +975,12 @@
 	    if (!answer) {
   	    __isAwaitingNext = false;
             return;
+            }
+
+            // Stop timer
+            if (questionTimer) {
+                clearInterval(questionTimer);
+                questionTimer = null;
             }
 
             const question = currentQuestions[currentQuestionIndex];
@@ -1007,6 +1063,30 @@
             gradeEl.textContent = grade;
             gradeEl.className = 'grade ' + gradeClass;
 
+            // Display percentage
+            document.getElementById('resultsPercentage').textContent = percentage + '%';
+
+            // Calculate and display total time
+            totalTestTime = Math.round((Date.now() - testStartTime) / 1000);
+            const minutes = Math.floor(totalTestTime / 60);
+            const seconds = totalTestTime % 60;
+            document.getElementById('resultsTime').textContent =
+                `⏱️ Время: ${minutes}:${seconds.toString().padStart(2, '0')}`;
+
+            // Show "Next Test" button if score >= 80%
+            const nextTestBtn = document.getElementById('nextTestBtn');
+            if (percentage >= 80) {
+                const nextTest = getNextTest();
+                if (nextTest) {
+                    nextTestBtn.classList.remove('hidden');
+                    nextTestBtn.textContent = `→ ${nextTest.label}`;
+                } else {
+                    nextTestBtn.classList.add('hidden');
+                }
+            } else {
+                nextTestBtn.classList.add('hidden');
+            }
+
             // ═══════════════════════════════════════════════════════════════
             // SAVE PROGRESS TO LOCALSTORAGE (CRITICAL!)
             // ═══════════════════════════════════════════════════════════════
@@ -1020,6 +1100,30 @@
 
         function retryTest() {
             startTest(currentLevel, currentCount);
+        }
+
+        function getNextTest() {
+            // Determine next test based on current level and count
+            const levelOrder = ['easy', 'medium', 'hard'];
+            const currentLevelIndex = levelOrder.indexOf(currentLevel);
+
+            if (currentCount === 10) {
+                // If current is 10 questions, next is 25 of the same level
+                return { level: currentLevel, count: 25, label: `${currentLevel === 'easy' ? 'Лёгкий' : currentLevel === 'medium' ? 'Средний' : 'Сложный'} 25 вопросов` };
+            } else if (currentCount === 25 && currentLevelIndex < levelOrder.length - 1) {
+                // If current is 25 questions, next is 10 of the next level
+                const nextLevel = levelOrder[currentLevelIndex + 1];
+                return { level: nextLevel, count: 10, label: `${nextLevel === 'medium' ? 'Средний' : 'Сложный'} 10 вопросов` };
+            }
+            // No next test (already completed hard 25)
+            return null;
+        }
+
+        function startNextTest() {
+            const nextTest = getNextTest();
+            if (nextTest) {
+                startTest(nextTest.level, nextTest.count);
+            }
         }
 
         function exitTest() {
