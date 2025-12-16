@@ -904,7 +904,6 @@
         function selectAnswer(index, isCorrect) {
 	    if (__isAwaitingNext) return;
 	    __isAwaitingNext = true;
-	    const tokenAtAnswer = __questionToken;
 
             if (isCorrect) {
                 score++;
@@ -914,19 +913,11 @@
                 const correctText = currentLevel === 'easy' ? question.ru : question.spanish;
                 showFeedback(false, `Неправильно. Правильный ответ: ${correctText}`);
             }
-
-            setTimeout(() => {
-   	    if (tokenAtAnswer !== __questionToken) return; 
-            currentQuestionIndex++;
-            showQuestion();
-		}, 1500);
-
         }
 
         function submitManualAnswer() {
 	if (__isAwaitingNext) return;
 	__isAwaitingNext = true;
-	const tokenAtAnswer = __questionToken;
 
             const input = document.getElementById('manualInput');
             const answer = input.value.trim().toLowerCase();
@@ -937,7 +928,7 @@
 
             const question = currentQuestions[currentQuestionIndex];
             const correct = question.spanish.toLowerCase();
-            
+
             // Remove articles for flexible matching
             const answerNoArticle = answer.replace(/^(el|la|los|las)\s+/, '');
             const correctNoArticle = correct.replace(/^(el|la|los|las)\s+/, '');
@@ -948,13 +939,6 @@
             } else {
                 showFeedback(false, `Неправильно. Правильный ответ: ${question.spanish}`);
             }
-
-            setTimeout(() => {
-    		if (tokenAtAnswer !== __questionToken) return;
-    		currentQuestionIndex++;
-    		showQuestion();
-		}, 1500);
-
         }
 
         function showFeedback(isCorrect, message) {
@@ -967,10 +951,21 @@
             msg.textContent = message;
 
             modal.classList.remove('hidden');
+
+            // Add Enter key handler for modal
+            const handleEnter = (e) => {
+                if (e.key === 'Enter') {
+                    closeModal();
+                    document.removeEventListener('keydown', handleEnter);
+                }
+            };
+            document.addEventListener('keydown', handleEnter);
         }
 
         function closeModal() {
             document.getElementById('feedbackModal').classList.add('hidden');
+            currentQuestionIndex++;
+            showQuestion();
         }
 
         function showResults() {
