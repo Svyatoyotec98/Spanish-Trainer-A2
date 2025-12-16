@@ -961,6 +961,8 @@
             // Add Enter key handler for modal
             currentModalHandler = (e) => {
                 if (e.key === 'Enter') {
+                    e.preventDefault();
+                    e.stopPropagation();
                     closeModal();
                 }
             };
