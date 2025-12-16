@@ -388,6 +388,7 @@
         let score = 0;
 	let __isAwaitingNext = false;
 	let __questionToken = 0;
+	let currentModalHandler = null;
         const vocabularyData = {
             unidad_1: {
                 sustantivos: [
@@ -952,18 +953,29 @@
 
             modal.classList.remove('hidden');
 
+            // Remove old handler if exists
+            if (currentModalHandler) {
+                document.removeEventListener('keydown', currentModalHandler);
+            }
+
             // Add Enter key handler for modal
-            const handleEnter = (e) => {
+            currentModalHandler = (e) => {
                 if (e.key === 'Enter') {
                     closeModal();
-                    document.removeEventListener('keydown', handleEnter);
                 }
             };
-            document.addEventListener('keydown', handleEnter);
+            document.addEventListener('keydown', currentModalHandler);
         }
 
         function closeModal() {
             document.getElementById('feedbackModal').classList.add('hidden');
+
+            // Remove Enter handler
+            if (currentModalHandler) {
+                document.removeEventListener('keydown', currentModalHandler);
+                currentModalHandler = null;
+            }
+
             currentQuestionIndex++;
             showQuestion();
         }
