@@ -1239,19 +1239,6 @@
                 return;
             }
 
-            ensureProgressSkeleton(profile);
-
-            // Установить прогресс 80% во всех категориях (разблокирует экзамены)
-            ['unidad_1', 'unidad_3', 'unidad_4'].forEach(unidad => {
-                ['sustantivos', 'adjetivos', 'verbos'].forEach(category => {
-                    profile.progress[unidad][category] = {
-                        easy10: 80, easy25: 80,
-                        medium10: 80, medium25: 80,
-                        hard10: 80, hard25: 80
-                    };
-                });
-            });
-
             profile.unlocks.unidad_3 = true;
             profile.unlocks.unidad_4 = true;
 
@@ -1260,35 +1247,7 @@
             saveAppState(state);
 
             updateUnidadUI();
-            document.getElementById('qaOutput').textContent = '✅ Все экзамены разблокированы (прогресс 80%)!';
-        }
-
-        function lockAllExams() {
-            const profile = getActiveProfile();
-            if (!profile) {
-                alert('Нет активного профиля');
-                return;
-            }
-
-            ensureProgressSkeleton(profile);
-
-            // Установить прогресс 0% во всех категориях (заблокирует экзамены)
-            ['unidad_1', 'unidad_3', 'unidad_4'].forEach(unidad => {
-                ['sustantivos', 'adjetivos', 'verbos'].forEach(category => {
-                    profile.progress[unidad][category] = {
-                        easy10: 0, easy25: 0,
-                        medium10: 0, medium25: 0,
-                        hard10: 0, hard25: 0
-                    };
-                });
-            });
-
-            const state = loadAppState();
-            state.profiles[profile.id] = profile;
-            saveAppState(state);
-
-            updateUnidadUI();
-            document.getElementById('qaOutput').textContent = '✅ Все экзамены заблокированы (прогресс 0%)!';
+            document.getElementById('qaOutput').textContent = '✅ Все Unidades разблокированы!';
         }
 
         function resetProgress() {
