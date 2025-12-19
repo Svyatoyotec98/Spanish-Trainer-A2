@@ -13,30 +13,62 @@
 </head>
 <body>
     <div class="container">
+
         <!-- ═══════════════════════════════════════════════════════════════
              START SCREEN (NEW)
              ═══════════════════════════════════════════════════════════════ -->
         <div id="startScreen" class="start-screen">
             <h1>🇪🇸 Spanish Vocabulary Trainer</h1>
             <p class="subtitle">Изучайте испанский язык с интерактивными упражнениями</p>
-            <button class="btn btn-primary" onclick="showProfileSelect()">Начать</button>
+            <button class="btn btn-primary" onclick="showLoginScreen()">Войти</button>
+			<button class="btn btn-success" onclick="showRegisterScreen()">Зарегистрироваться</button>
         </div>
 
         <!-- ═══════════════════════════════════════════════════════════════
-             PROFILE SELECT SCREEN (NEW)
+             REGISTER SCREEN
              ═══════════════════════════════════════════════════════════════ -->
-        <div id="profileSelectScreen" class="profile-select-screen hidden">
-            <h1>Выбор профиля</h1>
-            <p class="subtitle">Выберите профиль для продолжения</p>
-            
-            <div id="profileList" class="profile-list">
-                <!-- Profiles will be rendered here -->
-            </div>
-
-            <button class="btn btn-success" onclick="showProfileCreate()">+ Создать новый профиль</button>
-            <button class="btn btn-back" onclick="showStart()">Назад</button>
-        </div>
-
+        <div id="registerScreen" class="profile-create-screen hidden">
+		<h1>Регистрация</h1>
+		<p class="subtitle">Создайте новый аккаунт</p>
+		
+		<div class="profile-form">
+			<div class="form-group">
+			<label for="registerEmail">Email:</label>
+			<input
+			type="email"
+			id="registerEmail"
+			placeholder="email@example.com"
+			onkeypress="if(event.key==='Enter') document.getElementById('registerPassword').focus()"
+			>
+			</div>
+			<div class="form-group">
+				<label for="registerPassword">Пароль:</label>
+				<input
+				type="password"
+				id="registerPassword"
+				placeholder="Минимум 6 символов"
+				onkeypress="if(event.key==='Enter') registerUser()"
+				>
+				</div>
+				<div id="loginError" class="form-error hidden"></div>
+				
+				<button class="btn btn-success" onclick="registerUser()">Зарегистрироваться</Button>
+				<button class="btn btn-back" onclick="showStart()">Назад</Button>
+			</div>
+		</div>
+		<!-- ═══════════════════════════════════════════════════════════════
+				PROFILE SELECT SCREEN
+			 ═══════════════════════════════════════════════════════════════ -->
+			 <div id="profileSelectScreen" class="profile-select-screen hidden">
+			 <h1>Выбор профиля</h1>
+			 <p class="subtitute">Выбирите профиль для продолжения</p>
+			 
+			 <div id="profileList" class = "profile-list">
+			 <!-- Profiles will be rendered here -->
+			 </div>
+			 
+			 <button class="btn btn-success" onclick="showProfileCreate()">+ Создать новый  профиль</button>
+			 <button class="btn btn-back" onclick="logout()">Выйти</button>
         <!-- ═══════════════════════════════════════════════════════════════
              PROFILE CREATE SCREEN (NEW)
              ═══════════════════════════════════════════════════════════════ -->
