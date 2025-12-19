@@ -2,7 +2,7 @@ from sqlalchemy.orm import Session
 from .db import SessionLocal
 import app.models_db as models_db
 
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 from typing import Dict, Optional
 
 from fastapi import Depends, HTTPException, status
@@ -39,7 +39,7 @@ def _verify_password(password: str, password_hash: str) -> bool:
 
 
 def _create_access_token(subject_email: str) -> str:
-    expire = datetime.utcnow() + timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
+    expire = datetime.now(timezone.utc) + timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
     payload = {"sub": subject_email, "exp": expire}
     return jwt.encode(payload, SECRET_KEY, algorithm=ALGORITHM)
 
@@ -109,3 +109,43 @@ def get_current_user(
     except JWTError:
         raise HTTPException(status_code=401, detail="Invalid token")
 
+# ═══════════════════════════════════════════════════════════════
+# PROFILES
+# ═══════════════════════════════════════════════════════════════
+
+from datetime import datetime
+from .models import ProfileCreate, ProfilePublic
+
+
+def get_user_profiles(user_id: int, db: Session):
+    """Получить все профили пользователя"""
+    profiles = db.query(models_db.Profile).filter(
+        models_db.Profile.user_id == user_id
+    ).all()
+    return profiles
+
+
+def create_user_profile(user_id: int, payload: ProfileCreate, db: Session):
+    """Создать новый профиль для пользователя"""
+    existing = db.query(models_db.Profile).filter(
+        models_db.Profile.user_id == user_id,
+        models_db.Profile.nickname == payload.nickname
+    ).first()
+    
+    if existing:
+        raise HTTPException(
+            status_code=status.HTTP_409_CONFLICT,
+            detail="Profile with this nickname already exists"
+        )
+    
+    db_profile = models_db.Profile(
+        user_id=user_id,
+        nickname=payload.nickname,
+        created_at=datetime.now(timezone.utc).isoformat()
+    )
+    
+    db.add(db_profile)
+    db.commit()
+    db.refresh(db_profile)
+    
+    return db_profile
