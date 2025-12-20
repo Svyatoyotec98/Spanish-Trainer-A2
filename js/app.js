@@ -400,6 +400,12 @@ function showProfileSelect() {
         let score = 0;
 	let __isAwaitingNext = false;
 	let __questionToken = 0;
+
+        // Timer variables
+        let timerInterval = null;
+        let timeLeft = 10;
+        const TIMER_DURATION = 10;
+
         const vocabularyData = {
             unidad_1: {
                 sustantivos: [
@@ -842,8 +848,69 @@ function showProfileSelect() {
             showQuestion();
         }
 
+        // ═══════════════════════════════════════════════════════════════
+        // TIMER FUNCTIONS
+        // ═══════════════════════════════════════════════════════════════
+
+        function startTimer() {
+            stopTimer();
+            timeLeft = TIMER_DURATION;
+            updateTimerDisplay();
+
+            timerInterval = setInterval(() => {
+                timeLeft -= 0.1;
+                updateTimerDisplay();
+
+                if (timeLeft <= 0) {
+                    stopTimer();
+                    handleTimeOut();
+                }
+            }, 100);
+        }
+
+        function stopTimer() {
+            if (timerInterval) {
+                clearInterval(timerInterval);
+                timerInterval = null;
+            }
+        }
+
+        function updateTimerDisplay() {
+            const timerBar = document.getElementById('timerBar');
+            const timerText = document.getElementById('timerText');
+
+            if (!timerBar || !timerText) return;
+
+            const percentage = (timeLeft / TIMER_DURATION) * 100;
+            timerBar.style.width = percentage + '%';
+            timerText.textContent = Math.ceil(timeLeft);
+
+            // Remove all color classes
+            timerBar.classList.remove('timer-warning', 'timer-danger');
+            timerText.classList.remove('timer-text-warning', 'timer-text-danger');
+
+            // Add color based on time left
+            if (timeLeft <= 3) {
+                timerBar.classList.add('timer-danger');
+                timerText.classList.add('timer-text-danger');
+            } else if (timeLeft <= 5) {
+                timerBar.classList.add('timer-warning');
+                timerText.classList.add('timer-text-warning');
+            }
+        }
+
+        function handleTimeOut() {
+            if (__isAwaitingNext) return;
+            __isAwaitingNext = true;
+
+            const question = currentQuestions[currentQuestionIndex];
+            const correctText = currentLevel === 'easy' ? question.ru : question.spanish;
+            showFeedback(false, `Время вышло! Правильный ответ: ${correctText}`);
+        }
+
         function showQuestion() {
             if  (currentQuestionIndex >= currentQuestions.length) {
+                stopTimer();
                 showResults();
                 return;
             }
@@ -851,8 +918,11 @@ function showProfileSelect() {
 		__questionToken++;
 
             const question = currentQuestions[currentQuestionIndex];
-            document.getElementById('questionProgress').textContent = 
+            document.getElementById('questionProgress').textContent =
                 `Вопрос ${currentQuestionIndex + 1} из ${currentQuestions.length}`;
+
+            // Start timer for this question
+            startTimer();
 
             // ═══════════════════════════════════════════════════════════════
             // LEVEL-BASED MODE SELECTION (NO RANDOM!)
@@ -916,7 +986,7 @@ function showProfileSelect() {
         function selectAnswer(index, isCorrect) {
 	    if (__isAwaitingNext) return;
 	    __isAwaitingNext = true;
-	    const tokenAtAnswer = __questionToken;
+            stopTimer();
 
             if (isCorrect) {
                 score++;
@@ -926,19 +996,12 @@ function showProfileSelect() {
                 const correctText = currentLevel === 'easy' ? question.ru : question.spanish;
                 showFeedback(false, `Неправильно. Правильный ответ: ${correctText}`);
             }
-
-            setTimeout(() => {
-   	    if (tokenAtAnswer !== __questionToken) return; 
-            currentQuestionIndex++;
-            showQuestion();
-		}, 1500);
-
         }
 
         function submitManualAnswer() {
 	if (__isAwaitingNext) return;
 	__isAwaitingNext = true;
-	const tokenAtAnswer = __questionToken;
+            stopTimer();
 
             const input = document.getElementById('manualInput');
             const answer = input.value.trim().toLowerCase();
@@ -949,7 +1012,7 @@ function showProfileSelect() {
 
             const question = currentQuestions[currentQuestionIndex];
             const correct = question.spanish.toLowerCase();
-            
+
             // Remove articles for flexible matching
             const answerNoArticle = answer.replace(/^(el|la|los|las)\s+/, '');
             const correctNoArticle = correct.replace(/^(el|la|los|las)\s+/, '');
@@ -960,13 +1023,6 @@ function showProfileSelect() {
             } else {
                 showFeedback(false, `Неправильно. Правильный ответ: ${question.spanish}`);
             }
-
-            setTimeout(() => {
-    		if (tokenAtAnswer !== __questionToken) return;
-    		currentQuestionIndex++;
-    		showQuestion();
-		}, 1500);
-
         }
 
         function showFeedback(isCorrect, message) {
@@ -983,6 +1039,8 @@ function showProfileSelect() {
 
         function closeModal() {
             document.getElementById('feedbackModal').classList.add('hidden');
+            currentQuestionIndex++;
+            showQuestion();
         }
 
         function showResults() {
@@ -1027,6 +1085,7 @@ function showProfileSelect() {
 
         function exitTest() {
             if (confirm('Выйти из теста? Прогресс этой попытки не будет сохранён.')) {
+                stopTimer();
                 showCategoryMenu(currentCategory);
             }
         }
@@ -1256,9 +1315,21 @@ function showProfileSelect() {
         // ═══════════════════════════════════════════════════════════════
 	
         window.addEventListener('DOMContentLoaded', async () => {
-   await loadUnidadFromJson('Unidad1.json'); 
+   await loadUnidadFromJson('Unidad1.json');
   const state = loadAppState();
   showStart();
+
+  // Global keyboard handler for Enter key
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') {
+      const modal = document.getElementById('feedbackModal');
+      // If modal is visible, close it (go to next question)
+      if (modal && !modal.classList.contains('hidden')) {
+        e.preventDefault();
+        closeModal();
+      }
+    }
+  });
 
   console.log('✅ Spanish Vocabulary Trainer v4.0 (Профили) загружен');
   console.log('✅ Система профилей инициализирована');

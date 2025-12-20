@@ -659,4 +659,49 @@
                 margin-bottom: 20px;
             }
         }
+
+        /* ═══════════════════════════════════════════════════════════════
+           TIMER STYLES
+           ═══════════════════════════════════════════════════════════════ */
+        .timer-container {
+            width: 100%;
+            height: 8px;
+            background: #e0e0e0;
+            border-radius: 4px;
+            margin: 15px 0 5px 0;
+            overflow: hidden;
+        }
+
+        .timer-bar {
+            height: 100%;
+            width: 100%;
+            background: #27ae60;
+            border-radius: 4px;
+            transition: width 0.1s linear, background-color 0.3s ease;
+        }
+
+        .timer-text {
+            text-align: center;
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #27ae60;
+            margin-bottom: 15px;
+            transition: color 0.3s ease;
+        }
+
+        .timer-warning {
+            background: #f39c12 !important;
+        }
+
+        .timer-danger {
+            background: #e74c3c !important;
+        }
+
+        .timer-text-warning {
+            color: #f39c12 !important;
+        }
+
+        .timer-text-danger {
+            color: #e74c3c !important;
+        }
     </style>
