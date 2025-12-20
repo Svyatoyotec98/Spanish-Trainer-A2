@@ -231,12 +231,24 @@
             document.getElementById('startScreen').classList.remove('hidden');
         }
 
-        function showProfileSelect() {
-            hideAll();
-            hideUserBadge();
-            document.getElementById('profileSelectScreen').classList.remove('hidden');
-            renderProfileList();
-        }
+function showProfileSelect() {
+    // Проверяем токен (без токена нельзя попасть сюда)
+    const token = getToken();
+    if (!token) {
+        console.log('❌ Нет токена, редирект на login');
+        showLoginScreen();
+        return;
+    }
+    
+    hideAllScreens();
+    document.getElementById('profileSelectScreen').classList.remove('hidden');
+    
+    // Пока загружаем профили из localStorage (ВРЕМЕННО)
+    // TODO: позже заменим на загрузку с backend
+    renderProfileList();
+}
+
+        
 
         function showProfileCreate() {
             hideAll();
@@ -388,6 +400,12 @@
         let score = 0;
 	let __isAwaitingNext = false;
 	let __questionToken = 0;
+
+        // Timer variables
+        let timerInterval = null;
+        let timeLeft = 10;
+        const TIMER_DURATION = 10;
+
         const vocabularyData = {
             unidad_1: {
                 sustantivos: [
@@ -830,8 +848,69 @@
             showQuestion();
         }
 
+        // ═══════════════════════════════════════════════════════════════
+        // TIMER FUNCTIONS
+        // ═══════════════════════════════════════════════════════════════
+
+        function startTimer() {
+            stopTimer();
+            timeLeft = TIMER_DURATION;
+            updateTimerDisplay();
+
+            timerInterval = setInterval(() => {
+                timeLeft -= 0.1;
+                updateTimerDisplay();
+
+                if (timeLeft <= 0) {
+                    stopTimer();
+                    handleTimeOut();
+                }
+            }, 100);
+        }
+
+        function stopTimer() {
+            if (timerInterval) {
+                clearInterval(timerInterval);
+                timerInterval = null;
+            }
+        }
+
+        function updateTimerDisplay() {
+            const timerBar = document.getElementById('timerBar');
+            const timerText = document.getElementById('timerText');
+
+            if (!timerBar || !timerText) return;
+
+            const percentage = (timeLeft / TIMER_DURATION) * 100;
+            timerBar.style.width = percentage + '%';
+            timerText.textContent = Math.ceil(timeLeft);
+
+            // Remove all color classes
+            timerBar.classList.remove('timer-warning', 'timer-danger');
+            timerText.classList.remove('timer-text-warning', 'timer-text-danger');
+
+            // Add color based on time left
+            if (timeLeft <= 3) {
+                timerBar.classList.add('timer-danger');
+                timerText.classList.add('timer-text-danger');
+            } else if (timeLeft <= 5) {
+                timerBar.classList.add('timer-warning');
+                timerText.classList.add('timer-text-warning');
+            }
+        }
+
+        function handleTimeOut() {
+            if (__isAwaitingNext) return;
+            __isAwaitingNext = true;
+
+            const question = currentQuestions[currentQuestionIndex];
+            const correctText = currentLevel === 'easy' ? question.ru : question.spanish;
+            showFeedback(false, `Время вышло! Правильный ответ: ${correctText}`);
+        }
+
         function showQuestion() {
             if  (currentQuestionIndex >= currentQuestions.length) {
+                stopTimer();
                 showResults();
                 return;
             }
@@ -839,8 +918,11 @@
 		__questionToken++;
 
             const question = currentQuestions[currentQuestionIndex];
-            document.getElementById('questionProgress').textContent = 
+            document.getElementById('questionProgress').textContent =
                 `Вопрос ${currentQuestionIndex + 1} из ${currentQuestions.length}`;
+
+            // Start timer for this question
+            startTimer();
 
             // ═══════════════════════════════════════════════════════════════
             // LEVEL-BASED MODE SELECTION (NO RANDOM!)
@@ -904,7 +986,7 @@
         function selectAnswer(index, isCorrect) {
 	    if (__isAwaitingNext) return;
 	    __isAwaitingNext = true;
-	    const tokenAtAnswer = __questionToken;
+            stopTimer();
 
             if (isCorrect) {
                 score++;
@@ -914,19 +996,12 @@
                 const correctText = currentLevel === 'easy' ? question.ru : question.spanish;
                 showFeedback(false, `Неправильно. Правильный ответ: ${correctText}`);
             }
-
-            setTimeout(() => {
-   	    if (tokenAtAnswer !== __questionToken) return; 
-            currentQuestionIndex++;
-            showQuestion();
-		}, 1500);
-
         }
 
         function submitManualAnswer() {
 	if (__isAwaitingNext) return;
 	__isAwaitingNext = true;
-	const tokenAtAnswer = __questionToken;
+            stopTimer();
 
             const input = document.getElementById('manualInput');
             const answer = input.value.trim().toLowerCase();
@@ -937,7 +1012,7 @@
 
             const question = currentQuestions[currentQuestionIndex];
             const correct = question.spanish.toLowerCase();
-            
+
             // Remove articles for flexible matching
             const answerNoArticle = answer.replace(/^(el|la|los|las)\s+/, '');
             const correctNoArticle = correct.replace(/^(el|la|los|las)\s+/, '');
@@ -948,13 +1023,6 @@
             } else {
                 showFeedback(false, `Неправильно. Правильный ответ: ${question.spanish}`);
             }
-
-            setTimeout(() => {
-    		if (tokenAtAnswer !== __questionToken) return;
-    		currentQuestionIndex++;
-    		showQuestion();
-		}, 1500);
-
         }
 
         function showFeedback(isCorrect, message) {
@@ -971,6 +1039,8 @@
 
         function closeModal() {
             document.getElementById('feedbackModal').classList.add('hidden');
+            currentQuestionIndex++;
+            showQuestion();
         }
 
         function showResults() {
@@ -1015,6 +1085,7 @@
 
         function exitTest() {
             if (confirm('Выйти из теста? Прогресс этой попытки не будет сохранён.')) {
+                stopTimer();
                 showCategoryMenu(currentCategory);
             }
         }
@@ -1244,11 +1315,221 @@
         // ═══════════════════════════════════════════════════════════════
 	
         window.addEventListener('DOMContentLoaded', async () => {
-   await loadUnidadFromJson('Unidad1.json'); 
+   await loadUnidadFromJson('Unidad1.json');
   const state = loadAppState();
   showStart();
+
+  // Global keyboard handler for Enter key
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') {
+      const modal = document.getElementById('feedbackModal');
+      // If modal is visible, close it (go to next question)
+      if (modal && !modal.classList.contains('hidden')) {
+        e.preventDefault();
+        closeModal();
+      }
+    }
+  });
 
   console.log('✅ Spanish Vocabulary Trainer v4.0 (Профили) загружен');
   console.log('✅ Система профилей инициализирована');
 });
 
+
+// ═══════════════════════════════════════════════════════════════
+// AUTHENTICATION & NAVIGATION
+// ═══════════════════════════════════════════════════════════════
+
+const API_URL = 'http://localhost:8000';
+
+// Навигация между экранами
+function showStart() {
+    hideAllScreens();
+    document.getElementById('startScreen').classList.remove('hidden');
+}
+
+function showLoginScreen() {
+    hideAllScreens();
+    document.getElementById('loginScreen').classList.remove('hidden');
+    document.getElementById('loginEmail').focus();
+}
+
+function showRegisterScreen() {
+    hideAllScreens();
+    document.getElementById('registerScreen').classList.remove('hidden');
+    document.getElementById('registerEmail').focus();
+}
+
+function hideAllScreens() {
+    const screens = [
+        'startScreen', 'loginScreen', 'registerScreen',
+        'profileSelectScreen', 'profileCreateScreen',
+        'mainMenu', 'unidadMenu', 'categoryMenu',
+        'questionScreen', 'resultsScreen', 'verbMenu',
+        'verbPracticeScreen', 'qaScreen'
+    ];
+    screens.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.classList.add('hidden');
+    });
+}
+
+// Вспомогательные функции для работы с токеном
+function saveToken(token) {
+    localStorage.setItem('auth_token', token);
+}
+
+function getToken() {
+    return localStorage.getItem('auth_token');
+}
+
+function clearToken() {
+    localStorage.removeItem('auth_token');
+}
+
+// Показать ошибку
+function showError(elementId, message) {
+    const errorEl = document.getElementById(elementId);
+    if (errorEl) {
+        errorEl.textContent = message;
+        errorEl.classList.remove('hidden');
+    }
+}
+
+function hideError(elementId) {
+    const errorEl = document.getElementById(elementId);
+    if (errorEl) {
+        errorEl.classList.add('hidden');
+    }
+}
+
+// ═══════════════════════════════════════════════════════════════
+// REGISTER
+// ═══════════════════════════════════════════════════════════════
+
+async function registerUser() {
+    const email = document.getElementById('registerEmail').value.trim();
+    const password = document.getElementById('registerPassword').value;
+    
+    hideError('registerError');
+    
+    // Валидация
+    if (!email || !password) {
+        showError('registerError', '❌ Заполните все поля');
+        return;
+    }
+    
+    if (password.length < 6) {
+        showError('registerError', '❌ Пароль должен быть минимум 6 символов');
+        return;
+    }
+    
+    try {
+        const response = await fetch(`${API_URL}/auth/register`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email, password })
+        });
+        
+        if (response.status === 409) {
+            showError('registerError', '❌ Email уже зарегистрирован. Войдите в аккаунт.');
+            return;
+        }
+        
+        if (!response.ok) {
+            throw new Error('Ошибка регистрации');
+        }
+        
+        // Успешная регистрация → автоматический логин
+        const data = await response.json();
+        console.log('✅ Регистрация успешна:', data);
+        
+        // Теперь логинимся с теми же данными
+        await loginUserAuto(email, password);
+        
+    } catch (error) {
+        console.error('Ошибка регистрации:', error);
+        showError('registerError', '❌ Ошибка: ' + error.message);
+    }
+}
+
+// ═══════════════════════════════════════════════════════════════
+// LOGIN
+// ═══════════════════════════════════════════════════════════════
+
+async function loginUser() {
+    const email = document.getElementById('loginEmail').value.trim();
+    const password = document.getElementById('loginPassword').value;
+    
+    hideError('loginError');
+    
+    if (!email || !password) {
+        showError('loginError', '❌ Заполните все поля');
+        return;
+    }
+    
+    try {
+        const response = await fetch(`${API_URL}/auth/login`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email, password })
+        });
+        
+        if (response.status === 401) {
+            showError('loginError', '❌ Неверный email или пароль');
+            return;
+        }
+        
+        if (!response.ok) {
+            throw new Error('Ошибка входа');
+        }
+        
+        const data = await response.json();
+        console.log('✅ Логин успешен, токен получен');
+        
+        // Сохраняем токен
+        saveToken(data.access_token);
+        
+        // Переходим к выбору профиля
+        showProfileSelect();
+        
+    } catch (error) {
+        console.error('Ошибка логина:', error);
+        showError('loginError', '❌ Ошибка: ' + error.message);
+    }
+}
+
+// Автоматический логин после регистрации
+async function loginUserAuto(email, password) {
+    try {
+        const response = await fetch(`${API_URL}/auth/login`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email, password })
+        });
+        
+        if (!response.ok) throw new Error('Автологин не удался');
+        
+        const data = await response.json();
+        saveToken(data.access_token);
+        
+        console.log('✅ Автологин после регистрации успешен');
+        showProfileSelect();
+        
+    } catch (error) {
+        console.error('Ошибка автологина:', error);
+        showError('registerError', '✅ Регистрация успешна! Теперь войдите в аккаунт.');
+        setTimeout(() => showLoginScreen(), 2000);
+    }
+}
+
+// ═══════════════════════════════════════════════════════════════
+// LOGOUT
+// ═══════════════════════════════════════════════════════════════
+
+function logout() {
+    clearToken();
+    console.log('✅ Выход из аккаунта');
+    showStart();
+}
+	
