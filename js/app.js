@@ -1387,6 +1387,18 @@ function clearToken() {
     localStorage.removeItem('auth_token');
 }
 
+function saveUserId(userId) {
+    localStorage.setItem('user_id', userId);
+}
+
+function getUserId() {
+    return localStorage.getItem('user_id');
+}
+
+function clearUserId() {
+    localStorage.removeItem('user_id');
+}
+
 // Показать ошибку
 function showError(elementId, message) {
     const errorEl = document.getElementById(elementId);
