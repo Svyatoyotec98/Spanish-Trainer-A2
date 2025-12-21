@@ -3,7 +3,10 @@
         // ═══════════════════════════════════════════════════════════════
 
         const DEBUG = false;
-        const STORAGE_KEY = 'svt_profiles_v1';
+        function getStorageKey() {
+			const userId = getUserId();
+			return'svt_progress' + (userId || 'guest');
+		}
 
         // ═══════════════════════════════════════════════════════════════
         // HELPER FUNCTIONS - State Management
@@ -11,7 +14,7 @@
 
         function loadAppState() {
             try {
-                const raw = localStorage.getItem(STORAGE_KEY);
+                const raw = localStorage.getItem(getStorageKey());
                 if (!raw) {
                     if (DEBUG) console.log('No saved state, creating new');
                     return {
@@ -33,7 +36,7 @@
 
         function saveAppState(state) {
             try {
-                localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+                localStorage.setItem(getStorageKey(), JSON.stringify(state));
                 if (DEBUG) console.log('State saved:', state);
             } catch (e) {
                 console.error('Failed to save state:', e);
@@ -830,6 +833,17 @@ function showProfileSelect() {
         // ═══════════════════════════════════════════════════════════════
         // TEST LOGIC
         // ═══════════════════════════════════════════════════════════════
+		
+		function shuffleArray(array) {
+			const result = [...array];
+			for (let i =result.length - 1; i > 0; i--) {
+				const j = Math.floor(Math.random() * (i + 1));
+				const temp = result[i];
+				result[i] = result[j];
+				result[j] = temp;
+			}
+			return result;
+		}
 
         function startTest(level, count) {
             currentLevel = level;
@@ -838,7 +852,7 @@ function showProfileSelect() {
             score = 0;
 
             const words = vocabularyData[currentUnidad][currentCategory];
-            const shuffled = [...words].sort(() => Math.random() - 0.5);
+            const shuffled = shuffleArray(words);
             currentQuestions = shuffled.slice(0, count);
 
             hideAll();
@@ -1501,6 +1515,7 @@ async function loginUser() {
         
         // Сохраняем токен
         saveToken(data.access_token);
+		saveUserId(data.user_id);
         
         // Переходим к выбору профиля
         showProfileSelect();
@@ -1524,6 +1539,7 @@ async function loginUserAuto(email, password) {
         
         const data = await response.json();
         saveToken(data.access_token);
+		saveUserId(data.user_id)
         
         console.log('✅ Автологин после регистрации успешен');
         showProfileSelect();
