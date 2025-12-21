@@ -101,6 +101,7 @@
 			 
 			 <button class="btn btn-success" onclick="showProfileCreate()">+ Создать новый  профиль</button>
 			 <button class="btn btn-back" onclick="logout()">Выйти</button>
+			 </div>
         <!-- ═══════════════════════════════════════════════════════════════
              PROFILE CREATE SCREEN (NEW)
              ═══════════════════════════════════════════════════════════════ -->
@@ -322,6 +323,10 @@
              ═══════════════════════════════════════════════════════════════ -->
         <div id="questionScreen" class="question-container hidden">
             <div class="progress" id="questionProgress">Вопрос 1 из 10</div>
+			<div class="timer-text" id="timerText">10</div>
+			<div class="timer-container">
+			<div class="timer-bar" id="timerBar"></div>
+			</div>
             <div class="question-text" id="questionText">palabra</div>
             
             <!-- Multiple Choice Options -->
