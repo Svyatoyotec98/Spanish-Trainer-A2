@@ -249,6 +249,7 @@ function showProfileSelect() {
     // Пока загружаем профили из localStorage (ВРЕМЕННО)
     // TODO: позже заменим на загрузку с backend
     renderProfileList();
+	saveCurrentScreen('profileSelectScreen');
 }
 
         
@@ -260,6 +261,7 @@ function showProfileSelect() {
             document.getElementById('nicknameInput').value = '';
             document.getElementById('nicknameError').classList.add('hidden');
             document.getElementById('nicknameInput').focus();
+			saveCurrentScreen('profileCreateScreen');
         }
 
         function renderProfileList() {
@@ -348,6 +350,7 @@ function showProfileSelect() {
             showUserBadge();
             document.getElementById('mainMenu').classList.remove('hidden');
             updateUnidadUI();
+			saveCurrentScreen('mainMenu');
         }
 
         function updateUnidadUI() {
@@ -602,6 +605,7 @@ function showProfileSelect() {
             document.getElementById('unidadTitle').textContent = titles[unidad];
 
             updateUnidadProgressBars();
+			saveCurrentScreen('unidadMenu');
         }
 
         function updateUnidadProgressBars() {
@@ -654,6 +658,7 @@ function showProfileSelect() {
             document.getElementById('categoryTitle').textContent = titles[category];
 
             updateCategoryButtons();
+			saveCurrentScreen('categoryMenu');
         }
 
         function updateCategoryButtons() {
@@ -1287,6 +1292,14 @@ function showProfileSelect() {
             document.getElementById('qaOutput').textContent = JSON.stringify(state, null, 2);
         }
 
+			function saveCurrentScreen(screenId) {
+				localStorage.setItem('current_screen', screenId);
+			}
+			
+			function getCurrentScreen() {
+				return localStorage.getItem('current_screen');
+			}
+
         function runQATestsV3() {
             let output = '🧪 Запуск QA тестов...\n\n';
             
@@ -1331,7 +1344,23 @@ function showProfileSelect() {
         window.addEventListener('DOMContentLoaded', async () => {
    await loadUnidadFromJson('Unidad1.json');
   const state = loadAppState();
-  showStart();
+  const token = getToken();
+  const savedScreen = getCurrentScreen();
+  
+  if (token&& savedScreen) {
+	  hideAllScreens();
+	  const el = document.getElementById(savedScreen);
+	  if (el) {
+		el.classList.remove('hidden');
+		if (savedScreen === 'mainMenu') updateUnidadUI();
+  } else {
+	  showProfileSelect();
+  }
+  } else if (token) {
+	  showProfileSelect();
+	} else{
+		showStart();
+	}
 
   // Global keyboard handler for Enter key
   document.addEventListener('keydown', (e) => {
