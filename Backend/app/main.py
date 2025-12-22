@@ -4,7 +4,7 @@ from .db import Base, engine
 from . import models_db
 from sqlalchemy.orm import Session
 
-from .models import UserCreate, LoginRequest, Token, UserPublic
+from .models import UserCreate, LoginRequest, Token, UserPublic, NavigationState
 from .auth import register_user, login, get_current_user, get_db
 
 
@@ -29,7 +29,36 @@ def health():
 @app.post("/auth/register", response_model=UserPublic)
 def auth_register(payload: UserCreate, db=Depends(get_db)):
     return register_user(payload, db)
-
+    
+    
+@app.post("/navigation-state")
+def save_navigation_state(state: NavigationState, current_user = Depends(get_current_user), db = Depends(get_db)):
+    existing = db.query(models_db.NavigationState).filter_by(user_id=current_user.id).first()
+    if existing:
+        existing.screen_id = state.screen_id
+        existing.current_unidad = state.current_unidad
+        existing.current_category = state.current_category
+    else:
+        new_state = models_db.NavigationState(
+            user_id=current_user.id,
+            screen_id=state.screen_id,
+            current_unidad=state.current_unidad,
+            current_category=state.current_category
+        )
+        db.add(new_state)
+    db.commit()
+    return {"ok": True}
+    
+@app.get("/navigation-state")
+def get_navigation_state(current_user = Depends(get_current_user), db = Depends(get_db)):
+    state = db.query(models_db.NavigationState).filter_by(user_id=current_user.id).first()
+    if not state:
+        return None
+    return {
+        "screen_id": state.screen_id,
+        "current_unidad": state.current_unidad,
+        "current_category": state.current_category
+    }
 
 @app.post("/auth/login", response_model=Token)
 def auth_login(payload: LoginRequest, db=Depends(get_db)):

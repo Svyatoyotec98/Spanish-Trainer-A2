@@ -15,3 +15,12 @@ class Profile(Base):
     user_id = Column(Integer, nullable=False)
     nickname = Column(String, nullable=False)
     created_at = Column(String, nullable=False)
+    
+class NavigationState(Base):
+    __tablename__ = "navigation_states"
+    
+    id = Column(Integer, primary_key=True)
+    user_id = Column(Integer, unique=True, index=True)
+    screen_id = Column(String)
+    current_unidad = Column(String, nullable=True)
+    current_category = Column(String, nullable=True)

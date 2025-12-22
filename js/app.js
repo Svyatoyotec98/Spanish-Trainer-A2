@@ -249,7 +249,7 @@ function showProfileSelect() {
     // Пока загружаем профили из localStorage (ВРЕМЕННО)
     // TODO: позже заменим на загрузку с backend
     renderProfileList();
-	saveCurrentScreen('profileSelectScreen');
+	saveNavigationState('profileSelectScreen');
 }
 
         
@@ -261,7 +261,7 @@ function showProfileSelect() {
             document.getElementById('nicknameInput').value = '';
             document.getElementById('nicknameError').classList.add('hidden');
             document.getElementById('nicknameInput').focus();
-			saveCurrentScreen('profileCreateScreen');
+			saveNavigationState('profileCreateScreen');
         }
 
         function renderProfileList() {
@@ -350,7 +350,7 @@ function showProfileSelect() {
             showUserBadge();
             document.getElementById('mainMenu').classList.remove('hidden');
             updateUnidadUI();
-			saveCurrentScreen('mainMenu');
+			saveNavigationState('mainMenu');
         }
 
         function updateUnidadUI() {
@@ -605,7 +605,7 @@ function showProfileSelect() {
             document.getElementById('unidadTitle').textContent = titles[unidad];
 
             updateUnidadProgressBars();
-			saveCurrentScreen('unidadMenu');
+			saveNavigationState('unidadMenu');
         }
 
         function updateUnidadProgressBars() {
@@ -645,6 +645,10 @@ function showProfileSelect() {
         }
 
         function showCategoryMenu(category) {
+			if (!currentUnidad) {
+				console.error('showCategoryMenu called without currentUnidad');
+			return;
+			}
             currentCategory = category;
             hideAll();
             showUserBadge();
@@ -658,7 +662,7 @@ function showProfileSelect() {
             document.getElementById('categoryTitle').textContent = titles[category];
 
             updateCategoryButtons();
-			saveCurrentScreen('categoryMenu');
+			saveNavigationState('categoryMenu');
         }
 
         function updateCategoryButtons() {
@@ -666,6 +670,21 @@ function showProfileSelect() {
             if (!profile) return;
 
             ensureProgressSkeleton(profile);
+			
+if (
+  !profile.progress ||
+  !profile.progress[currentUnidad] ||
+  !profile.progress[currentUnidad][currentCategory]
+) {
+  console.warn('Progress not initialized yet, fixing...', {
+    currentUnidad,
+    currentCategory,
+    progress: profile.progress
+  });
+  ensureProgressSkeleton(profile);
+  saveProfiles();
+}
+
 
             const categoryData = profile.progress[currentUnidad][currentCategory];
 
@@ -1291,14 +1310,46 @@ function showProfileSelect() {
             const state = loadAppState();
             document.getElementById('qaOutput').textContent = JSON.stringify(state, null, 2);
         }
+async function saveNavigationState(screenId) {
+    const token = getToken();
+    if (!token) return;
+    
+    try {
+        await fetch(API_URL + '/navigation-state', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + token
+            },
+            body: JSON.stringify({
+                screen_id: screenId,
+                current_unidad: currentUnidad,
+                current_category: currentCategory
+            })
+        });
+    } catch (e) {
+        console.error('Failed to save navigation state:', e);
+    }
+}
 
-			function saveCurrentScreen(screenId) {
-				localStorage.setItem('current_screen', screenId);
-			}
-			
-			function getCurrentScreen() {
-				return localStorage.getItem('current_screen');
-			}
+async function getNavigationState() {
+    const token = getToken();
+    if (!token) return null;
+    
+    try {
+        const res = await fetch(API_URL + '/navigation-state', {
+            headers: {
+                'Authorization': 'Bearer ' + token
+            }
+        });
+        if (!res.ok) return null;
+        return await res.json();
+    } catch (e) {
+        console.error('Failed to get navigation state:', e);
+        return null;
+    }
+}
+
 
         function runQATestsV3() {
             let output = '🧪 Запуск QA тестов...\n\n';
@@ -1342,25 +1393,38 @@ function showProfileSelect() {
         // ═══════════════════════════════════════════════════════════════
 	
         window.addEventListener('DOMContentLoaded', async () => {
-   await loadUnidadFromJson('Unidad1.json');
-  const state = loadAppState();
-  const token = getToken();
-  const savedScreen = getCurrentScreen();
-  
-  if (token&& savedScreen) {
-	  hideAllScreens();
-	  const el = document.getElementById(savedScreen);
-	  if (el) {
-		el.classList.remove('hidden');
-		if (savedScreen === 'mainMenu') updateUnidadUI();
-  } else {
-	  showProfileSelect();
-  }
-  } else if (token) {
-	  showProfileSelect();
-	} else{
-		showStart();
-	}
+    await loadUnidadFromJson('Unidad1.json');
+    const state = loadAppState();
+    const token = getToken();
+    
+    if (token) {
+        const navState = await getNavigationState();
+        
+        if (navState && navState.screen_id) {
+            // Восстанавливаем переменные
+            currentUnidad = navState.current_unidad;
+            currentCategory = navState.current_category;
+            
+            // Показываем экран
+            hideAllScreens();
+            const el = document.getElementById(navState.screen_id);
+            if (el) {
+                el.classList.remove('hidden');
+                if (navState.screen_id === 'mainMenu') updateUnidadUI();
+                if (navState.screen_id === 'unidadMenu') updateUnidadProgressBars();
+                if (navState.screen_id === 'categoryMenu') updateCategoryButtons();
+            } else {
+                showProfileSelect();
+            }
+        } else {
+            showProfileSelect();
+        }
+    } else {
+        showStart();
+    }
+	  console.log('✅ Spanish Vocabulary Trainer v4.0 (Профили) загружен');
+	  console.log('✅ Система профилей инициализирована');
+});
 
   // Global keyboard handler for Enter key
   document.addEventListener('keydown', (e) => {
@@ -1374,9 +1438,8 @@ function showProfileSelect() {
     }
   });
 
-  console.log('✅ Spanish Vocabulary Trainer v4.0 (Профили) загружен');
-  console.log('✅ Система профилей инициализирована');
-});
+
+
 
 
 // ═══════════════════════════════════════════════════════════════

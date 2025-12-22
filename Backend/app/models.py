@@ -31,5 +31,10 @@ class ProfilePublic(BaseModel):
     nickname: str
     created_at: str
 
-    class Config:
-        from_attributes = True
+class Config:
+    from_attributes = True
+        
+class NavigationState(BaseModel):
+    screen_id: str
+    current_unidad: str | None = None
+    current_category: str | None = None
