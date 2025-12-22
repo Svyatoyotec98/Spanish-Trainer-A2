@@ -1410,6 +1410,9 @@ async function getNavigationState() {
             const el = document.getElementById(navState.screen_id);
             if (el) {
                 el.classList.remove('hidden');
+				if (['mainMenu', 'unidadMenu', 'categoryMenu'].includes(navState.screen_id)){
+					showUserBadge();
+				}
                 if (navState.screen_id === 'mainMenu') updateUnidadUI();
                 if (navState.screen_id === 'unidadMenu') updateUnidadProgressBars();
                 if (navState.screen_id === 'categoryMenu') updateCategoryButtons();
