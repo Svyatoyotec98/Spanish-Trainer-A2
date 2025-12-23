@@ -242,6 +242,18 @@
                     <p class="progress-text" id="verbos-progress-text">0%</p>
                 </div>
 
+                <!-- Gramática -->
+                <div class="category-card" onclick="showGramaticaMenu()">
+                    <div class="category-header">
+                        <span class="category-title">📝 Gramática (Грамматика)</span>
+                        <span class="category-icon">📝</span>
+                    </div>
+                    <div class="progress-bar-container">
+                        <div class="progress-bar-fill" id="gramatica-progress-bar" style="width: 0%"></div>
+                    </div>
+                    <p class="progress-text" id="gramatica-progress-text">0%</p>
+                </div>
+
                 <!-- Exam Section -->
                 <div class="exam-section">
                     <h3>🎓 Финальный экзамен</h3>
@@ -316,6 +328,87 @@
             </div>
 
             <button class="btn btn-back" onclick="backToUnidadMenu()">← Назад к категориям</button>
+        </div>
+
+        <!-- ═══════════════════════════════════════════════════════════════
+             GRAMÁTICA MENU (Exercise Selection with Pagination)
+             ═══════════════════════════════════════════════════════════════ -->
+        <div id="gramaticaMenu" class="hidden">
+            <h1>📝 Gramática</h1>
+            <p class="subtitle">Выберите упражнение для практики грамматики</p>
+
+            <!-- Average Progress for Grammar -->
+            <div style="margin: 20px 0; padding: 20px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 15px; color: white;">
+                <h3 style="margin: 0 0 10px 0; color: white;">📊 Прогресс грамматики</h3>
+                <div style="font-size: 28px; font-weight: bold;">
+                    <span id="gramatica-avg-progress-text">0</span>%
+                </div>
+            </div>
+
+            <!-- Exercises Grid (4 per page) -->
+            <div id="gramaticaExercisesContainer" style="margin-top: 20px;">
+                <!-- Exercises will be rendered dynamically -->
+            </div>
+
+            <!-- Pagination Controls -->
+            <div id="gramaticaPagination" style="display: flex; justify-content: center; gap: 15px; margin-top: 20px;">
+                <button class="btn btn-secondary" id="gramPrevBtn" onclick="gramaticaPrevPage()" disabled>← Назад</button>
+                <span id="gramPageIndicator" style="display: flex; align-items: center; font-size: 1.1em;">Страница 1 / 1</span>
+                <button class="btn btn-secondary" id="gramNextBtn" onclick="gramaticaNextPage()">Вперёд →</button>
+            </div>
+
+            <button class="btn btn-back" onclick="backToUnidadMenu()" style="margin-top: 20px;">← Назад к категориям</button>
+        </div>
+
+        <!-- ═══════════════════════════════════════════════════════════════
+             GRAMÁTICA QUESTION SCREEN
+             ═══════════════════════════════════════════════════════════════ -->
+        <div id="gramaticaQuestionScreen" class="question-container hidden">
+            <div class="progress" id="gramQuestionProgress">Вопрос 1 из 15</div>
+            <div class="timer-text" id="gramTimerText">10</div>
+            <div class="timer-container">
+                <div class="timer-bar" id="gramTimerBar"></div>
+            </div>
+
+            <div style="text-align: center; margin-bottom: 10px; color: #7f8c8d; font-size: 0.9em;" id="gramHintText">
+                Подсказка: con / en / entre
+            </div>
+
+            <div class="question-text" id="gramQuestionText">Estudio español ___ una academia.</div>
+
+            <!-- Manual Input for Grammar -->
+            <div id="gramInputContainer">
+                <input
+                    type="text"
+                    class="answer-input"
+                    id="gramInput"
+                    placeholder="Введите ваш ответ..."
+                    onkeypress="if(event.key==='Enter') submitGramAnswer()"
+                    autocomplete="off"
+                    autocapitalize="none"
+                >
+                <button class="btn btn-primary" onclick="submitGramAnswer()">Отправить</button>
+            </div>
+
+            <div style="text-align: center; margin-top: 30px;">
+                <button class="btn btn-back" onclick="exitGramTest()">← Выйти из теста</button>
+            </div>
+        </div>
+
+        <!-- ═══════════════════════════════════════════════════════════════
+             GRAMÁTICA RESULTS SCREEN
+             ═══════════════════════════════════════════════════════════════ -->
+        <div id="gramaticaResultsScreen" class="results hidden">
+            <h2>Результаты упражнения</h2>
+            <div class="stats" id="gramResultsStats">Вы ответили правильно на 12 из 15!</div>
+            <div class="grade" id="gramResultsGrade">Отлично! 🎉</div>
+            <div id="gramRetryMessage" class="hidden" style="margin: 15px 0; padding: 15px; background: #fff3cd; border-radius: 10px; color: #856404;">
+                Для прохождения требуется 80%. Попробуйте ещё раз!
+            </div>
+            <div style="margin: 30px 0;">
+                <button class="btn btn-primary" onclick="retryGramTest()">Повторить упражнение</button>
+                <button class="btn btn-secondary" onclick="showGramaticaMenu()">Назад к упражнениям</button>
+            </div>
         </div>
 
         <!-- ═══════════════════════════════════════════════════════════════
