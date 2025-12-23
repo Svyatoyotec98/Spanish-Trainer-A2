@@ -38,6 +38,7 @@
             try {
                 localStorage.setItem(getStorageKey(), JSON.stringify(state));
                 if (DEBUG) console.log('State saved:', state);
+				syncProgressToBackend();
             } catch (e) {
                 console.error('Failed to save state:', e);
             }
@@ -1379,6 +1380,51 @@ async function saveNavigationState(screenId) {
         console.error('Failed to save navigation state:', e);
     }
 }
+// Синхронизация прогресса на бекенд
+async function syncProgressToBackend() {
+    const token = getToken();
+    if (!token) return;
+    
+    const state = loadAppState();
+    try {
+        await fetch(API_URL + '/progress', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + token
+            },
+            body: JSON.stringify({
+                data: JSON.stringify(state)
+            })
+        });
+        console.log('✅ Прогресс синхронизирован с бекендом');
+    } catch (e) {
+        console.error('❌ Ошибка синхронизации прогресса:', e);
+    }
+}
+
+// Загрузка прогресса с бекенда
+async function loadProgressFromBackend() {
+    const token = getToken();
+    if (!token) return null;
+    
+    try {
+        const res = await fetch(API_URL + '/progress', {
+            headers: {
+                'Authorization': 'Bearer ' + token
+            }
+        });
+        if (!res.ok) return null;
+        const result = await res.json();
+        if (result && result.data) {
+            return JSON.parse(result.data);
+        }
+        return null;
+    } catch (e) {
+        console.error('❌ Ошибка загрузки прогресса:', e);
+        return null;
+    }
+}
 
 async function getNavigationState() {
     const token = getToken();
@@ -1660,6 +1706,12 @@ async function loginUser() {
         // Сохраняем токен
         saveToken(data.access_token);
 		saveUserId(data.user_id);
+		const backendProgress = await loadProgressFromBackend();
+		if (backendProgress) {
+			localStorage.setItem(getStorageKey(), JSON.stringify(backendProgress));
+			console.log('✅ Прогресс загружен с бекенда');
+		}
+
         
         // Переходим к выбору профиля
         showProfileSelect();
@@ -1684,7 +1736,12 @@ async function loginUserAuto(email, password) {
         const data = await response.json();
         saveToken(data.access_token);
 		saveUserId(data.user_id)
-        
+		const backendProgress = await loadProgressFromBackend();
+		if (backendProgress) {
+			localStorage.setItem(getStorageKey(), JSON.stringify(backendProgress));
+			console.log('✅ Прогресс загружен с бекенда');
+		}
+
         console.log('✅ Автологин после регистрации успешен');
         showProfileSelect();
         

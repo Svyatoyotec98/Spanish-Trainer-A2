@@ -62,7 +62,7 @@ def get_navigation_state(current_user = Depends(get_current_user), db = Depends(
     }
     
 @app.post("/progress")
-def save_progress(payLoad: ProgressData, current_user = Depends(get_current_user), db = Depends(get_db)):
+def save_progress(payload: ProgressData, current_user = Depends(get_current_user), db = Depends(get_db)):
     existing = db.query(models_db.Progress).filter_by(user_id=current_user.id).first()
     if existing:
         existing.data = payload.data
@@ -114,7 +114,7 @@ def profile_list(
     
 @app.post("/profiles", response_model=ProfilePublic)
 def profiles_create(
-    paylaod: ProfileCreate,
+    payload: ProfileCreate,
     current_user: UserPublic = Depends(get_current_user),
     db: Session = Depends(get_db)
 ): 
