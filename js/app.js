@@ -234,7 +234,8 @@
         function hideAll() {
             ['startScreen', 'profileSelectScreen', 'profileCreateScreen', 
              'mainMenu', 'unidadMenu', 'categoryMenu', 'questionScreen', 
-             'resultsScreen', 'verbMenu', 'verbPracticeScreen', 'qaScreen'].forEach(id => {
+             'resultsScreen', 'verbMenu', 'verbPracticeScreen', 'qaScreen',
+			 'gramaticaMenu', 'gramaticaQuestionScreen', 'gramaticaResultsScreen'].forEach(id => {
                 document.getElementById(id).classList.add('hidden');
             });
         }
@@ -1802,7 +1803,7 @@ function updateGramaticaPagination() {
     const nextBtn = document.getElementById('gramNextBtn');
 
     pageIndicator.textContent = `Страница ${gramCurrentPage + 1} / ${totalPages}`;
-    prevBtn.disabled = gramCurrentPage === 0;
+    prevBtn.classList.toggle('hidden', gramCurrentPage === 0);
     nextBtn.disabled = gramCurrentPage >= totalPages - 1;
 }
 
