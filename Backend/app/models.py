@@ -38,3 +38,6 @@ class NavigationState(BaseModel):
     screen_id: str
     current_unidad: str | None = None
     current_category: str | None = None
+    
+class ProgressData(BaseModel):
+    data: str

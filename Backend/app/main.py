@@ -4,8 +4,9 @@ from .db import Base, engine
 from . import models_db
 from sqlalchemy.orm import Session
 
-from .models import UserCreate, LoginRequest, Token, UserPublic, NavigationState
+from .models import UserCreate, LoginRequest, Token, UserPublic, NavigationState, ProgressData
 from .auth import register_user, login, get_current_user, get_db
+from datetime import datetime, timezone
 
 
 app = FastAPI(title="Spanish Trainer API")
@@ -59,6 +60,30 @@ def get_navigation_state(current_user = Depends(get_current_user), db = Depends(
         "current_unidad": state.current_unidad,
         "current_category": state.current_category
     }
+    
+@app.post("/progress")
+def save_progress(payLoad: ProgressData, current_user = Depends(get_current_user), db = Depends(get_db)):
+    existing = db.query(models_db.Progress).filter_by(user_id=current_user.id).first()
+    if existing:
+        existing.data = payload.data
+        existing.updated_at = datetime.now(timezone.utc).isoformat()
+    else:
+        new_progress = models_db.Progress(
+            user_id=current_user.id,
+            data=payload.data,
+            updated_at=datetime.now(timezone.utc).isoformat()
+        )
+        db.add(new_progress)
+    db.commit()
+    return{"ok": True}
+
+
+@app.get("/progress")
+def get_progress(current_user = Depends(get_current_user), db = Depends(get_db)):
+    progress = db.query(models_db.Progress).filter_by(user_id=current_user.id).first()
+    if not progress:
+        return None
+    return{"data": progress.data}
 
 @app.post("/auth/login", response_model=Token)
 def auth_login(payload: LoginRequest, db=Depends(get_db)):

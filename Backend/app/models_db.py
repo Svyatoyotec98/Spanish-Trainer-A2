@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String
+from sqlalchemy import Column, Integer, String, Text
 from .db import Base
 
 
@@ -24,3 +24,10 @@ class NavigationState(Base):
     screen_id = Column(String)
     current_unidad = Column(String, nullable=True)
     current_category = Column(String, nullable=True)
+    
+class Progress(Base):
+    __tablename__ = "progress"
+    id = Column(Integer, primary_key=True)
+    user_id = Column(Integer, unique=True, index=True)
+    data = Column(Text)
+    updated_at = Column(String)
