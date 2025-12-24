@@ -87,6 +87,23 @@
             font-size: 1em;
         }
 
+        .btn-grammar {
+            background: #f4c430;
+            color: #333;
+            width: auto;
+            padding: 12px 24px;
+            font-size: 1em;
+            font-weight: 600;
+            position: absolute;
+            top: 20px;
+            left: 20px;
+        }
+
+        .btn-grammar:hover {
+            background: #ffd700;
+            box-shadow: 0 5px 20px rgba(244, 196, 48, 0.4);
+        }
+
         .hidden {
             display: none !important;
         }
