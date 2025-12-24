@@ -541,6 +541,41 @@
         </div>
 
         <!-- ═══════════════════════════════════════════════════════════════
+             GRAMMAR REFERENCE LIST SCREEN
+             ═══════════════════════════════════════════════════════════════ -->
+        <div id="grammarListScreen" class="hidden">
+            <h1>📚 Справочник по грамматике</h1>
+            <p class="subtitle">Выберите правило для изучения</p>
+
+            <!-- Rules Grid (5 per page) -->
+            <div id="grammarRulesContainer" style="margin-top: 30px;">
+                <!-- Rules will be rendered dynamically -->
+            </div>
+
+            <!-- Pagination Controls -->
+            <div id="grammarPagination" style="display: flex; justify-content: center; gap: 15px; margin-top: 30px;">
+                <button class="btn btn-secondary" id="grammarPrevBtn" onclick="grammarPrevPage()">← Назад</button>
+                <span id="grammarPageIndicator" style="display: flex; align-items: center; font-size: 1.1em;">Страница 1 / 1</span>
+                <button class="btn btn-secondary" id="grammarNextBtn" onclick="grammarNextPage()">Вперёд →</button>
+            </div>
+
+            <button class="btn btn-back" onclick="goBackFromGrammar()" style="margin-top: 30px;">← Назад</button>
+        </div>
+
+        <!-- ═══════════════════════════════════════════════════════════════
+             GRAMMAR DETAIL SCREEN
+             ═══════════════════════════════════════════════════════════════ -->
+        <div id="grammarDetailScreen" class="hidden">
+            <h1 id="grammarDetailTitle">Правило грамматики</h1>
+
+            <div id="grammarDetailContent" style="margin-top: 30px;">
+                <!-- Grammar rule content will be rendered dynamically -->
+            </div>
+
+            <button class="btn btn-back" onclick="showGrammarList()" style="margin-top: 30px;">← Назад к списку правил</button>
+        </div>
+
+        <!-- ═══════════════════════════════════════════════════════════════
              FEEDBACK MODAL
              ═══════════════════════════════════════════════════════════════ -->
         <div id="feedbackModal" class="modal hidden">
