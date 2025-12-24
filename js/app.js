@@ -2116,3 +2116,206 @@ function exitGramTest() {
     }
 }
 	
+// ═══════════════════════════════════════════════════════════════
+// GRAMMAR REFERENCE SYSTEM
+// ═══════════════════════════════════════════════════════════════
+
+let grammarData = [];
+let grammarCurrentPage = 1;
+const GRAMMAR_RULES_PER_PAGE = 5;
+let grammarPreviousScreen = '';
+
+// Load Grammar JSON
+async function loadGrammarData() {
+    try {
+        const response = await fetch('data/Grammar_Part1.json');
+        const data = await response.json();
+        grammarData = data.rules || [];
+        console.log(`Loaded ${grammarData.length} grammar rules`);
+    } catch (error) {
+        console.error('Error loading grammar data:', error);
+        grammarData = [];
+    }
+}
+
+// Show Grammar List with Pagination
+function showGrammarList() {
+    // Save current screen for back navigation
+    const allScreens = ['mainMenu', 'unidadMenu', 'categoryMenu', 'gramaticaMenu', 'verbMenu', 
+                        'questionScreen', 'resultsScreen', 'gramaticaQuestionScreen', 
+                        'gramaticaResultsScreen', 'verbPracticeScreen', 'qaScreen'];
+    
+    for (const screenId of allScreens) {
+        const screen = document.getElementById(screenId);
+        if (screen && !screen.classList.contains('hidden')) {
+            grammarPreviousScreen = screenId;
+            break;
+        }
+    }
+    
+    hideAllScreens();
+    document.getElementById('grammarListScreen').classList.remove('hidden');
+    grammarCurrentPage = 1;
+    renderGrammarList();
+}
+
+// Render Grammar List
+function renderGrammarList() {
+    const container = document.getElementById('grammarRulesContainer');
+    const startIndex = (grammarCurrentPage - 1) * GRAMMAR_RULES_PER_PAGE;
+    const endIndex = startIndex + GRAMMAR_RULES_PER_PAGE;
+    const rulesPage = grammarData.slice(startIndex, endIndex);
+    
+    container.innerHTML = '';
+    
+    if (rulesPage.length === 0) {
+        container.innerHTML = '<p style="text-align: center; color: #7f8c8d;">Нет доступных правил</p>';
+        return;
+    }
+    
+    rulesPage.forEach(rule => {
+        const card = document.createElement('div');
+        card.className = 'category-card';
+        card.onclick = () => showGrammarDetail(rule.id);
+        card.style.cursor = 'pointer';
+        
+        card.innerHTML = `
+            <div class="category-header">
+                <span class="category-title">📖 ${rule.topic_ru}</span>
+                <span class="category-icon">→</span>
+            </div>
+            <p style="margin: 10px 0 0 0; color: #7f8c8d; font-size: 0.9em;">${rule.topic}</p>
+        `;
+        
+        container.appendChild(card);
+    });
+    
+    updateGrammarPagination();
+}
+
+// Update Pagination Controls
+function updateGrammarPagination() {
+    const totalPages = Math.ceil(grammarData.length / GRAMMAR_RULES_PER_PAGE);
+    const pageIndicator = document.getElementById('grammarPageIndicator');
+    const prevBtn = document.getElementById('grammarPrevBtn');
+    const nextBtn = document.getElementById('grammarNextBtn');
+    
+    pageIndicator.textContent = `Страница ${grammarCurrentPage} / ${totalPages}`;
+    
+    prevBtn.disabled = grammarCurrentPage === 1;
+    nextBtn.disabled = grammarCurrentPage === totalPages;
+    
+    prevBtn.style.opacity = grammarCurrentPage === 1 ? '0.5' : '1';
+    nextBtn.style.opacity = grammarCurrentPage === totalPages ? '0.5' : '1';
+}
+
+// Grammar Pagination Functions
+function grammarNextPage() {
+    const totalPages = Math.ceil(grammarData.length / GRAMMAR_RULES_PER_PAGE);
+    if (grammarCurrentPage < totalPages) {
+        grammarCurrentPage++;
+        renderGrammarList();
+    }
+}
+
+function grammarPrevPage() {
+    if (grammarCurrentPage > 1) {
+        grammarCurrentPage--;
+        renderGrammarList();
+    }
+}
+
+// Show Grammar Detail
+function showGrammarDetail(ruleId) {
+    const rule = grammarData.find(r => r.id === ruleId);
+    if (!rule) {
+        console.error('Rule not found:', ruleId);
+        return;
+    }
+    
+    hideAllScreens();
+    document.getElementById('grammarDetailScreen').classList.remove('hidden');
+    
+    // Set title
+    document.getElementById('grammarDetailTitle').textContent = `${rule.topic_ru} (${rule.topic})`;
+    
+    // Render content
+    const contentDiv = document.getElementById('grammarDetailContent');
+    contentDiv.innerHTML = '';
+    
+    // Main explanation
+    if (rule.explanation_ru) {
+        const explanationDiv = document.createElement('div');
+        explanationDiv.style.cssText = 'margin-bottom: 30px; padding: 20px; background: #f8f9fa; border-radius: 10px; line-height: 1.6;';
+        explanationDiv.innerHTML = `<p style="margin: 0;">${rule.explanation_ru}</p>`;
+        contentDiv.appendChild(explanationDiv);
+    }
+    
+    // Subtopics
+    if (rule.subtopics && rule.subtopics.length > 0) {
+        rule.subtopics.forEach((subtopic, index) => {
+            const subtopicDiv = document.createElement('div');
+            subtopicDiv.style.cssText = 'margin-bottom: 25px; padding: 20px; background: white; border: 2px solid #e0e0e0; border-radius: 10px;';
+            
+            let html = '';
+            
+            // Subtopic title
+            if (subtopic.title_ru) {
+                html += `<h3 style="margin: 0 0 15px 0; color: #2c3e50;">${subtopic.title_ru}</h3>`;
+            }
+            
+            // Subtopic explanation
+            if (subtopic.explanation_ru) {
+                html += `<p style="margin: 0 0 15px 0; line-height: 1.6;">${subtopic.explanation_ru}</p>`;
+            }
+            
+            // Examples
+            if (subtopic.examples && subtopic.examples.length > 0) {
+                html += '<div style="margin-top: 15px;">';
+                html += '<h4 style="margin: 0 0 10px 0; color: #667eea;">Примеры:</h4>';
+                
+                subtopic.examples.forEach(example => {
+                    if (typeof example === 'string') {
+                        html += `<div style="margin: 8px 0; padding: 10px; background: #f0f7ff; border-left: 3px solid #667eea; border-radius: 5px;">
+                            <code style="color: #2c3e50; font-size: 0.95em;">${example}</code>
+                        </div>`;
+                    } else if (typeof example === 'object') {
+                        if (example.rule) {
+                            html += `<div style="margin: 15px 0; padding: 15px; background: #fff9e6; border-left: 3px solid #f39c12; border-radius: 5px;">
+                                <strong style="color: #f39c12;">Правило:</strong> ${example.rule}
+                            </div>`;
+                        }
+                        if (example.cases && example.cases.length > 0) {
+                            example.cases.forEach(caseText => {
+                                html += `<div style="margin: 8px 0 8px 20px; padding: 10px; background: #f0f7ff; border-left: 3px solid #667eea; border-radius: 5px;">
+                                    <code style="color: #2c3e50; font-size: 0.95em;">${caseText}</code>
+                                </div>`;
+                            });
+                        }
+                    }
+                });
+                
+                html += '</div>';
+            }
+            
+            subtopicDiv.innerHTML = html;
+            contentDiv.appendChild(subtopicDiv);
+        });
+    }
+}
+
+// Go back from Grammar Reference
+function goBackFromGrammar() {
+    hideAllScreens();
+    if (grammarPreviousScreen && document.getElementById(grammarPreviousScreen)) {
+        document.getElementById(grammarPreviousScreen).classList.remove('hidden');
+    } else {
+        // Default fallback
+        showMainMenu();
+    }
+}
+
+// Initialize Grammar Data on page load
+document.addEventListener('DOMContentLoaded', () => {
+    loadGrammarData();
+});
