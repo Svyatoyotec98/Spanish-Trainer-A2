@@ -1505,7 +1505,7 @@ async function getNavigationState() {
             if (el) {
                 el.classList.remove('hidden');
 				if (['mainMenu', 'unidadMenu', 'categoryMenu', 'gramaticaMenu'].includes(navState.screen_id)){
-					showUserBadge();
+					updateUserBadge(); // Updates nickname text AND shows badge
 				}
                 if (navState.screen_id === 'mainMenu') updateUnidadUI();
                 if (navState.screen_id === 'unidadMenu') updateUnidadProgressBars();
