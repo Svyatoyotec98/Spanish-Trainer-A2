@@ -571,6 +571,231 @@
           ]
         }
       ]
+    },
+    {
+      "id": "rule_16",
+      "topic": "DISTANCIA",
+      "topic_ru": "Расстояние",
+      "explanation_ru": "Для выражения расстояния используются различные конструкции с ESTAR и предлогами.",
+      "subtopics": [
+        {
+          "title_ru": "Выражения расстояния",
+          "explanation_ru": "Расстояние выражается с помощью ESTÁ + предлог/наречие + de aquí/de + место.",
+          "examples": [
+            "ESTÁ A + время/метры + DE aquí/DE + место:",
+            "La casa está a 5 minutos de la playa. (Дом в 5 минутах от пляжа)",
+            "La casa está a 300 metros del árbol. (Дом в 300 метрах от дерева)",
+            "ESTÁ + наречие расстояния + DE aquí/DE + место:",
+            "La casa está cerca de la playa. (Дом близко от пляжа)",
+            "La casa está lejos de la ciudad. (Дом далеко от города)"
+          ]
+        },
+        {
+          "title_ru": "Градация расстояния",
+          "explanation_ru": "Существуют различные степени выражения расстояния - от очень близко до очень далеко.",
+          "examples": [
+            "ESTÁ aquí mismo (прямо здесь)",
+            "ESTÁ aquí al lado (здесь рядом)",
+            "ESTÁ muy cerca de aquí/de la universidad (очень близко отсюда/от университета)",
+            "ESTÁ bastante cerca (довольно близко)",
+            "ESTÁ un poco lejos (немного далеко)",
+            "ESTÁ bastante lejos (довольно далеко)",
+            "ESTÁ muy lejos (очень далеко)",
+            "ESTÁ a (unos) 20 minutos / (unos) 200 metros de aquí (примерно в 20 минутах / 200 метрах отсюда)"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "rule_17",
+      "topic": "MOVIMIENTO",
+      "topic_ru": "Движение",
+      "explanation_ru": "Для выражения движения используются предлоги DE...A, POR, HASTA.",
+      "subtopics": [
+        {
+          "title_ru": "Предлоги движения",
+          "explanation_ru": "Различные предлоги выражают разные типы движения.",
+          "examples": [
+            "DE... A... (от... до...): Todos los domingos vamos de casa a la playa. (Каждое воскресенье мы едем из дома на пляж)",
+            "POR (по, через): Me gusta pasear por la playa. (Мне нравится гулять по пляжу)",
+            "HASTA (до): Cuando vamos hasta la playa pasamos por el bosque. (Когда мы идём до пляжа, мы проходим через лес)"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "rule_18",
+      "topic": "SITUAR EN EL TIEMPO",
+      "topic_ru": "Предлоги времени",
+      "explanation_ru": "Предлоги времени используются для указания времени действия, периода времени и его границ.",
+      "subtopics": [
+        {
+          "title_ru": "Указание точного времени",
+          "explanation_ru": "Для указания конкретного часа, дня, месяца или года используются предлоги A, EL, EN, POR.",
+          "examples": [
+            "A + час (de la mañana/tarde/noche): Me levanto a las ocho de la mañana. / Hicimos una pausa para comer a la una.",
+            "AL mediodía: Cerrábamos la tienda al mediodía.",
+            "POR + часть дня: No voy a trabajar por la tarde. / Me levanté tarde por la mañana. / Prefiero estudiar por la noche.",
+            "EL + день недели / день месяца: Vamos a hacer el examen el jueves. / Terminan las clases el viernes 6 de junio.",
+            "EL + день месяца (de + año): Llegué a Barcelona el 3 de agosto de 2019.",
+            "EN + месяц/сезон/год: Mi cumpleaños es en abril, en primavera. / La historia empezó en 2010.",
+            "EN + месяц (de + año): Nació en noviembre de 2003."
+          ]
+        },
+        {
+          "title_ru": "Ограничение периода времени",
+          "explanation_ru": "Для указания начала и конца периода используются DE...A или DESDE...HASTA.",
+          "examples": [
+            "DE + начало + A + конец: Trabajamos de 9 h a 18 h. / Trabajé de lunes a domingo para acabar este proyecto. / Estudiamos español de septiembre a enero.",
+            "DESDE + начало + HASTA + конец: Trabajamos desde las 9 h hasta las 18 h. / Trabajé desde el lunes hasta el domingo. / Estudiamos español desde septiembre hasta enero.",
+            "DESDE...HASTA с полной датой: Estuvimos juntas desde las 9 h del lunes 10 de marzo hasta las 12 h del domingo 17 h.",
+            "Только начало или конец (с DESDE/HASTA): Trabajo hasta las 20 h; si quieres, después vamos a cenar. / Estoy en Barcelona desde el lunes y todavía no he ido a la playa."
+          ]
+        },
+        {
+          "title_ru": "Период до настоящего момента",
+          "explanation_ru": "Когда период времени продолжается до текущего момента, выражаем только начало с DESDE или DESDE HACE.",
+          "examples": [
+            "DESDE + начало (las + час / el + день / mes...): Te estoy esperando desde las ocho. / Tengo una gata desde enero.",
+            "DESDE + hace + количество времени: Trabajamos aquí desde hace tres meses. (Мы работаем здесь уже три месяца)"
+          ]
+        },
+        {
+          "title_ru": "Выражения относительного времени",
+          "explanation_ru": "Для указания времени относительно момента речи используются специальные выражения.",
+          "examples": [
+            "MAÑANA: Mañana vamos a ir a la playa, ¿quieres venir? (Завтра)",
+            "DENTRO DE + время: El examen termina dentro de diez minutos. / Tengo que volver dentro de un mes. (Через)",
+            "HACE + время: Terminé la carrera hace tres años. (Назад)",
+            "LA SEMANA PASADA: Fui al dentista la semana pasada. (На прошлой неделе)",
+            "EL MES QUE VIENE: El mes que viene empieza el verano. (В следующем месяце)",
+            "PASADO MAÑANA: Pasado mañana tenemos el examen. (Послезавтра)",
+            "LA PRÓXIMA SEMANA: La próxima semana tengo una entrevista. (На следующей неделе)",
+            "AHORA: Ahora me duele la cabeza. (Сейчас)",
+            "HOY: Hoy he trabajado demasiadas horas. (Сегодня)"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "rule_19",
+      "topic": "LA FRECUENCIA",
+      "topic_ru": "Частота",
+      "explanation_ru": "Для выражения частоты действий используются различные наречия и выражения.",
+      "subtopics": [
+        {
+          "title_ru": "Выражения с конкретной частотой",
+          "explanation_ru": "Используется конструкция: количество + VEZ/VECES + A + единица времени.",
+          "examples": [
+            "UNA VEZ al día / a la semana / al mes / al año: Voy al gimnasio una vez al mes. (Хожу в спортзал раз в месяц)",
+            "DOS VECES al día: Me lavo los dientes tres veces al día. (Чищу зубы три раза в день)",
+            "TRES VECES a la semana: Tengo clase cuatro veces a la semana. (У меня занятия четыре раза в неделю)",
+            "VARIAS VECES al año: Visito a mi familia varias veces al año. (Навещаю семью несколько раз в год)"
+          ]
+        },
+        {
+          "title_ru": "Наречия частоты",
+          "explanation_ru": "Наречия частоты показывают, как часто происходит действие, без указания точного количества раз.",
+          "examples": [
+            "SIEMPRE (всегда): Siempre hago los deberes por la noche.",
+            "CASI SIEMPRE (почти всегда): Estudio por la noche casi siempre.",
+            "MUY A MENUDO (очень часто): Muy a menudo pregunto dudas a mi profesor.",
+            "A MENUDO (часто): Hacemos exámenes a menudo.",
+            "NORMALMENTE (обычно): Normalmente me despierto pronto.",
+            "A VECES (иногда): A veces me levanto de mal humor.",
+            "CASI NUNCA (почти никогда): No como pescado casi nunca. / Casi nunca como pescado.",
+            "NUNCA / NO...NUNCA (никогда): Nunca llevo el ordenador a clase. / No llevo el ordenador a clase nunca."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "rule_20",
+      "topic": "LOS CONECTORES",
+      "topic_ru": "Союзы и связки",
+      "explanation_ru": "Союзы и связующие слова используются для соединения элементов в предложении и между предложениями.",
+      "subtopics": [
+        {
+          "title_ru": "Добавление информации: Y, TAMBIÉN, ADEMÁS",
+          "explanation_ru": "Для добавления элементов или информации используются Y (и), TAMBIÉN (также), ADEMÁS (кроме того).",
+          "examples": [
+            "Y (и) - для двух элементов в одной фразе: En mi barrio hay un teatro y dos cines. / Para comer, quiero una ensalada y un bocadillo.",
+            "TAMBIÉN (также) - для добавления в другой фразе: En mi barrio hay un teatro y dos cines. También hay dos escuelas.",
+            "TAMBIÉN - для совпадения с другим человеком: A mí me gusta el cine europeo. → A mí también. / Paola siempre hace los deberes. → Yo también.",
+            "ADEMÁS (кроме того) - добавляет второй элемент, усиливающий первый: Es un restaurante muy bonito y, además, los camareros son muy simpáticos.",
+            "ВНИМАНИЕ: когда слово после Y начинается с I или HI, вместо Y используем E: Javier e Ignacio (но: Ignacio y Javier)"
+          ]
+        },
+        {
+          "title_ru": "Добавление отрицательной информации: NI, TAMPOCO",
+          "explanation_ru": "Для добавления отрицательных элементов используются NI (ни) и TAMPOCO (тоже нет).",
+          "examples": [
+            "NI (ни) - для двух отрицательных элементов в одной фразе: En mi barrio no hay teatro ni cines. / Para comer no quiero carne ni pescado.",
+            "TAMPOCO (тоже нет) - для добавления отрицания в другой фразе: En mi barrio no hay cines; tampoco hay teatros. / No quiero carne ni pescado. Tampoco quiero huevos.",
+            "TAMPOCO - для совпадения с отрицанием: A mí no me gusta el cine europeo. → A mí tampoco. / Paola no hace nunca los deberes. → Yo tampoco.",
+            "NO (нет) - для несовпадения: A mí me gusta el cine europeo. → A mí no. / Paola siempre hace los deberes. → Yo no. Yo los hago a veces.",
+            "SÍ (да) - для несогласия с отрицанием: A mí no me gusta el cine europeo. → A mí sí, me encanta. / Paola nunca hace los deberes. → Yo sí. Los hago siempre."
+          ]
+        },
+        {
+          "title_ru": "Альтернатива: O",
+          "explanation_ru": "Союз O используется для представления альтернатив, из которых нужно выбрать только одну.",
+          "examples": [
+            "¿Prefieres carne o pescado? → Carne para mí, gracias. (Предпочитаешь мясо или рыбу?)",
+            "Podemos ir al cine o a cenar. → ¿Pueden ser las dos cosas? Primero vamos al cine y después cenamos.",
+            "ВНИМАНИЕ: когда слово после O начинается с O или HO, вместо O используем U: No sé si quiere este u otro."
+          ]
+        },
+        {
+          "title_ru": "Противопоставление: PERO, EN CAMBIO",
+          "explanation_ru": "PERO (но) вводит информацию, противоречащую ожиданиям. EN CAMBIO (зато, напротив) указывает на контраст.",
+          "examples": [
+            "PERO (но): Soy japonesa, pero hablo español con mi familia. (Я японка, но говорю по-испански с семьёй)",
+            "Come mucho, pero está muy delgado. (Он много ест, но очень худой)",
+            "Este supermercado es muy bueno, pero es muy caro. (Этот супермаркет очень хороший, но очень дорогой)",
+            "EN CAMBIO (зато, напротив): Mi hermana y yo somos muy diferentes. Yo tengo el pelo muy negro y corto; en cambio, ella lo tiene rubio y largo. (У меня волосы очень чёрные и короткие; зато у неё они светлые и длинные)"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "rule_21",
+      "topic": "LOS VERBOS",
+      "topic_ru": "Глаголы",
+      "explanation_ru": "В испанском языке существуют три спряжения глаголов, различающихся окончанием инфинитива: -AR, -ER, -IR.",
+      "subtopics": [
+        {
+          "title_ru": "Структура глагола и три спряжения",
+          "explanation_ru": "В глаголе различают два элемента: основу (raíz) - где находится значение, и окончание (terminación) - где информация о времени и лице. Три спряжения: -AR (первое), -ER (второе), -IR (третье).",
+          "examples": [
+            "ESTUDIAR: estudi- (основа) + -ar (окончание первого спряжения)",
+            "LEER: le- (основа) + -er (окончание второго спряжения)",
+            "VIVIR: viv- (основа) + -ir (окончание третьего спряжения)"
+          ]
+        },
+        {
+          "title_ru": "Presente de Indicativo - формы",
+          "explanation_ru": "Окончания настоящего времени изъявительного наклонения. Ударный слог (подчёркнут) меняется: иногда в основе, иногда в окончании.",
+          "examples": [
+            "-AR: (yo) canto, (tú/vos) cantas/cantás, (él/ella/usted) canta, (nosotros/as) cantamos, (vosotros/as) cantáis, (ellos/ellas/ustedes) cantan",
+            "-ER: (yo) leo, (tú/vos) lees/leés, (él/ella/usted) lee, (nosotros/as) leemos, (vosotros/as) leéis, (ellos/ellas/ustedes) leen",
+            "-IR: (yo) vivo, (tú/vos) vives/vivís, (él/ella/usted) vive, (nosotros/as) vivimos, (vosotros/as) vivís, (ellos/ellas/ustedes) viven",
+            "ВАЖНО: Первое лицо единственного числа (yo) имеет одинаковое окончание -O во всех трёх спряжениях.",
+            "Окончания -ER и -IR очень похожи. Отличаются только в формах vos, nosotros/as и vosotros/as (где ударение на окончании)."
+          ]
+        },
+        {
+          "title_ru": "Неправильности и использование Presente",
+          "explanation_ru": "Большинство неправильностей в основе глагола, только в формах с ударением на основе (yo, tú, usted, él/ella, ustedes, ellos/ellas). Больше неправильностей во втором (-ER) и третьем (-IR) спряжениях.",
+          "examples": [
+            "НЕПРАВИЛЬНОСТИ: quiero, puedes, tienen (только когда ударение на основе)",
+            "ИСПОЛЬЗОВАНИЕ - текущие факты: ¡Estoy aquí! / Sé conducir. / Mi casa es bastante grande.",
+            "ИСПОЛЬЗОВАНИЕ - привычки: Voy al gimnasio los lunes y los miércoles.",
+            "ИСПОЛЬЗОВАНИЕ - просьбы: ¿Me trae una cerveza, por favor?",
+            "ИСПОЛЬЗОВАНИЕ - инструкции: Bajas las escaleras, giras a la derecha y ahí está la biblioteca."
+          ]
+        }
+      ]
     }
   ]
 }
