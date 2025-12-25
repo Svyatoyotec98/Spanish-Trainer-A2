@@ -575,6 +575,13 @@
                 <!-- Grammar rule content will be rendered dynamically -->
             </div>
 
+            <!-- Subtopic pagination -->
+            <div id="subtopicPagination" style="display: flex; justify-content: center; align-items: center; gap: 15px; margin-top: 30px;">
+                <button class="btn btn-secondary" id="subtopicPrevBtn" onclick="prevSubtopic()">← Назад</button>
+                <span id="subtopicPageIndicator" style="font-size: 1.1em; font-weight: 600;">Часть 1 / 1</span>
+                <button class="btn btn-secondary" id="subtopicNextBtn" onclick="nextSubtopic()">Вперёд →</button>
+            </div>
+
             <button class="btn btn-back" onclick="showGrammarList()" style="margin-top: 30px;">← Назад к списку правил</button>
         </div>
 

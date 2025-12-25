@@ -2125,6 +2125,8 @@ let grammarData = [];
 let grammarCurrentPage = 1;
 const GRAMMAR_RULES_PER_PAGE = 5;
 let grammarPreviousScreen = '';
+let currentRule = null;
+let currentSubtopicIndex = 0;
 
 // Load Grammar JSON
 async function loadGrammarData() {
@@ -2233,75 +2235,116 @@ function showGrammarDetail(ruleId) {
         console.error('Rule not found:', ruleId);
         return;
     }
-    
+
+    currentRule = rule;
+    currentSubtopicIndex = 0;
+
     hideAllScreens();
     document.getElementById('grammarDetailScreen').classList.remove('hidden');
-    
+
     // Set title
     document.getElementById('grammarDetailTitle').textContent = `${rule.topic_ru} (${rule.topic})`;
-    
-    // Render content
+
+    renderCurrentSubtopic();
+    updateSubtopicPagination();
+}
+
+// Render current subtopic
+function renderCurrentSubtopic() {
+    if (!currentRule) return;
+
     const contentDiv = document.getElementById('grammarDetailContent');
     contentDiv.innerHTML = '';
-    
-    // Main explanation
-    if (rule.explanation_ru) {
+
+    // Main explanation (always shown)
+    if (currentRule.explanation_ru) {
         const explanationDiv = document.createElement('div');
         explanationDiv.style.cssText = 'margin-bottom: 30px; padding: 20px; background: #f8f9fa; border-radius: 10px; line-height: 1.6;';
-        explanationDiv.innerHTML = `<p style="margin: 0;">${rule.explanation_ru}</p>`;
+        explanationDiv.innerHTML = `<p style="margin: 0;">${currentRule.explanation_ru}</p>`;
         contentDiv.appendChild(explanationDiv);
     }
-    
-    // Subtopics
-    if (rule.subtopics && rule.subtopics.length > 0) {
-        rule.subtopics.forEach((subtopic, index) => {
-            const subtopicDiv = document.createElement('div');
-            subtopicDiv.style.cssText = 'margin-bottom: 25px; padding: 20px; background: white; border: 2px solid #e0e0e0; border-radius: 10px;';
-            
-            let html = '';
-            
-            // Subtopic title
-            if (subtopic.title_ru) {
-                html += `<h3 style="margin: 0 0 15px 0; color: #2c3e50;">${subtopic.title_ru}</h3>`;
-            }
-            
-            // Subtopic explanation
-            if (subtopic.explanation_ru) {
-                html += `<p style="margin: 0 0 15px 0; line-height: 1.6;">${subtopic.explanation_ru}</p>`;
-            }
-            
-            // Examples
-            if (subtopic.examples && subtopic.examples.length > 0) {
-                html += '<div style="margin-top: 15px;">';
-                html += '<h4 style="margin: 0 0 10px 0; color: #667eea;">Примеры:</h4>';
-                
-                subtopic.examples.forEach(example => {
-                    if (typeof example === 'string') {
-                        html += `<div style="margin: 8px 0; padding: 10px; background: #f0f7ff; border-left: 3px solid #667eea; border-radius: 5px;">
-                            <code style="color: #2c3e50; font-size: 0.95em;">${example}</code>
+
+    // Show current subtopic
+    if (currentRule.subtopics && currentRule.subtopics.length > 0 && currentSubtopicIndex < currentRule.subtopics.length) {
+        const subtopic = currentRule.subtopics[currentSubtopicIndex];
+        const subtopicDiv = document.createElement('div');
+        subtopicDiv.style.cssText = 'margin-bottom: 25px; padding: 25px; background: white; border: 2px solid #e0e0e0; border-radius: 15px; box-shadow: 0 4px 12px rgba(0,0,0,0.08);';
+
+        let html = '';
+
+        // Subtopic title
+        if (subtopic.title_ru) {
+            html += `<h3 style="margin: 0 0 20px 0; color: #2c3e50; font-size: 1.5em; font-weight: 700;">${subtopic.title_ru}</h3>`;
+        }
+
+        // Subtopic explanation
+        if (subtopic.explanation_ru) {
+            html += `<p style="margin: 0 0 20px 0; line-height: 1.8; font-size: 1.15em; color: #4A4A4A;">${subtopic.explanation_ru}</p>`;
+        }
+
+        // Examples
+        if (subtopic.examples && subtopic.examples.length > 0) {
+            html += '<div style="margin-top: 20px;">';
+            html += '<h4 style="margin: 0 0 15px 0; color: #8B6914; font-size: 1.3em; font-weight: 600;">✨ Примеры:</h4>';
+
+            subtopic.examples.forEach(example => {
+                if (typeof example === 'string') {
+                    html += `<div class="example">${example}</div>`;
+                } else if (typeof example === 'object') {
+                    if (example.rule) {
+                        html += `<div style="margin: 15px 0; padding: 18px; background: #FFF9E6; border-left: 4px solid #FFD89C; border-radius: 10px;">
+                            <strong style="color: #8B6914; font-size: 1.1em;">📌 Правило:</strong> <span style="color: #5A5A5A; font-size: 1.1em;">${example.rule}</span>
                         </div>`;
-                    } else if (typeof example === 'object') {
-                        if (example.rule) {
-                            html += `<div style="margin: 15px 0; padding: 15px; background: #fff9e6; border-left: 3px solid #f39c12; border-radius: 5px;">
-                                <strong style="color: #f39c12;">Правило:</strong> ${example.rule}
-                            </div>`;
-                        }
-                        if (example.cases && example.cases.length > 0) {
-                            example.cases.forEach(caseText => {
-                                html += `<div style="margin: 8px 0 8px 20px; padding: 10px; background: #f0f7ff; border-left: 3px solid #667eea; border-radius: 5px;">
-                                    <code style="color: #2c3e50; font-size: 0.95em;">${caseText}</code>
-                                </div>`;
-                            });
-                        }
                     }
-                });
-                
-                html += '</div>';
-            }
-            
-            subtopicDiv.innerHTML = html;
-            contentDiv.appendChild(subtopicDiv);
-        });
+                    if (example.cases && example.cases.length > 0) {
+                        example.cases.forEach(caseText => {
+                            html += `<div class="example" style="margin-left: 20px;">${caseText}</div>`;
+                        });
+                    }
+                }
+            });
+
+            html += '</div>';
+        }
+
+        subtopicDiv.innerHTML = html;
+        contentDiv.appendChild(subtopicDiv);
+    }
+}
+
+// Update subtopic pagination controls
+function updateSubtopicPagination() {
+    if (!currentRule || !currentRule.subtopics || currentRule.subtopics.length === 0) {
+        document.getElementById('subtopicPagination').style.display = 'none';
+        return;
+    }
+
+    const totalSubtopics = currentRule.subtopics.length;
+    document.getElementById('subtopicPagination').style.display = 'flex';
+    document.getElementById('subtopicPageIndicator').textContent = `Часть ${currentSubtopicIndex + 1} / ${totalSubtopics}`;
+
+    const prevBtn = document.getElementById('subtopicPrevBtn');
+    const nextBtn = document.getElementById('subtopicNextBtn');
+
+    prevBtn.disabled = currentSubtopicIndex === 0;
+    nextBtn.disabled = currentSubtopicIndex >= totalSubtopics - 1;
+}
+
+// Navigate to previous subtopic
+function prevSubtopic() {
+    if (currentSubtopicIndex > 0) {
+        currentSubtopicIndex--;
+        renderCurrentSubtopic();
+        updateSubtopicPagination();
+    }
+}
+
+// Navigate to next subtopic
+function nextSubtopic() {
+    if (currentRule && currentRule.subtopics && currentSubtopicIndex < currentRule.subtopics.length - 1) {
+        currentSubtopicIndex++;
+        renderCurrentSubtopic();
+        updateSubtopicPagination();
     }
 }
 
