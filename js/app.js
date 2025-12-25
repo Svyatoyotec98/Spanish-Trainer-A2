@@ -1570,7 +1570,8 @@ function hideAllScreens() {
         'mainMenu', 'unidadMenu', 'categoryMenu',
         'questionScreen', 'resultsScreen', 'verbMenu',
         'verbPracticeScreen', 'qaScreen',
-        'gramaticaMenu', 'gramaticaQuestionScreen', 'gramaticaResultsScreen'
+        'gramaticaMenu', 'gramaticaQuestionScreen', 'gramaticaResultsScreen',
+        'grammarListScreen', 'grammarDetailScreen'
     ];
     screens.forEach(id => {
         const el = document.getElementById(id);
