@@ -2326,8 +2326,9 @@ function updateSubtopicPagination() {
     const prevBtn = document.getElementById('subtopicPrevBtn');
     const nextBtn = document.getElementById('subtopicNextBtn');
 
-    prevBtn.disabled = currentSubtopicIndex === 0;
-    nextBtn.disabled = currentSubtopicIndex >= totalSubtopics - 1;
+    // Hide "Назад" button on first page, hide "Вперёд" button on last page
+    prevBtn.style.display = currentSubtopicIndex === 0 ? 'none' : 'block';
+    nextBtn.style.display = currentSubtopicIndex >= totalSubtopics - 1 ? 'none' : 'block';
 }
 
 // Navigate to previous subtopic
