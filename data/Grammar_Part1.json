@@ -796,6 +796,295 @@
           ]
         }
       ]
+    },
+    {
+      "id": "rule_22",
+      "topic": "IRREGULARIDADES EN PRESENTE",
+      "topic_ru": "Неправильности в настоящем времени",
+      "explanation_ru": "В настоящем времени (Presente de Indicativo) существуют различные типы неправильностей глаголов.",
+      "subtopics": [
+        {
+          "title_ru": "Дифтонгизация: E > IE, O > UE",
+          "explanation_ru": "Многие глаголы трёх спряжений с гласными E или O в ударном слоге основы изменяются в настоящем времени. Неправильными являются только формы с ударением на основе: yo, tú, usted, él/ella, ustedes, ellos/ellas.",
+          "examples": [
+            "CERRAR (закрывать): cierro, cierras/cerrás, cierra | cerramos, cerráis | cierran",
+            "PODER (мочь): puedo, puedes/podés, puede | podemos, podéis | pueden",
+            "JUGAR (играть): juego, juegas/jugás, juega | jugamos, jugáis | juegan",
+            "Другие глаголы: pensar (думать), querer (хотеть), empezar (начинать), volver (возвращаться), dormir (спать)"
+          ]
+        },
+        {
+          "title_ru": "Закрытие гласной: E > I",
+          "explanation_ru": "Изменение E на I происходит во многих глаголах третьего спряжения (-ir), где последняя гласная основы - E, как pedir или seguir.",
+          "examples": [
+            "PEDIR (просить): pido, pides/pedís, pide | pedimos, pedís | piden",
+            "SEGUIR (следовать): sigo, sigues, sigue | seguimos, seguís | siguen",
+            "REPETIR (повторять): repito, repites, repite | repetimos, repetís | repiten"
+          ]
+        },
+        {
+          "title_ru": "Появление -G- в первом лице единственного числа",
+          "explanation_ru": "Группа глаголов добавляет G в форме yo. Эта неправильность может комбинироваться с изменениями гласных (e > ie, e > i) в других лицах.",
+          "examples": [
+            "SALIR → salgo | PONER → pongo | VALER → valgo",
+            "TENER: tengo, tienes/tenés, tiene | tenemos, tenéis | tienen (комбинация: -g- и e > ie)",
+            "VENIR: vengo, vienes/venís, viene | venimos, venís | vienen (комбинация: -g- и e > ie)",
+            "DECIR: digo, dices/decís, dice | decimos, decís | dicen (комбинация: -g- и e > i)"
+          ]
+        },
+        {
+          "title_ru": "Появление -ZC- в первом лице единственного числа",
+          "explanation_ru": "Глаголы, оканчивающиеся на -acer, -ecer, -ocer и -ucir, неправильны в первом лице единственного числа.",
+          "examples": [
+            "CONOCER (знать) → conozco",
+            "PRODUCIR (производить) → produzco",
+            "CONDUCIR (водить) → conduzco",
+            "APARECER (появляться) → aparezco"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "rule_23",
+      "topic": "PRETÉRITO PERFECTO",
+      "topic_ru": "Pretérito Perfecto (настоящее совершённое время)",
+      "explanation_ru": "Pretérito Perfecto образуется из двух глаголов: настоящего времени haber (he, has, ha...) + причастие (participio). Причастие одинаково для всех лиц.",
+      "subtopics": [
+        {
+          "title_ru": "Образование Pretérito Perfecto",
+          "explanation_ru": "Используется PRESENTE DE HABER + PARTICIPIO. Haber и причастие всегда идут вместе, между ними ничего не ставится. Местоимения и отрицание ставятся ПЕРЕД haber.",
+          "examples": [
+            "ФОРМЫ HABER: he, has, ha, hemos, habéis, han + PARTICIPIO (cantado, leído, vivido)",
+            "He cantado. (Я спел) | Has comido. (Ты поел) | Ha vivido aquí. (Он жил здесь)",
+            "No he ido a América nunca. (Я никогда не был в Америке)",
+            "¿La última película de Cuarón? La he visto. (Последний фильм Куарона? Я его видел)",
+            "ВНИМАНИЕ: Наречия можно ставить до или после глагола, но НИКОГДА между haber и причастием: Siempre he vivido aquí. / He vivido aquí siempre."
+          ]
+        },
+        {
+          "title_ru": "Использование Pretérito Perfecto",
+          "explanation_ru": "Используется для опыта жизни (когда произошло - неважно, важно только что произошло). В некоторых регионах Испании используется для событий, связанных с настоящим моментом.",
+          "examples": [
+            "ОПЫТ: Nunca he estado en Gijón, ¿y tú? (Я никогда не был в Хихоне, а ты?)",
+            "¿Has visto alguna vez un oso panda? → Sí, en China. Son impresionantes. (Ты когда-нибудь видел панду?)",
+            "¿Todavía no has terminado de comer? → Ya he acabado mi plato. (Ты ещё не закончил есть? → Я уже доел своё блюдо)",
+            "СВЯЗЬ С НАСТОЯЩИМ (в Испании): ¿Qué has hecho hoy? → Esta mañana he salido a correr. (Что ты делал сегодня? → Сегодня утром я бегал)"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "rule_24",
+      "topic": "EL PARTICIPIO",
+      "topic_ru": "Причастие (Participio)",
+      "explanation_ru": "Причастие образуется добавлением окончаний -ado (для -ar) и -ido (для -er/-ir) к основе глагола.",
+      "subtopics": [
+        {
+          "title_ru": "Образование причастия",
+          "explanation_ru": "Правильные причастия: основа + -ado (для -ar) или -ido (для -er/-ir).",
+          "examples": [
+            "CANTAR → cantado (петь → спетый)",
+            "BEBER → bebido (пить → выпитый)",
+            "VIVIR → vivido (жить → проживший)"
+          ]
+        },
+        {
+          "title_ru": "Неправильные причастия",
+          "explanation_ru": "Некоторые глаголы имеют неправильные формы причастия, которые нужно запомнить.",
+          "examples": [
+            "ABRIR → abierto (открывать → открытый)",
+            "DECIR → dicho (говорить → сказанный)",
+            "ESCRIBIR → escrito (писать → написанный)",
+            "HACER → hecho (делать → сделанный)",
+            "MORIR → muerto (умирать → умерший)",
+            "PONER → puesto (ставить → поставленный)",
+            "ROMPER → roto (ломать → сломанный)",
+            "VER → visto (видеть → виденный)",
+            "VOLVER → vuelto (возвращаться → вернувшийся)",
+            "FREÍR → frito/freído (жарить → жаренный)"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "rule_25",
+      "topic": "PRETÉRITO INDEFINIDO",
+      "topic_ru": "Pretérito Indefinido (простое прошедшее время)",
+      "explanation_ru": "Pretérito Indefinido используется для рассказа о прошедших действиях, произошедших в конкретный момент прошлого.",
+      "subtopics": [
+        {
+          "title_ru": "Правильные формы Pretérito Indefinido",
+          "explanation_ru": "Окончания для правильных глаголов.",
+          "examples": [
+            "-AR: hablé, hablaste, habló, hablamos, hablasteis, hablaron",
+            "-ER: bebí, bebiste, bebió, bebimos, bebisteis, bebieron",
+            "-IR: escribí, escribiste, escribió, escribimos, escribisteis, escribieron",
+            "ПРИМЕРЫ: Anoche cené con unos amigos. (Вчера вечером я ужинал с друзьями)",
+            "Hace dos semanas descubrí un restaurante genial. (Две недели назад я обнаружил отличный ресторан)",
+            "Mi hija nació en 2015. (Моя дочь родилась в 2015)"
+          ]
+        },
+        {
+          "title_ru": "Орфографические изменения",
+          "explanation_ru": "Глаголы на -car, -gar, -guar, -zar и глаголы с гласной перед -er/-ir имеют орфографические изменения.",
+          "examples": [
+            "-CAR → -QUÉ: acercar → acerqué (приближаться)",
+            "-GAR → -GUÉ: llegar → llegué (приходить)",
+            "-GUAR → -GÜÉ: averiguar → averigüé (выяснять)",
+            "-ZAR → -CÉ: almorzar → almorcé (обедать)",
+            "VOCAL + I + VOCAL → VOCAL + Y + VOCAL: oír → oyó/oyeron | caer → cayó/cayeron | construir → construyó/construyeron"
+          ]
+        },
+        {
+          "title_ru": "Неправильности в Pretérito Indefinido",
+          "explanation_ru": "Закрытие гласной (e>i, o>u) в 3-м лице, изменение основы с особыми окончаниями, и особые формы ir/ser.",
+          "examples": [
+            "E > I, O > U (только 3-е лицо): PEDIR → pidió/pidieron | DORMIR → durmió/durmieron",
+            "ИЗМЕНЕНИЕ ОСНОВЫ + особые окончания (-e, -iste, -o, -imos, -isteis, -ieron): ESTAR → estuve, estuviste, estuvo... | TENER → tuve | PODER → pude | PONER → puse | HACER → hice/hizo | VENIR → vine | DECIR → dije",
+            "ВНИМАНИЕ: В правильных глаголах ударение на последнем слоге (hablé, comí), в неправильных - на предпоследнем (estuve, dije)",
+            "IR/SER (одинаковые формы): fui, fuiste, fue, fuimos, fuisteis, fueron"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "rule_26",
+      "topic": "PRETÉRITO IMPERFECTO",
+      "topic_ru": "Pretérito Imperfecto (прошедшее несовершённое время)",
+      "explanation_ru": "Pretérito Imperfecto имеет мало неправильностей (только ser, ir, ver). Используется для описания в прошлом и для привычек.",
+      "subtopics": [
+        {
+          "title_ru": "Формы Pretérito Imperfecto",
+          "explanation_ru": "Правильные окончания и три неправильных глагола.",
+          "examples": [
+            "-AR: hablaba, hablabas, hablaba, hablábamos, hablabais, hablaban",
+            "-ER/-IR: bebía, bebías, bebía, bebíamos, bebíais, bebían | vivía, vivías, vivía, vivíamos, vivíais, vivían",
+            "SER: era, eras, era, éramos, erais, eran",
+            "IR: iba, ibas, iba, íbamos, ibais, iban",
+            "VER: veía, veías, veía, veíamos, veíais, veían"
+          ]
+        },
+        {
+          "title_ru": "Использование Pretérito Imperfecto",
+          "explanation_ru": "Для описания людей, объектов, ситуаций в прошлом, для описания обстоятельств события и для привычек в прошлом.",
+          "examples": [
+            "ОПИСАНИЕ: Ayer vi a Marta a las 10. Estaba cansada y llevaba la ropa del trabajo. (Вчера я видел Марту в 10. Она была уставшей и была в рабочей одежде)",
+            "La casa de mis abuelos era enorme y tenía muchas habitaciones. (Дом моих бабушки и дедушки был огромным и имел много комнат)",
+            "ОБСТОЯТЕЛЬСТВА: Como estábamos cansados, volvimos pronto a casa. (Так как мы устали, мы рано вернулись домой)",
+            "ПРИВЫЧКИ: De niño, siempre iba a visitar a mis abuelos al campo. (В детстве я всегда ездил навещать бабушку с дедушкой в деревне)",
+            "De joven, en verano, me levantaba muy tarde e iba directamente a la playa. (Молодым летом я вставал очень поздно и шёл прямо на пляж)"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "rule_27",
+      "topic": "RELATAR EN PASADO",
+      "topic_ru": "Повествование в прошедшем времени",
+      "explanation_ru": "Рассказ - это последовательность событий, которые мы рассказываем используя Pretérito Indefinido или Pretérito Perfecto. С каждым новым событием история движется вперёд.",
+      "subtopics": [
+        {
+          "title_ru": "Структура повествования",
+          "explanation_ru": "Для продвижения истории используем Pretérito Indefinido/Perfecto. Для описания обстоятельств каждого события используем Pretérito Imperfecto.",
+          "examples": [
+            "ТОЛЬКО СОБЫТИЯ (Indefinido): Aquel día Juan no oyó el despertador y se despertó media hora tarde. Salió de casa sin desayunar y tomó un taxi. Por suerte, consiguió llegar a tiempo al aeropuerto.",
+            "СОБЫТИЯ + ОБСТОЯТЕЛЬСТВА (Indefinido + Imperfecto): Aquel día Juan estaba muy cansado y no oyó el despertador, así que se despertó media hora tarde. Como no tenía tiempo, salió de casa sin desayunar y tomó un taxi. Por suerte, no había mucho tráfico y consiguió llegar al aeropuerto a tiempo.",
+            "В каждом событии можно 'остановить действие' и 'посмотреть' на обстоятельства вокруг него. Для этого используем Pretérito Imperfecto."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "rule_28",
+      "topic": "EL IMPERATIVO",
+      "topic_ru": "Повелительное наклонение (Imperativo)",
+      "explanation_ru": "Утвердительный императив в испанском имеет пять форм: tú, vos, vosotros/as (более неформально), usted и ustedes (более формально).",
+      "subtopics": [
+        {
+          "title_ru": "Формы повелительного наклонения",
+          "explanation_ru": "Правила образования императива для разных лиц и неправильные формы.",
+          "examples": [
+            "TÚ/VOS: как presente без -s: compras → compra/comprá | comes → come/comé | vives → vive/viví",
+            "VOSOTROS: как infinitivo, но с -d вместо -r: estudiar → estudiad | comer → comed | cerrar → cerrad",
+            "USTED/USTEDES: как presente с изменением гласной спряжения: estudia → estudie/estudien | come → coma/coman | escribe → escriba/escriban",
+            "8 НЕПРАВИЛЬНЫХ (tú): poner → pon | hacer → haz | venir → ven | salir → sal | tener → ten | decir → di | ir → ve | ser → sé",
+            "ВНИМАНИЕ: Глаголы с e>ie, o>ue, e>i в presente сохраняют эти изменения в императиве (tú, usted, ustedes): piensas → piensa/piense | duermes → duerme/duerma | pides → pide/pida"
+          ]
+        },
+        {
+          "title_ru": "Использование императива и позиция местоимений",
+          "explanation_ru": "С утвердительным императивом местоимения идут ПОСЛЕ глагола и образуют одно слово. В возвратных глаголах (vosotros + -os) исчезает -d.",
+          "examples": [
+            "МЕСТОИМЕНИЯ ПОСЛЕ: ¿Me pones un café? → Ponme también una tostada. | Devuélveme las llaves y vete.",
+            "VOSOTROS + OS: sentarse → sentaos (НЕ sentados) | tomarse → tomaos",
+            "ИНСТРУКЦИИ: Retire el plástico protector y coloque el aparato sobre una superficie estable. (Снимите защитную плёнку и поставьте прибор на устойчивую поверхность)",
+            "РАЗРЕШЕНИЕ: ¿Puedo entrar un momento? → Sí, claro. Pasa, pasa. (Можно войти? → Да, конечно. Входи, входи)",
+            "ПРЕДЛОЖЕНИЕ: Toma, prueba estas galletas. Están buenísimas. (На, попробуй это печенье. Оно очень вкусное)",
+            "СОВЕТ: No sé qué ponerme. → Ponte el traje azul, ¿no? Te queda muy bien. (Надень синий костюм, разве нет? Тебе очень идёт)"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "rule_29",
+      "topic": "EL GERUNDIO",
+      "topic_ru": "Герундий (Gerundio)",
+      "explanation_ru": "Герундий образуется добавлением окончания -ando к глаголам на -ar и -iendo к глаголам на -er/-ir.",
+      "subtopics": [
+        {
+          "title_ru": "Образование герундия",
+          "explanation_ru": "Правильные формы и неправильности.",
+          "examples": [
+            "ПРАВИЛЬНЫЕ: trabajar → trabajando | comer → comiendo | escribir → escribiendo",
+            "НЕПРАВИЛЬНЫЕ (-ir с E или O в основе): dormir → durmiendo | sentir → sintiendo | pedir → pidiendo | decir → diciendo | reír → riendo | freír → friendo | mentir → mintiendo | morir → muriendo",
+            "ОСНОВА НА ГЛАСНУЮ (-er/-ir): traer → trayendo | construir → construyendo | leer → leyendo | oír → oyendo"
+          ]
+        },
+        {
+          "title_ru": "Использование герундия и позиция местоимений",
+          "explanation_ru": "Герундий объясняет, КАК совершается действие. С герундием местоимения ставятся ПОСЛЕ, образуя одно слово.",
+          "examples": [
+            "КАК ДЕЛАТЬ: ¿Cómo consigues estar tan joven? → Pues haciendo ejercicio todos los días y comiendo sano. (Как тебе удаётся так молодо выглядеть? → Занимаясь спортом каждый день и правильно питаясь)",
+            "МЕСТОИМЕНИЯ ПОСЛЕ: Puedes mejorar tu español relacionándote con nativos. (Ты можешь улучшить испанский, общаясь с носителями)"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "rule_30",
+      "topic": "ESTAR + GERUNDIO",
+      "topic_ru": "Estar + Герундий (длительное действие)",
+      "explanation_ru": "Конструкция ESTAR + герундий используется для выражения действия, происходящего в конкретный момент.",
+      "subtopics": [
+        {
+          "title_ru": "Формы и использование",
+          "explanation_ru": "Estar в нужном времени + герундий. Используется для действий, происходящих СЕЙЧАС или начатых, но не законченных.",
+          "examples": [
+            "ФОРМЫ: estoy/estás/está/estamos/estáis/están + trabajando/comiendo/viviendo",
+            "СЕЙЧАС: No te puede oír ahora, está escuchando música en su cuarto. (Он не может тебя слышать, он слушает музыку в своей комнате)",
+            "No puede ponerse al teléfono, se está duchando. (Он не может подойти к телефону, он принимает душ)",
+            "НАЧАТО, НО НЕ ЗАКОНЧЕНО: ¿Qué libro me recomiendas? → Pues ahora estoy leyendo uno de terror muy bueno. (Какую книгу порекомендуешь? → Сейчас я читаю один очень хороший триллер - начал, но ещё не закончил)"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "rule_31",
+      "topic": "SE IMPERSONAL",
+      "topic_ru": "Безличное SE",
+      "explanation_ru": "В испанском можно выразить безличность (не указывать, кто совершает действие, или выразить, что так делают все) с помощью конструкции SE + глагол в 3-м лице.",
+      "subtopics": [
+        {
+          "title_ru": "Использование SE impersonal",
+          "explanation_ru": "SE + глагол в 3-м лице единственного или множественного числа (в зависимости от числа объекта).",
+          "examples": [
+            "ОБЩЕЕ ПРАВИЛО (ед.ч.): En español, se puede expresar la impersonalidad con se + verbo en tercera persona del singular. (В испанском можно выразить безличность с помощью se + глагол в 3-м лице ед.ч.)",
+            "ЧАСТО ИСПОЛЬЗУЕТСЯ: El presente se utiliza mucho en español. (Настоящее время часто используется в испанском - все его часто используют)",
+            "РЕЦЕПТ: La tortilla española se hace con patatas, huevos y cebollas. (Испанская тортилья делается из картофеля, яиц и лука - все так её готовят)",
+            "ПРИВЫЧКА: En España se cena muy tarde. (В Испании ужинают очень поздно - все ужинают поздно)"
+          ]
+        }
+      ]
     }
   ]
 }
