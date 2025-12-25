@@ -397,6 +397,180 @@
           ]
         }
       ]
+    },
+    {
+      "id": "rule_11",
+      "topic": "PRONOMBRES PERSONALES DETRÁS DE PREPOSICIÓN",
+      "topic_ru": "Местоимения после предлогов",
+      "explanation_ru": "После предлогов (a, de, con, en, para, por...) используется специальная форма местоимений, называемых ударными местоимениями (pronombres tónicos).",
+      "subtopics": [
+        {
+          "title_ru": "Формы местоимений после предлогов",
+          "explanation_ru": "Личные местоимения после предлогов имеют особые формы.",
+          "examples": [
+            "1ª persona singular: mí → A mí me encanta el cine, ¿y a ti? / ¿Esto es para mí? ¡Gracias!",
+            "2ª persona singular: ti, vos, usted → ¿A ti/vos te gusta el cine? / Esto es para ti/para vos/para usted",
+            "3ª persona singular: él, ella → ¿A ella le gusta el cine? / El regalo es para él / El sábado cenamos con ella",
+            "1ª persona plural: nosotros, nosotras → A nosotros nos gusta el cine / ¿Esto es para nosotras? / El sábado Alicia cena con nosotros",
+            "2ª persona plural: vosotros, vosotras, ustedes → ¡Feliz cumpleaños! Esto es para ustedes/vosotras",
+            "3ª persona plural: ellos, ellas → ¿A ellas les gusta el cine? / ¿Están aquí tus padres? Esto es para ellos / Hoy cenamos con ellos"
+          ]
+        },
+        {
+          "title_ru": "Особые формы с предлогом CON",
+          "explanation_ru": "С предлогом CON используются специальные формы: CONMIGO и CONTIGO.",
+          "examples": [
+            "CON + MÍ = CONMIGO → El lunes comes con ella, pero el sábado cenas conmigo",
+            "CON + TI = CONTIGO → El lunes como con ella, pero el sábado ceno contigo",
+            "¿Vienes conmigo o vas con él? (Идёшь со мной или с ним?)",
+            "Voy contigo. (Иду с тобой)",
+            "С остальными местоимениями: con él, con ella, con nosotros, con ustedes, con ellos"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "rule_12",
+      "topic": "POSICIÓN DE LOS PRONOMBRES",
+      "topic_ru": "Позиция местоимений",
+      "explanation_ru": "Местоимения ставятся всегда перед спрягаемым глаголом, но с перифразами (perífrasis) есть особые правила.",
+      "subtopics": [
+        {
+          "title_ru": "Позиция с обычными глаголами",
+          "explanation_ru": "Местоимения всегда ставятся ПЕРЕД спрягаемым глаголом.",
+          "examples": [
+            "Me despierto pronto. (Я просыпаюсь рано)",
+            "Me gusta leer. (Мне нравится читать)",
+            "Te llamas María. (Тебя зовут Мария)",
+            "Lo necesito. (Мне это нужно)"
+          ]
+        },
+        {
+          "title_ru": "Позиция с перифразами (tener que, querer, poder, estar + gerundio)",
+          "explanation_ru": "В перифразах типа tener que + инфинитив, querer + инфинитив, poder + инфинитив, saber + инфинитив или estar + герундий местоимения могут стоять ПЕРЕД спрягаемым глаголом ИЛИ ПОСЛЕ инфинитива/герундия (слитно), но НИКОГДА между ними и НИКОГДА дважды.",
+          "examples": [
+            "✓ Me tengo que levantar pronto mañana. / ✓ Tengo que levantarme pronto mañana.",
+            "✗ Me tengo que levantarme / ✗ Tengo que me levantar",
+            "✓ ¿Te quieres despertar pronto mañana? / ✓ ¿Quieres despertarte pronto mañana?",
+            "✗ ¿Te quieres despertarte? / ✗ ¿Quieres te despertar?",
+            "✓ ¿La comida? La estoy preparando ahora. / ✓ ¿La comida? Estoy preparándola ahora.",
+            "✗ ¿La comida? Estoy la preparando / ✗ ¿La comida? La estoy preparándola"
+          ]
+        },
+        {
+          "title_ru": "Позиция с HAY QUE и с pretérito perfecto",
+          "explanation_ru": "С конструкцией hay que + инфинитив местоимения идут ВСЕГДА ПОСЛЕ инфинитива. С pretérito perfecto местоимение ВСЕГДА перед глаголом haber.",
+          "examples": [
+            "HAY QUE: ✓ ¿La comida? Hay que prepararla pronto. ✗ ¿La comida? La hay que preparar",
+            "PRETÉRITO PERFECTO: ✓ Me he levantado tarde. ✗ He me levantado tarde. ✗ He levantadome tarde."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "rule_13",
+      "topic": "LOS INTERROGATIVOS",
+      "topic_ru": "Вопросительные слова",
+      "explanation_ru": "Вопросительные слова (cómo, dónde, cuándo, qué...) используются для вопросов с открытым ответом, то есть вопросов, на которые нельзя ответить просто 'sí' или 'no'.",
+      "subtopics": [
+        {
+          "title_ru": "Основные вопросительные слова",
+          "explanation_ru": "Все вопросительные слова имеют графическое ударение (акцент). В испанском вопросительные и восклицательные знаки ставятся в начале И в конце фразы (¿...?, ¡...!).",
+          "examples": [
+            "QUIÉN / QUIÉNES (кто): ¿Con quién fuiste al cine? (С кем ты ходил в кино?)",
+            "CUÁNTO/A/OS/AS (сколько): ¿Cuánto es? / ¿Cuántos años tienes? / ¿Cuántas hermanas tienes?",
+            "DÓNDE (где): ¿Dónde está Michoacán? / ¿De dónde eres? → De Sevilla.",
+            "CUÁNDO (когда): ¿Cuándo llega Enrique?",
+            "CÓMO (как): ¿Cómo estás? / ¿Cómo te llamas? / ¿Cómo se escribe \"ventana\"?",
+            "POR QUÉ (почему): ¿Por qué estudias ruso?"
+          ]
+        },
+        {
+          "title_ru": "Предлоги с вопросительными словами",
+          "explanation_ru": "Когда есть предлог, он ставится ПЕРЕД вопросительным словом. В ответе повторяется та же самая предлог.",
+          "examples": [
+            "¿DE dónde eres? → DE Sevilla. (Откуда ты? → Из Севильи)",
+            "¿SOBRE qué trató la conferencia? → SOBRE reciclaje. (О чём была конференция? → О переработке)",
+            "¿HASTA cuándo te quedas? → HASTA el martes. (До какого времени останешься? → До вторника)",
+            "¿PARA cuántas personas es el pastel? → PARA ocho como máximo. (На скольких человек торт? → На восьмерых максимум)"
+          ]
+        },
+        {
+          "title_ru": "Вопросы с закрытым ответом (sí/no)",
+          "explanation_ru": "Вопросы, на которые отвечают 'sí' или 'no', формируются так же, как утвердительные фразы, просто меняется интонация.",
+          "examples": [
+            "Утверждение: Edu va mucho a la playa. (Эду часто ходит на пляж)",
+            "Вопрос: ¿Edu va mucho a la playa? (Эду часто ходит на пляж?)"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "rule_14",
+      "topic": "QUÉ Y QUÉ + SUSTANTIVO, CUÁL / CUÁLES",
+      "topic_ru": "Qué vs Cuál/Cuáles",
+      "explanation_ru": "Для вопросов о типе вещи без конкретизации используется QUÉ. Когда нужно спросить о конкретной вещи из набора, используется QUÉ + существительное или CUÁL/CUÁLES.",
+      "subtopics": [
+        {
+          "title_ru": "Использование QUÉ",
+          "explanation_ru": "QUÉ используется для вопросов о типе вещи, без конкретизации и без ссылки на существительное. Также QUÉ используется для вопросов о действиях.",
+          "examples": [
+            "ВОПРОС О ТИПЕ: ¿Qué compro para la fiesta? → Bebidas o patatas fritas. (Что купить на вечеринку?)",
+            "¿Qué es el atún? → Un pescado. (Что такое тунец? → Рыба)",
+            "ВОПРОС О ДЕЙСТВИЯХ: ¿Qué quieres hacer esta tarde? → Podemos ir al cine, ¿no? (Что хочешь делать сегодня вечером?)"
+          ]
+        },
+        {
+          "title_ru": "Использование QUÉ + существительное или CUÁL/CUÁLES",
+          "explanation_ru": "Когда хотим спросить о конкретной вещи из набора (знаем, какой это тип вещи), используем QUÉ + существительное или CUÁL / CUÁLES.",
+          "examples": [
+            "QUÉ + существительное: ¿Qué zapatos te gustan más, los negros o los blancos? → Los negros. (Какие туфли тебе больше нравятся?)",
+            "CUÁL: ¿Cuál es tu apellido? → Goicoechea. (Какая твоя фамилия?)",
+            "CUÁL: ¿Cuál es la moneda de México? → El peso, ¿no? (Какая валюта в Мексике?)",
+            "В некоторых вариантах также говорят CUÁL/CUÁLES + существительное: ¿Cuáles zapatos te gustan más?"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "rule_15",
+      "topic": "PREPOSICIONES: SITUAR EN UN LUGAR",
+      "topic_ru": "Предлоги места",
+      "explanation_ru": "Предлоги и наречия места используются для указания положения предметов и людей в пространстве.",
+      "subtopics": [
+        {
+          "title_ru": "Основные предлоги места",
+          "explanation_ru": "Для указания местоположения используются различные предлоги и наречия.",
+          "examples": [
+            "DEBAJO (DE...) - под: Encontré la pelota debajo de la cama. (Нашёл мяч под кроватью)",
+            "ENCIMA (DE...) - на, над: ¿Pongo las flores encima de la mesa o al lado de la ventana?",
+            "DETRÁS (DE...) - позади, за",
+            "DELANTE (DE...) - перед",
+            "A LA DERECHA (DE...) - справа от",
+            "A LA IZQUIERDA (DE...) - слева от",
+            "AL LADO (DE...) - рядом с",
+            "ENTRE... Y... - между: El libro está entre el diccionario y la libreta",
+            "EN EL CENTRO (DE...) - в центре",
+            "ALREDEDOR (DE...) - вокруг: Hay árboles alrededor de la casa",
+            "EN MEDIO (DE...) - посередине",
+            "DENTRO (DE...) - внутри: Deja el pastel dentro de la nevera, entre las dos botellas de leche"
+          ]
+        },
+        {
+          "title_ru": "Опущение точки отсчёта и использование EN",
+          "explanation_ru": "Когда точка отсчёта уже упоминалась или ясна из контекста, можно не указывать de + существительное. Но с ENTRE всегда нужна точка отсчёта. Предлог EN - самый простой способ указать местоположение.",
+          "examples": [
+            "ОПУЩЕНИЕ: ¿Ves la mesa? Tu bolso está debajo. (Видишь стол? Твоя сумка под [ним])",
+            "С ENTRE обязательно: Mi ropa está en el armario, creo que tu abrigo está entre esa ropa. ✗ Tu abrigo está entre.",
+            "EN вместо ENCIMA/DENTRO: El plato está en la mesa. (= Encima de la mesa)",
+            "El plato está en el cajón. (= Dentro del cajón)",
+            "Tu regalo está en esa caja. (= Dentro de esa caja)",
+            "С ПОВЕРХНОСТЯМИ (suelo, techo, pared, calle) используется EN: La alfombra está en el suelo. ✗ La alfombra está encima del suelo",
+            "La lámpara está en el techo. (Лампа на потолке)",
+            "El cuadro está en la pared. (Картина на стене)"
+          ]
+        }
+      ]
     }
   ]
 }
