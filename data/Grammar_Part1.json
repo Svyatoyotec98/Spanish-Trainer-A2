@@ -305,6 +305,98 @@
           ]
         }
       ]
+    },
+    {
+      "id": "rule_8",
+      "topic": "PRONOMBRES DE OBJETO DIRECTO",
+      "topic_ru": "Местоимения прямого дополнения",
+      "explanation_ru": "Местоимения прямого дополнения (lo, la, los, las) используются, когда по контексту уже ясно, какой объект выполняет функцию прямого дополнения, и мы не хотим его повторять.",
+      "subtopics": [
+        {
+          "title_ru": "Формы местоимений прямого дополнения",
+          "explanation_ru": "Местоимения прямого дополнения изменяются по роду и числу в зависимости от замещаемого объекта.",
+          "examples": [
+            "ЕДИНСТВЕННОЕ ЧИСЛО: lo (мужской род), la (женский род)",
+            "МНОЖЕСТВЕННОЕ ЧИСЛО: los (мужской род), las (женский род)",
+            "Me gusta mucho este abrigo. Lo llevo siempre. (Мне очень нравится это пальто. Я ношу его всегда)",
+            "Me gusta mucho esta chaqueta. La llevo siempre. (Мне очень нравится эта куртка. Я ношу её всегда)",
+            "Me gustan mucho estos zapatos. Los llevo siempre. (Мне очень нравятся эти туфли. Я ношу их всегда)",
+            "Me gustan mucho estas sandalias. Las llevo siempre. (Мне очень нравятся эти сандалии. Я ношу их всегда)"
+          ]
+        },
+        {
+          "title_ru": "Использование местоимений",
+          "explanation_ru": "Обычно не используется местоимение и прямое дополнение в одной фразе. Обе вещи используются только если прямое дополнение стоит перед глаголом.",
+          "examples": [
+            "¿Tienes el pasaporte? → Sí, lo llevo en la maleta. (У тебя есть паспорт? → Да, я несу его в чемодане)",
+            "Y las tarjetas de crédito, ¿las tienes tú? (А кредитные карты, у тебя они есть?)",
+            "El libro, lo necesito para mi clase. (Книгу мне нужна для урока - прямое дополнение перед глаголом)",
+            "Los libros, los necesito para mi clase. (Книги мне нужны для урока)",
+            "La libreta, la necesito para mi clase. (Тетрадь мне нужна для урока)",
+            "Las libretas, las necesito para mi clase. (Тетради мне нужны для урока)"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "rule_9",
+      "topic": "PRONOMBRES DE OI CON GUSTAR",
+      "topic_ru": "Местоимения косвенного дополнения с GUSTAR",
+      "explanation_ru": "Некоторые глаголы, как gustar и encantar, которые выражают чувства и мнения о вещах, людях или действиях, имеют особую структуру. Человек, имеющий мнение или испытывающий чувство, выражается местоимением косвенного дополнения.",
+      "subtopics": [
+        {
+          "title_ru": "Структура с глаголами типа GUSTAR",
+          "explanation_ru": "Человек выражается местоимением косвенного дополнения (me, te, le, nos, os, les) и с помощью a + имя/местоимение. Вещь или действие, вызывающее чувство, является подлежащим и согласуется с глаголом.",
+          "examples": [
+            "(A mí) me gusta el cine. (Мне нравится кино - ед.число)",
+            "(A ti/vos) te gusta ir al cine. (Тебе нравится ходить в кино - инфинитив)",
+            "(A él/ella/usted) le gusta el cine. (Ему/ей/Вам нравится кино)",
+            "(A nosotros/as) nos gustan las películas de amor. (Нам нравятся фильмы о любви - мн.число)",
+            "(A vosotros/as) os gustan las películas. (Вам нравятся фильмы)",
+            "(A ellos/ellas/ustedes) les gustan las películas. (Им/Вам нравятся фильмы)",
+            "No me gusta el golf, pero me encantan los deportes de equipo. (Мне не нравится гольф, но я обожаю командные виды спорта)"
+          ]
+        },
+        {
+          "title_ru": "Обязательность местоимения",
+          "explanation_ru": "В этих глаголах местоимение косвенного дополнения обязательно и используется всегда. В отличие от этого, использование a + ударное местоимение не обязательно.",
+          "examples": [
+            "A mí no me gusta este plato. ¿A ti te gusta? (Мне не нравится это блюдо. А тебе?)",
+            "A mí tampoco, pero a María le encanta. (Мне тоже нет, но Марии очень нравится)",
+            "Pablo es muy aventurero, a él le encanta viajar solo. (Пабло очень предприимчивый, ему нравится путешествовать одному)",
+            "¿Qué aficiones tenéis? → A mí me encanta el teatro. ¿Y a ti? (Какие у вас увлечения? → Я обожаю театр. А ты?)"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "rule_10",
+      "topic": "PRONOMBRES DE OI CON DAR",
+      "topic_ru": "Местоимения косвенного дополнения с DAR",
+      "explanation_ru": "Некоторые глаголы, как dar, prestar или pedir, функционируют так, что субъект передает объект другому лицу. Лицо, получающее этот объект, является косвенным дополнением.",
+      "subtopics": [
+        {
+          "title_ru": "Структура с глаголами типа DAR",
+          "explanation_ru": "Лицо, получающее объект, выражается местоимением косвенного дополнения (me, te, le, nos, os, les) и с помощью a + имя/местоимение.",
+          "examples": [
+            "(A mí) me → No me diste el dinero de la entrada. (Ты не дал мне деньги за вход)",
+            "(A ti) te → ¿Te puedo pedir una cosa? (Могу я попросить у тебя одну вещь?)",
+            "(A él/ella/usted) le → Le pediré el dinero (a Ana/a él/a usted). (Я попрошу деньги у Аны/у него/у Вас)",
+            "(A nosotros/as) nos → Carmen nos prestó su casa este verano. (Кармен одолжила нам свой дом этим летом)",
+            "(A vosotros/as) os → Si queréis, os presto mi coche. (Если хотите, я одолжу вам свою машину)",
+            "(A ellos/ellas/ustedes) les → A los chicos no les daré más chocolate. (Мальчикам я больше не дам шоколада)"
+          ]
+        },
+        {
+          "title_ru": "Примеры использования",
+          "explanation_ru": "Глаголы dar (давать), prestar (одалживать), pedir (просить) и другие подобные следуют этой структуре.",
+          "examples": [
+            "Le presté mi coche a Juan para el fin de semana. (Я одолжил свою машину Хуану на выходные)",
+            "¿Me das un vaso de agua? (Дашь мне стакан воды?)",
+            "Martín le da un vaso de agua a su hija. (Мартин дает стакан воды своей дочери)"
+          ]
+        }
+      ]
     }
   ]
 }
