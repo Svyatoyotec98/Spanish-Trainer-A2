@@ -1,0 +1,310 @@
+{
+  "rules": [
+    {
+      "id": "rule_1",
+      "topic": "LA ACENTUACIÓN",
+      "topic_ru": "Ударение",
+      "explanation_ru": "В испанском языке все слова имеют ударный слог (sílaba tónica). В некоторых случаях гласная ударного слога имеет графическое ударение (´), но не всегда.",
+      "subtopics": [
+        {
+          "title_ru": "Правила акцентуации",
+          "explanation_ru": "Чтобы определить, пишется ли слово с графическим ударением, нужно учитывать две вещи: на какие буквы оканчивается слово и позицию ударного слога (считая слоги с конца слова).",
+          "examples": [
+            {
+              "rule": "Если слово заканчивается на гласную (-a, -e, -i, -o, -u), -as, -es, -is, -os, -us, -an, -en, -in, -on, -un",
+              "cases": [
+                "УДАРЕНИЕ НА ПОСЛЕДНЕМ СЛОГЕ (palabras agudas): пишется ударение → can-ción, es-tás, a-quí",
+                "УДАРЕНИЕ НА ПРЕДПОСЛЕДНЕМ СЛОГЕ (palabras llanas): НЕ пишется → ca-sa, li-bro, a-bro, pon-go, pa-ra, a-mi-gos",
+                "УДАРЕНИЕ НА ТРЕТЬЕМ С КОНЦА (palabras esdrújulas): ВСЕГДА пишется → te-lé-fo-no, prác-ti-co, Mé-xi-co"
+              ]
+            },
+            {
+              "rule": "Если слово заканчивается на любую другую букву",
+              "cases": [
+                "УДАРЕНИЕ НА ПОСЛЕДНЕМ СЛОГЕ: НЕ пишется → ven-de-dor, co-mer",
+                "УДАРЕНИЕ НА ПРЕДПОСЛЕДНЕМ СЛОГЕ: пишется ударение → ár-bol, a-zú-car, ál-bum",
+                "УДАРЕНИЕ НА ТРЕТЬЕМ С КОНЦА: ВСЕГДА пишется → te-lé-fo-no"
+              ]
+            }
+          ]
+        },
+        {
+          "title_ru": "Слова из одного слога",
+          "explanation_ru": "Обычно односложные слова не имеют ударения. Но некоторые односложные слова пишутся с ударением, чтобы отличить их от других слов с таким же написанием.",
+          "examples": [
+            "mi (притяжательное) → Mi madre / mí (личное местоимение) → A mí me gusta",
+            "tu (притяжательное) → Tu madre / tú (личное местоимение) → ¿Tú te llamas Marcelo?",
+            "te (местоимение) → ¿Te gusta? / té (существительное) → ¿Quieres té o café?",
+            "el (артикль) → El hijo de Juan / él (личное местоимение) → Él es de Bélgica",
+            "que (союз) → Creo que Jaime está de vacaciones / qué (вопросительное) → ¿Qué quieres?"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "rule_2",
+      "topic": "LOS ARTÍCULOS",
+      "topic_ru": "Артикли",
+      "explanation_ru": "В испанском языке существуют определенные (el, la, los, las) и неопределенные (un, una, unos, unas) артикли, а также случаи использования существительных без артикля.",
+      "subtopics": [
+        {
+          "title_ru": "Неопределенные артикли и существительные без артикля",
+          "explanation_ru": "Когда мы говорим о чем-то или о ком-то впервые, используем неопределенные артикли (un, una) или существительное без артикля.",
+          "examples": [
+            "Hay un coche en la esquina. (Есть машина на углу)",
+            "Hay gente en la esquina, ¡qué extraño! (Есть люди на углу, как странно!)",
+            "Hay coches de policía y una ambulancia. (Есть полицейские машины и скорая помощь)"
+          ]
+        },
+        {
+          "title_ru": "Определенные артикли",
+          "explanation_ru": "Определенные артикли (el, la, los, las) используются, чтобы снова говорить о человеке или предмете, упомянутом ранее, или в целом о чем-то известном.",
+          "examples": [
+            "Hay un coche rojo delante de tu casa. → Ahora el coche está en la plaza.",
+            "¿Quién es Luis? → Es el padre de Juan. (= У него только один отец)",
+            "El libro está aquí, en la mesa. (= Книга, которую мы знаем)"
+          ]
+        },
+        {
+          "title_ru": "Использование без артикля",
+          "explanation_ru": "Некоторые случаи требуют использования существительного без артикля.",
+          "examples": [
+            "¿Tienes correo electrónico? (У тебя есть электронная почта?)",
+            "Es médico. (Он врач - профессия)",
+            "Hoy es lunes. (Сегодня понедельник - день недели)",
+            "¿Tienes coche? (У тебя есть машина?)"
+          ]
+        },
+        {
+          "title_ru": "Нейтральный артикль LO",
+          "explanation_ru": "Нейтральный артикль lo используется без существительного (в испанском нет существительных среднего рода) для обобщения, для обозначения всех вещей - мужского и женского рода.",
+          "examples": [
+            "Odio los libros antiguos y las películas antiguas → Odio todo lo antiguo. (Ненавижу все старое)",
+            "Lo peor son los verbos. (Худшее - это глаголы)",
+            "Digo lo que pienso. (Говорю то, что думаю)"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "rule_3",
+      "topic": "LOS DEMOSTRATIVOS",
+      "topic_ru": "Указательные местоимения",
+      "explanation_ru": "В испанском языке используются три серии указательных местоимений (este, ese, aquel), чтобы различать что-то, что находится здесь (cerca de quien habla - este), что-то, что находится там (cerca de quien escucha - ese), и что-то, что находится далеко (lejos de la conversación - aquel).",
+      "subtopics": [
+        {
+          "title_ru": "Формы указательных местоимений",
+          "explanation_ru": "Указательные местоимения согласуются в роде и числе с существительным.",
+          "examples": [
+            "CERCA (здесь): este libro, esta libreta, estos libros, estas libretas",
+            "AHÍ (там): ese libro, esa libreta, esos libros, esas libretas",
+            "ALLÍ (вон там): aquel libro, aquella libreta, aquellos libros, aquellas libretas"
+          ]
+        },
+        {
+          "title_ru": "Нейтральные формы: esto, eso, aquello",
+          "explanation_ru": "Помимо форм мужского и женского рода, существуют нейтральные формы (esto, eso, aquello), которые никогда не используются с существительными. Эти формы служат для обозначения чего-то, что мы не знаем, что это такое, или для обозначения вещей разных типов без использования их конкретных названий.",
+          "examples": [
+            "¿Eso qué es: una camiseta larga o un vestido corto? (Это что: длинная футболка или короткое платье?)",
+            "¿Qué compramos para cenar: esto o eso? (Что купим на ужин: это или то?)"
+          ]
+        },
+        {
+          "title_ru": "Разница между qué и cuál",
+          "explanation_ru": "Когда мы не знаем или не хотим сказать, к какому типу вещей что-то принадлежит, спрашиваем с qué и отвечаем нейтральным указательным (esto/eso/aquello). Когда нужно выбрать одну вещь из двух или более одного типа, спрашиваем с cuál/qué + существительное и отвечаем este/a/os/as.",
+          "examples": [
+            "¿Qué desea? → ¡Ah! ¿Una magdalena? → ¿Cuál quiere? → Esta. La más grande.",
+            "Este está en francés, ¿ese también? → No, este no, pero aquellos sí."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "rule_4",
+      "topic": "LOS POSESIVOS",
+      "topic_ru": "Притяжательные местоимения",
+      "explanation_ru": "Притяжательные местоимения используются для идентификации чего-то или кого-то, связывая это с человеком (владельцем). Отношение может быть семейным (mi madre), социальным (mis compañeros de clase), владением (mi coche) или другого типа (mi barrio).",
+      "subtopics": [
+        {
+          "title_ru": "Притяжательные перед существительным",
+          "explanation_ru": "Притяжательные местоимения изменяются в зависимости от владельца (yo → mi casa, tú → tu casa) и согласуются в роде и числе с тем, чем владеют (nuestra casa, sus libros).",
+          "examples": [
+            "mi libro, mi casa, mis libros, mis casas (мой/моя/мои)",
+            "tu libro, tu casa, tus libros, tus casas (твой/твоя/твои)",
+            "su libro, su casa, sus libros, sus casas (его/её/Ваш)",
+            "nuestro libro, nuestra casa, nuestros libros, nuestras casas (наш/наша/наши)",
+            "vuestro libro, vuestra casa, vuestros libros, vuestras casas (ваш/ваша/ваши)",
+            "su libro, su casa, sus libros, sus casas (их/Ваш мн.ч.)"
+          ]
+        },
+        {
+          "title_ru": "Особенности использования su/sus",
+          "explanation_ru": "Притяжательные su/sus могут относиться к разным лицам (él, ella, usted, ellos, ellas, ustedes). Поэтому используем их только когда нет возможности путаницы. Если непонятно, кто владелец, используем de + имя.",
+          "examples": [
+            "Esos son Guillermo y su novia, Julia. (Это Гильермо и его девушка Хулия)",
+            "Esta es la casa de Manuel y esa, la de Jorge. (Это дом Мануэля, а то - дом Хорхе)"
+          ]
+        },
+        {
+          "title_ru": "Притяжательные без существительного",
+          "explanation_ru": "Когда используем притяжательные без существительного, они имеют другую форму: mío/a/os/as, tuyo/a/os/as, suyo/a/os/as, nuestro/a/os/as, vuestro/a/os/as, suyo/a/os/as.",
+          "examples": [
+            "¿Esta bolsa es tuya o es mía? (Эта сумка твоя или моя?)",
+            "Estos no son mis zapatos. ¡Son los tuyos! (Это не мои туфли. Это твои!)",
+            "Vienen a cenar dos amigos tuyos. (Придут ужинать двое твоих друзей)"
+          ]
+        },
+        {
+          "title_ru": "Когда НЕ используем притяжательные",
+          "explanation_ru": "Не используем притяжательные, когда говорим о частях собственного тела или о личных вещах (паспорт, машина, ключи), если из контекста ясно, кто владелец.",
+          "examples": [
+            "Me duele la cabeza. (У меня болит голова - НЕ mi cabeza)",
+            "He aparcado el coche cerca del restaurante. (Я припарковал машину - НЕ mi coche)",
+            "¿Tienes el pasaporte? (У тебя есть паспорт? - НЕ tu pasaporte)"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "rule_5",
+      "topic": "SER Y ESTAR",
+      "topic_ru": "Глаголы SER и ESTAR",
+      "explanation_ru": "В испанском языке есть два глагола, которые переводятся как 'быть': SER и ESTAR. Они используются в разных ситуациях.",
+      "subtopics": [
+        {
+          "title_ru": "Использование SER",
+          "explanation_ru": "С существительными всегда используется SER для идентификации, определения и описания людей или вещей. Также SER используется с прилагательными или предлогами, которые выражают отношения владения, национальность или происхождение, и с прилагательными, которые выражают характеристики, не зависящие от обстоятельств.",
+          "examples": [
+            "Esta es Laura. (Это Лаура - идентификация)",
+            "Laura es traductora. (Лаура - переводчица - профессия)",
+            "Laura es mi hermana. (Лаура - моя сестра - отношение)",
+            "¿Este es tu libro o el de Laura? (Это твоя книга или Лауры? - владение)",
+            "Esta película es sueca. (Этот фильм шведский - национальность)",
+            "El pastel es de chocolate. (Торт шоколадный - материал)",
+            "El jersey que quiero es azul oscuro. (Свитер, который я хочу, темно-синий - цвет)",
+            "El pastel es grande y redondo. (Торт большой и круглый - размер, форма)",
+            "Mi hermana es más joven que yo. (Моя сестра моложе меня - возраст)"
+          ]
+        },
+        {
+          "title_ru": "Использование ESTAR",
+          "explanation_ru": "С наречиями (bien, mal, cerca, lejos) и с причастиями (enfadado, sentado, roto) всегда используется ESTAR для указания места, позы/положения или физического/эмоционального состояния.",
+          "examples": [
+            "Tu casa está cerca de la escuela. (Твой дом близко от школы - место)",
+            "¿Estás en casa ahora? (Ты сейчас дома? - место)",
+            "Tu amiga está sentada en esa mesa. (Твоя подруга сидит за тем столом - поза)",
+            "Este cuadro está torcido. (Эта картина висит криво - положение)",
+            "Hola, ¿cómo estás? (Привет, как дела? - состояние)",
+            "Estuve resfriada, pero ahora estoy mejor. (Я была простужена, но сейчас лучше - физическое состояние)",
+            "Tu amiga está enfadada porque llegas tarde. (Твоя подруга сердится, потому что ты опаздываешь - эмоциональное состояние)"
+          ]
+        },
+        {
+          "title_ru": "SER и ESTAR с одинаковыми прилагательными",
+          "explanation_ru": "Некоторые прилагательные, используемые для описания (с SER), иногда можно комбинировать с ESTAR, чтобы указать, что что-то произошло, что обстоятельства изменились.",
+          "examples": [
+            "Pepe está más guapo, ¿verdad? → Sí, se ha cortado el pelo y así está mejor. (Пепе стал красивее, правда? - изменение)",
+            "Este pastel está salado, ¿qué has hecho? (Этот торт соленый, что ты сделал? - торты обычно сладкие)",
+            "Soy una persona paciente, pero cuando hago un examen, siempre estoy impaciente por saber la nota. (Я терпеливый человек, но когда сдаю экзамен, всегда нетерпелив узнать оценку)"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "rule_6",
+      "topic": "LA COMPARACIÓN",
+      "topic_ru": "Сравнение",
+      "explanation_ru": "Для сравнения в испанском языке используются различные структуры в зависимости от того, что сравнивается: существительные, прилагательные, глаголы или наречия.",
+      "subtopics": [
+        {
+          "title_ru": "Сравнение существительных",
+          "explanation_ru": "Используются конструкции: más + существительное (+ que), tanto/a/os/as + существительное (+ como), menos + существительное (+ que), no... tanto/a/os/as + существительное (+ como).",
+          "examples": [
+            "ПРЕВОСХОДСТВО: Mi casa tiene más habitaciones (que la de mi hermana). (В моем доме больше комнат)",
+            "РАВЕНСТВО: En mi barrio hay tantos coches como en este. (В моем районе столько же машин)",
+            "НЕПОЛНОЦЕННОСТЬ: Vivimos en un barrio con menos coches (que este). (Мы живем в районе с меньшим количеством машин)",
+            "НЕПОЛНОЦЕННОСТЬ: En nuestro barrio no hay tantos coches (como en este). (В нашем районе не так много машин)"
+          ]
+        },
+        {
+          "title_ru": "Сравнение прилагательных",
+          "explanation_ru": "Используются конструкции: más + прилагательное (+ que), tan + прилагательное (+ como), igual de + прилагательное (+ que), menos + прилагательное (+ que), no... tan + прилагательное (+ como).",
+          "examples": [
+            "ПРЕВОСХОДСТВО: Mi habitación es más luminosa (que la de mi hermana). (Моя комната светлее)",
+            "РАВЕНСТВО: Mi casa es tan grande como la tuya. (Мой дом такой же большой, как твой)",
+            "РАВЕНСТВО: Mi casa es igual de grande (que la tuya). (Мой дом такого же размера)",
+            "НЕПОЛНОЦЕННОСТЬ: Vivimos en un barrio menos ruidoso (que este). (Мы живем в менее шумном районе)",
+            "НЕПОЛНОЦЕННОСТЬ: Nuestro barrio no es tan ruidoso (como este). (Наш район не такой шумный)"
+          ]
+        },
+        {
+          "title_ru": "Особые формы сравнения",
+          "explanation_ru": "Некоторые прилагательные и наречия имеют специальные формы сравнения.",
+          "examples": [
+            "más grande → mayor (больше по возрасту)",
+            "más pequeño/a → menor (меньше)",
+            "más bueno/a → mejor (лучше)",
+            "más malo/a → peor (хуже)",
+            "más bien → mejor (лучше)",
+            "más mal → peor (хуже)"
+          ]
+        },
+        {
+          "title_ru": "Превосходная степень",
+          "explanation_ru": "Превосходная степень определяет место, человека или вещь как имеющие максимальную степень качества (самый большой, самый маленький) в группе.",
+          "examples": [
+            "Esta es la habitación más luminosa de la casa. (Это самая светлая комната в доме)",
+            "Es la mejor habitación de la casa. (Это лучшая комната в доме)"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "rule_7",
+      "topic": "LOS PRONOMBRES PERSONALES",
+      "topic_ru": "Личные местоимения",
+      "explanation_ru": "Личные местоимения - это слова, которые используются для обозначения людей, которые говорят, людей, которые слушают, или людей/предметов, которых нет в разговоре. Форма личных местоимений меняется в зависимости от места в предложении и функции.",
+      "subtopics": [
+        {
+          "title_ru": "Местоимения-подлежащие",
+          "explanation_ru": "В испанском языке окончание глагола согласуется с подлежащим, поэтому личные местоимения в функции подлежащего используются редко. Они используются только когда нужно выделить человека, для сравнения или противопоставления.",
+          "examples": [
+            "yo (я), tú/vos/usted (ты/Вы), él/ella (он/она)",
+            "nosotros/nosotras (мы), vosotros/vosotras/ustedes (вы), ellos/ellas (они)",
+            "Yo tengo dieciocho años. ¿Y vosotros? (Мне 18 лет. А вам?)",
+            "Yo tengo diecinueve y él tiene veinte. (Мне 19, а ему 20)"
+          ]
+        },
+        {
+          "title_ru": "Местоимения в возвратных глаголах",
+          "explanation_ru": "Некоторые глаголы, такие как llamarse, levantarse, ducharse, всегда строятся с местоимениями me, te, se, nos, os, se. Это возвратные глаголы.",
+          "examples": [
+            "me levanto (я встаю), te levantas (ты встаешь), se levanta (он/она встает)",
+            "nos levantamos (мы встаем), os levantáis/se levantan (вы встаете), se levantan (они встают)",
+            "¿Cómo te llamas? (Как тебя зовут?)",
+            "Me ducho por la mañana. (Я принимаю душ утром)"
+          ]
+        },
+        {
+          "title_ru": "Местоимения прямого дополнения",
+          "explanation_ru": "Переходные глаголы выражают то, что подлежащее делает с объектом или другим человеком (прямое дополнение). Местоимения прямого дополнения: me, te, lo/la, nos, os, los/las.",
+          "examples": [
+            "El año pasado pintamos el salón, lo pintamos de color verde. (В прошлом году мы покрасили гостиную в зеленый цвет)",
+            "Ayer Ana vio a Juan en la calle, lo llamó, pero él no la vio. (Вчера Ана видела Хуана на улице, позвала его, но он её не увидел)",
+            "¿Me dejas el coche este fin de semana? (Одолжишь мне машину на выходные?)"
+          ]
+        },
+        {
+          "title_ru": "Формы обращения: tú, vos, usted, ustedes",
+          "explanation_ru": "Usted используется как форма уважения или для обозначения социальной дистанции. Tú и vos используются для неформального обращения. Ustedes используется для обращения к нескольким людям. Vosotros/as используется только в Испании для неформального обращения к группе.",
+          "examples": [
+            "¿Usted tiene hora? (У Вас есть время? - формально)",
+            "¿Tú tienes hora? / ¿Vos tenés hora? (У тебя есть время? - неформально)",
+            "¿Ustedes trabajan aquí? (Вы работаете здесь? - множественное число)",
+            "¿Vosotros trabajáis aquí? (Вы работаете здесь? - только в Испании, неформально)"
+          ]
+        }
+      ]
+    }
+  ]
+}
