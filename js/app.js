@@ -1912,7 +1912,7 @@ function hideAllScreens() {
         'questionScreen', 'resultsScreen', 'verbMenu',
         'verbPracticeScreen', 'qaScreen',
         'gramaticaMenu', 'gramaticaQuestionScreen', 'gramaticaResultsScreen',
-        'grammarListScreen', 'grammarDetailScreen',
+        'grammarListScreen', 'grammarDetailScreen', 'grammarInteractiveScreen',
         'examScreen', 'examResultsScreen'
     ];
     screens.forEach(id => {
@@ -2470,6 +2470,15 @@ let grammarPreviousScreen = '';
 let currentRule = null;
 let currentSubtopicIndex = 0;
 
+// Interactive Mode Variables
+let interactiveMode = {
+    active: false,
+    rule: null,
+    slides: [],
+    currentSlideIndex: 0,
+    keyboardListener: null
+};
+
 // Load Grammar JSON
 async function loadGrammarData() {
     try {
@@ -2528,17 +2537,34 @@ function renderGrammarList() {
     rulesPage.forEach(rule => {
         const card = document.createElement('div');
         card.className = 'category-card';
-        card.onclick = () => showGrammarDetail(rule.id);
         card.style.cursor = 'pointer';
-        
+
         card.innerHTML = `
             <div class="category-header">
                 <span class="category-title">📖 ${rule.topic_ru}</span>
-                <span class="category-icon">→</span>
+                <div style="display: flex; gap: 10px; align-items: center;">
+                    <button
+                        class="btn btn-secondary"
+                        onclick="event.stopPropagation(); startInteractiveMode('${rule.id}')"
+                        style="padding: 8px 15px; font-size: 0.9em; background: #667eea; color: white; border: none;"
+                        title="Интерактивный режим"
+                    >
+                        ▶️
+                    </button>
+                    <span class="category-icon" onclick="showGrammarDetail('${rule.id}')">→</span>
+                </div>
             </div>
             <p style="margin: 10px 0 0 0; color: #7f8c8d; font-size: 0.9em;">${rule.topic}</p>
         `;
-        
+
+        // Make whole card clickable to show detail
+        card.onclick = (e) => {
+            // Don't trigger if clicking on buttons
+            if (e.target.tagName !== 'BUTTON' && e.target.tagName !== 'SPAN') {
+                showGrammarDetail(rule.id);
+            }
+        };
+
         container.appendChild(card);
     });
     
@@ -2707,6 +2733,205 @@ function goBackFromGrammar() {
         // Default fallback
         showMainMenu();
     }
+}
+
+// ═══════════════════════════════════════════════════════════════
+// INTERACTIVE MODE FUNCTIONS
+// ═══════════════════════════════════════════════════════════════
+
+// Split rule into slides (content blocks)
+function createSlidesFromRule(rule) {
+    const slides = [];
+
+    // Slide 1: Main explanation
+    if (rule.explanation_ru) {
+        slides.push({
+            type: 'explanation',
+            content: rule.explanation_ru
+        });
+    }
+
+    // Process each subtopic
+    if (rule.subtopics && rule.subtopics.length > 0) {
+        rule.subtopics.forEach((subtopic, subtopicIndex) => {
+            // Subtopic title + explanation
+            if (subtopic.title_ru || subtopic.explanation_ru) {
+                let content = '';
+                if (subtopic.title_ru) {
+                    content += `<h3 style="color: #667eea; margin-bottom: 15px;">${subtopic.title_ru}</h3>`;
+                }
+                if (subtopic.explanation_ru) {
+                    content += `<p>${subtopic.explanation_ru}</p>`;
+                }
+                slides.push({
+                    type: 'subtopic-intro',
+                    content: content,
+                    subtopicIndex: subtopicIndex
+                });
+            }
+
+            // Examples (each example as separate slide)
+            if (subtopic.examples && subtopic.examples.length > 0) {
+                subtopic.examples.forEach(example => {
+                    if (typeof example === 'string') {
+                        slides.push({
+                            type: 'example',
+                            content: `<div style="background: #FFF9E6; padding: 20px; border-radius: 10px; border-left: 4px solid #FFD89C;"><p style="margin: 0; font-size: 1.1em;">${example}</p></div>`,
+                            subtopicIndex: subtopicIndex
+                        });
+                    } else if (typeof example === 'object') {
+                        // Complex example with rule and cases
+                        let complexContent = '';
+                        if (example.rule) {
+                            complexContent += `<div style="background: #FFF9E6; padding: 18px; border-radius: 10px; border-left: 4px solid #FFD89C; margin-bottom: 15px;">
+                                <strong style="color: #8B6914; font-size: 1.1em;">📌 Правило:</strong>
+                                <span style="color: #5A5A5A; font-size: 1.05em;">${example.rule}</span>
+                            </div>`;
+                        }
+                        if (example.cases && example.cases.length > 0) {
+                            example.cases.forEach(caseText => {
+                                complexContent += `<div style="background: #F0F4FF; padding: 15px; border-radius: 8px; margin: 10px 0;">
+                                    <p style="margin: 0;">${caseText}</p>
+                                </div>`;
+                            });
+                        }
+                        slides.push({
+                            type: 'example-complex',
+                            content: complexContent,
+                            subtopicIndex: subtopicIndex
+                        });
+                    }
+                });
+            }
+
+            // Exercise after subtopic (if exists)
+            if (subtopic.exercise) {
+                slides.push({
+                    type: 'exercise',
+                    content: subtopic.exercise,
+                    subtopicIndex: subtopicIndex
+                });
+            }
+        });
+    }
+
+    return slides;
+}
+
+// Start Interactive Mode
+function startInteractiveMode(ruleId) {
+    const rule = grammarData.find(r => r.id === ruleId);
+    if (!rule) {
+        console.error('Rule not found:', ruleId);
+        return;
+    }
+
+    // Create slides from rule
+    interactiveMode.rule = rule;
+    interactiveMode.slides = createSlidesFromRule(rule);
+    interactiveMode.currentSlideIndex = 0;
+    interactiveMode.active = true;
+
+    // Setup keyboard listener
+    setupInteractiveKeyboard();
+
+    // Show screen
+    hideAllScreens();
+    document.getElementById('grammarInteractiveScreen').classList.remove('hidden');
+    document.getElementById('interactiveTitle').textContent = `${rule.topic_ru} (${rule.topic})`;
+
+    // Show first slide
+    showCurrentSlide();
+}
+
+// Show current slide
+function showCurrentSlide() {
+    const slide = interactiveMode.slides[interactiveMode.currentSlideIndex];
+    const contentDiv = document.getElementById('interactiveSlideContent');
+    const exerciseDiv = document.getElementById('interactiveExercise');
+
+    if (slide.type === 'exercise') {
+        // Show exercise
+        contentDiv.parentElement.classList.add('hidden');
+        exerciseDiv.classList.remove('hidden');
+        renderExercise(slide.content);
+    } else {
+        // Show content slide
+        contentDiv.parentElement.classList.remove('hidden');
+        exerciseDiv.classList.add('hidden');
+        contentDiv.innerHTML = slide.content;
+    }
+}
+
+// Go to next slide
+function nextSlide() {
+    if (interactiveMode.currentSlideIndex < interactiveMode.slides.length - 1) {
+        interactiveMode.currentSlideIndex++;
+        showCurrentSlide();
+    } else {
+        // Finished - exit interactive mode
+        exitInteractiveMode();
+    }
+}
+
+// Setup keyboard listener for SPACE/ENTER
+function setupInteractiveKeyboard() {
+    // Remove previous listener if exists
+    if (interactiveMode.keyboardListener) {
+        document.removeEventListener('keydown', interactiveMode.keyboardListener);
+    }
+
+    // Create new listener
+    interactiveMode.keyboardListener = function(e) {
+        if (!interactiveMode.active) return;
+
+        // Only respond to SPACE or ENTER
+        if (e.key === ' ' || e.key === 'Enter') {
+            e.preventDefault();
+
+            // Check if we're in exercise mode
+            const exerciseDiv = document.getElementById('interactiveExercise');
+            if (!exerciseDiv.classList.contains('hidden')) {
+                // In exercise - don't advance automatically
+                return;
+            }
+
+            nextSlide();
+        }
+    };
+
+    document.addEventListener('keydown', interactiveMode.keyboardListener);
+}
+
+// Exit Interactive Mode
+function exitInteractiveMode() {
+    // Remove keyboard listener
+    if (interactiveMode.keyboardListener) {
+        document.removeEventListener('keydown', interactiveMode.keyboardListener);
+        interactiveMode.keyboardListener = null;
+    }
+
+    // Reset state
+    interactiveMode.active = false;
+    interactiveMode.rule = null;
+    interactiveMode.slides = [];
+    interactiveMode.currentSlideIndex = 0;
+
+    // Go back to grammar list
+    showGrammarList();
+}
+
+// Render Exercise (placeholder for now)
+function renderExercise(exercise) {
+    const exerciseContent = document.getElementById('exerciseContent');
+    exerciseContent.innerHTML = `
+        <p style="text-align: center; color: #666;">
+            Упражнение для этой подтемы будет добавлено позже.
+        </p>
+        <button class="btn btn-primary" onclick="nextSlide()" style="margin-top: 20px;">
+            Продолжить →
+        </button>
+    `;
 }
 
 // Initialize Grammar Data on page load

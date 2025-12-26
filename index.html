@@ -587,6 +587,33 @@
         </div>
 
         <!-- ═══════════════════════════════════════════════════════════════
+             GRAMMAR INTERACTIVE MODE SCREEN
+             ═══════════════════════════════════════════════════════════════ -->
+        <div id="grammarInteractiveScreen" class="hidden">
+            <div style="text-align: center; margin-bottom: 20px;">
+                <h1 id="interactiveTitle" style="margin-bottom: 10px;">Правило грамматики</h1>
+                <p style="color: #667eea; font-size: 1.1em; font-weight: 600;">▶️ Интерактивный режим</p>
+            </div>
+
+            <div id="interactiveContent" style="margin: 40px auto; padding: 40px; background: white; border-radius: 15px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); max-width: 800px; min-height: 300px; display: flex; align-items: center; justify-content: center;">
+                <!-- Interactive slide content will be rendered here -->
+                <div id="interactiveSlideContent" style="font-size: 1.2em; line-height: 1.8; text-align: center;">
+                    <!-- Content goes here -->
+                </div>
+            </div>
+
+            <!-- Exercise Container (shown when needed) -->
+            <div id="interactiveExercise" class="hidden" style="margin: 40px auto; padding: 30px; background: #f8f9fa; border-radius: 15px; max-width: 800px;">
+                <h3 id="exerciseTitle" style="text-align: center; margin-bottom: 20px;">Упражнение</h3>
+                <div id="exerciseContent">
+                    <!-- Exercise will be rendered here -->
+                </div>
+            </div>
+
+            <button class="btn btn-back" onclick="exitInteractiveMode()" style="margin-top: 30px;">← Выйти из интерактивного режима</button>
+        </div>
+
+        <!-- ═══════════════════════════════════════════════════════════════
              EXAM SCREEN
              ═══════════════════════════════════════════════════════════════ -->
         <div id="examScreen" class="question-container hidden">
