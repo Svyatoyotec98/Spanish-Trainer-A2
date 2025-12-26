@@ -233,10 +233,12 @@
         // ═══════════════════════════════════════════════════════════════
 
         function hideAll() {
-            ['startScreen', 'profileSelectScreen', 'profileCreateScreen', 
-             'mainMenu', 'unidadMenu', 'categoryMenu', 'questionScreen', 
+            ['startScreen', 'profileSelectScreen', 'profileCreateScreen',
+             'mainMenu', 'unidadMenu', 'categoryMenu', 'questionScreen',
              'resultsScreen', 'verbMenu', 'verbPracticeScreen', 'qaScreen',
-			 'gramaticaMenu', 'gramaticaQuestionScreen', 'gramaticaResultsScreen'].forEach(id => {
+			 'gramaticaMenu', 'gramaticaQuestionScreen', 'gramaticaResultsScreen',
+             'grammarListScreen', 'grammarDetailScreen',
+             'examScreen', 'examResultsScreen'].forEach(id => {
                 document.getElementById(id).classList.add('hidden');
             });
         }
