@@ -586,6 +586,50 @@
         </div>
 
         <!-- ═══════════════════════════════════════════════════════════════
+             EXAM SCREEN
+             ═══════════════════════════════════════════════════════════════ -->
+        <div id="examScreen" class="question-container hidden">
+            <div class="progress" id="examProgress">Вопрос 1 из 30</div>
+            <div class="timer-text" id="examTimerText">15</div>
+            <div class="timer-container">
+                <div class="timer-bar" id="examTimerBar"></div>
+            </div>
+
+            <div class="question-card">
+                <h2 id="examQuestionText">Вопрос</h2>
+                <div id="examOptionsContainer" class="options-grid"></div>
+            </div>
+
+            <button class="btn btn-back" onclick="confirmExitExam()" style="margin-top: 30px;">Выйти из экзамена</button>
+        </div>
+
+        <!-- ═══════════════════════════════════════════════════════════════
+             EXAM RESULTS SCREEN
+             ═══════════════════════════════════════════════════════════════ -->
+        <div id="examResultsScreen" class="results-container hidden">
+            <h1>🎓 Результаты экзамена</h1>
+
+            <div class="results-summary">
+                <div class="score-circle">
+                    <span id="examScorePercent">0%</span>
+                </div>
+
+                <div class="results-stats">
+                    <p><strong>Правильных ответов:</strong> <span id="examCorrect">0</span> / <span id="examTotal">30</span></p>
+                    <p><strong>Затраченное время:</strong> <span id="examTimeSpent">00:00</span></p>
+                    <p id="examGrade" style="font-size: 1.5em; margin-top: 20px;"></p>
+                </div>
+            </div>
+
+            <div id="examDetailedResults" style="margin-top: 30px;"></div>
+
+            <div style="display: flex; gap: 15px; justify-content: center; margin-top: 30px;">
+                <button class="btn btn-primary" onclick="startExam()">Пройти заново</button>
+                <button class="btn btn-back" onclick="showMainMenu()">На главную</button>
+            </div>
+        </div>
+
+        <!-- ═══════════════════════════════════════════════════════════════
              FEEDBACK MODAL
              ═══════════════════════════════════════════════════════════════ -->
         <div id="feedbackModal" class="modal hidden">

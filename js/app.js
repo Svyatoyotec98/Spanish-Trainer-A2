@@ -425,6 +425,60 @@ function showProfileSelect() {
                 unidad4Btn.querySelector('.category-icon').textContent = '🔒';
                 document.getElementById('unidad-4-progress-text').textContent = 'Заблокировано - Завершите Unidad 3 (80%)';
             }
+
+            // Update Exam Button
+            updateExamButton();
+        }
+
+        function updateExamButton() {
+            const profile = getActiveProfile();
+            if (!profile) return;
+
+            const examBtn = document.getElementById('examBtn');
+            const examRequirement = document.querySelector('.exam-requirement');
+
+            if (!examBtn) return;
+
+            // Calculate average progress across all unlocked unidades
+            let totalProgress = 0;
+            let unidadCount = 0;
+
+            // Always include Unidad 1
+            totalProgress += calculateUnidadProgress('unidad_1');
+            unidadCount++;
+
+            // Include Unidad 3 if unlocked
+            if (profile.unlocks.unidad_3) {
+                totalProgress += calculateUnidadProgress('unidad_3');
+                unidadCount++;
+            }
+
+            // Include Unidad 4 if unlocked
+            if (profile.unlocks.unidad_4) {
+                totalProgress += calculateUnidadProgress('unidad_4');
+                unidadCount++;
+            }
+
+            const averageProgress = Math.round(totalProgress / unidadCount);
+
+            // Unlock exam if average progress >= 80%
+            if (averageProgress >= 80) {
+                examBtn.disabled = false;
+                examBtn.classList.remove('btn-warning');
+                examBtn.classList.add('btn-primary');
+                if (examRequirement) {
+                    examRequirement.textContent = `Средний прогресс: ${averageProgress}% ✅`;
+                    examRequirement.style.color = '#4CAF50';
+                }
+            } else {
+                examBtn.disabled = true;
+                examBtn.classList.remove('btn-primary');
+                examBtn.classList.add('btn-warning');
+                if (examRequirement) {
+                    examRequirement.textContent = `Требуется средний прогресс 80% (сейчас: ${averageProgress}%)`;
+                    examRequirement.style.color = '#666';
+                }
+            }
         }
 
         // ═══════════════════════════════════════════════════════════════
@@ -445,6 +499,16 @@ function showProfileSelect() {
         let timerInterval = null;
         let timeLeft = 10;
         const TIMER_DURATION = 10;
+
+        // Exam variables
+        let examQuestions = [];
+        let examCurrentIndex = 0;
+        let examScore = 0;
+        let examAnswers = [];
+        let examStartTime = null;
+        let examTimerInterval = null;
+        const EXAM_QUESTIONS_COUNT = 30;
+        const EXAM_TIMER_DURATION = 15;
 
         const vocabularyData = {
             unidad_1: {
@@ -1168,8 +1232,227 @@ if (
             }
         }
 
-        function startExam() {
-            alert('Режим экзамена скоро будет доступен!');
+        // ═══════════════════════════════════════════════════════════════
+        // EXAM SYSTEM
+        // ═══════════════════════════════════════════════════════════════
+
+        async function startExam() {
+            // Load Unidad1 data if not loaded
+            if (!window.unidadData) {
+                try {
+                    const response = await fetch('data/Unidad1.json');
+                    window.unidadData = await response.json();
+                } catch (error) {
+                    console.error('Error loading Unidad1 data:', error);
+                    alert('Ошибка загрузки данных для экзамена');
+                    return;
+                }
+            }
+
+            // Generate exam questions
+            examQuestions = generateExamQuestions();
+            examCurrentIndex = 0;
+            examScore = 0;
+            examAnswers = [];
+            examStartTime = Date.now();
+
+            // Show exam screen
+            hideAllScreens();
+            document.getElementById('examScreen').classList.remove('hidden');
+
+            // Start first question
+            showExamQuestion();
+        }
+
+        function generateExamQuestions() {
+            const allQuestions = [];
+            const unidadData = window.unidadData;
+
+            if (!unidadData || !unidadData.categories) {
+                console.error('No unidad data available');
+                return [];
+            }
+
+            // Collect all vocabulary from all categories
+            for (const [categoryName, items] of Object.entries(unidadData.categories)) {
+                items.forEach(item => {
+                    allQuestions.push({
+                        spanish: item.spanish,
+                        ru: item.ru,
+                        category: categoryName
+                    });
+                });
+            }
+
+            // Shuffle and select EXAM_QUESTIONS_COUNT questions
+            const shuffled = allQuestions.sort(() => Math.random() - 0.5);
+            const selected = shuffled.slice(0, EXAM_QUESTIONS_COUNT);
+
+            // Generate options for each question
+            return selected.map(question => {
+                const correctAnswer = question.ru;
+                const incorrectAnswers = [];
+
+                // Get 3 random incorrect answers from the same pool
+                while (incorrectAnswers.length < 3) {
+                    const randomQ = shuffled[Math.floor(Math.random() * shuffled.length)];
+                    if (randomQ.ru !== correctAnswer && !incorrectAnswers.includes(randomQ.ru)) {
+                        incorrectAnswers.push(randomQ.ru);
+                    }
+                }
+
+                // Shuffle options
+                const options = [correctAnswer, ...incorrectAnswers].sort(() => Math.random() - 0.5);
+
+                return {
+                    ...question,
+                    correctAnswer,
+                    options
+                };
+            });
+        }
+
+        function showExamQuestion() {
+            if (examCurrentIndex >= examQuestions.length) {
+                showExamResults();
+                return;
+            }
+
+            const question = examQuestions[examCurrentIndex];
+
+            // Update progress
+            document.getElementById('examProgress').textContent =
+                `Вопрос ${examCurrentIndex + 1} из ${EXAM_QUESTIONS_COUNT}`;
+
+            // Update question text
+            document.getElementById('examQuestionText').textContent = question.spanish;
+
+            // Render options
+            const optionsContainer = document.getElementById('examOptionsContainer');
+            optionsContainer.innerHTML = '';
+
+            question.options.forEach((option, index) => {
+                const button = document.createElement('button');
+                button.className = 'option-btn';
+                button.textContent = option;
+                button.onclick = () => handleExamAnswer(option);
+                optionsContainer.appendChild(button);
+            });
+
+            // Start timer
+            timeLeft = EXAM_TIMER_DURATION;
+            updateExamTimer();
+            clearInterval(examTimerInterval);
+            examTimerInterval = setInterval(updateExamTimer, 1000);
+        }
+
+        function updateExamTimer() {
+            const timerText = document.getElementById('examTimerText');
+            const timerBar = document.getElementById('examTimerBar');
+
+            timerText.textContent = timeLeft;
+            const percentage = (timeLeft / EXAM_TIMER_DURATION) * 100;
+            timerBar.style.width = percentage + '%';
+
+            if (timeLeft <= 0) {
+                clearInterval(examTimerInterval);
+                handleExamAnswer(null); // No answer selected
+            } else {
+                timeLeft--;
+            }
+        }
+
+        function handleExamAnswer(selectedAnswer) {
+            clearInterval(examTimerInterval);
+
+            const question = examQuestions[examCurrentIndex];
+            const isCorrect = selectedAnswer === question.correctAnswer;
+
+            examAnswers.push({
+                question: question.spanish,
+                correctAnswer: question.correctAnswer,
+                selectedAnswer: selectedAnswer,
+                isCorrect: isCorrect
+            });
+
+            if (isCorrect) {
+                examScore++;
+            }
+
+            // Move to next question
+            examCurrentIndex++;
+            setTimeout(() => showExamQuestion(), 500);
+        }
+
+        function showExamResults() {
+            clearInterval(examTimerInterval);
+
+            const examTime = Math.floor((Date.now() - examStartTime) / 1000);
+            const minutes = Math.floor(examTime / 60);
+            const seconds = examTime % 60;
+            const timeString = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+
+            const percentage = Math.round((examScore / EXAM_QUESTIONS_COUNT) * 100);
+
+            // Show results screen
+            hideAllScreens();
+            document.getElementById('examResultsScreen').classList.remove('hidden');
+
+            // Update results
+            document.getElementById('examScorePercent').textContent = percentage + '%';
+            document.getElementById('examCorrect').textContent = examScore;
+            document.getElementById('examTotal').textContent = EXAM_QUESTIONS_COUNT;
+            document.getElementById('examTimeSpent').textContent = timeString;
+
+            // Set grade
+            const gradeElement = document.getElementById('examGrade');
+            if (percentage >= 90) {
+                gradeElement.textContent = '🏆 Отлично!';
+                gradeElement.style.color = '#4CAF50';
+            } else if (percentage >= 75) {
+                gradeElement.textContent = '👍 Хорошо!';
+                gradeElement.style.color = '#8BC34A';
+            } else if (percentage >= 60) {
+                gradeElement.textContent = '📝 Удовлетворительно';
+                gradeElement.style.color = '#FFC107';
+            } else {
+                gradeElement.textContent = '📚 Нужно подучить';
+                gradeElement.style.color = '#FF5722';
+            }
+
+            // Show detailed results
+            const detailedResults = document.getElementById('examDetailedResults');
+            detailedResults.innerHTML = '<h3>Детальные результаты:</h3>';
+
+            examAnswers.forEach((answer, index) => {
+                const resultDiv = document.createElement('div');
+                resultDiv.style.cssText = 'margin: 10px 0; padding: 15px; border-radius: 8px; background: #f5f5f5;';
+
+                const icon = answer.isCorrect ? '✅' : '❌';
+                const color = answer.isCorrect ? '#4CAF50' : '#FF5722';
+
+                resultDiv.innerHTML = `
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                        <span style="font-size: 1.5em;">${icon}</span>
+                        <div style="flex: 1;">
+                            <strong>${index + 1}. ${answer.question}</strong><br>
+                            <span style="color: ${color};">
+                                Ваш ответ: ${answer.selectedAnswer || 'Нет ответа'}
+                            </span><br>
+                            ${!answer.isCorrect ? `<span style="color: #4CAF50;">Правильный ответ: ${answer.correctAnswer}</span>` : ''}
+                        </div>
+                    </div>
+                `;
+
+                detailedResults.appendChild(resultDiv);
+            });
+        }
+
+        function confirmExitExam() {
+            if (confirm('Вы уверены, что хотите выйти из экзамена? Прогресс будет потерян.')) {
+                clearInterval(examTimerInterval);
+                showMainMenu();
+            }
         }
 
         // ═══════════════════════════════════════════════════════════════
@@ -1571,7 +1854,8 @@ function hideAllScreens() {
         'questionScreen', 'resultsScreen', 'verbMenu',
         'verbPracticeScreen', 'qaScreen',
         'gramaticaMenu', 'gramaticaQuestionScreen', 'gramaticaResultsScreen',
-        'grammarListScreen', 'grammarDetailScreen'
+        'grammarListScreen', 'grammarDetailScreen',
+        'examScreen', 'examResultsScreen'
     ];
     screens.forEach(id => {
         const el = document.getElementById(id);
