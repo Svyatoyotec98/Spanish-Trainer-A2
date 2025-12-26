@@ -1638,6 +1638,40 @@ if (
             document.getElementById('qaOutput').textContent = '✅ Прогресс заполнен до 100%!';
         }
 
+        function unlockExam() {
+            const profile = getActiveProfile();
+            if (!profile) {
+                alert('Нет активного профиля');
+                return;
+            }
+
+            ensureProgressSkeleton(profile);
+
+            // Set Unidad 1 progress to 80% to unlock exam
+            ['sustantivos', 'adjetivos', 'verbos'].forEach(category => {
+                profile.progress.unidad_1[category] = {
+                    easy10: 80, easy25: 80,
+                    medium10: 80, medium25: 80,
+                    hard10: 80, hard25: 80
+                };
+            });
+
+            // Fill grammar progress for Unidad 1
+            const unidad1Data = vocabularyData.unidad_1;
+            if (unidad1Data && unidad1Data.gramatica) {
+                unidad1Data.gramatica.forEach(exercise => {
+                    profile.progress.unidad_1.gramatica[exercise.id] = 80;
+                });
+            }
+
+            const state = loadAppState();
+            state.profiles[profile.id] = profile;
+            saveAppState(state);
+
+            updateUnidadUI();
+            document.getElementById('qaOutput').textContent = '✅ Экзамен разблокирован! (Прогресс Unidad 1 установлен на 80%)';
+        }
+
         function viewLocalStorage() {
             const state = loadAppState();
             document.getElementById('qaOutput').textContent = JSON.stringify(state, null, 2);
