@@ -2921,17 +2921,265 @@ function exitInteractiveMode() {
     showGrammarList();
 }
 
-// Render Exercise (placeholder for now)
+// ═══════════════════════════════════════════════════════════════
+// EXERCISE SYSTEM
+// ═══════════════════════════════════════════════════════════════
+
+let currentExercise = null;
+
+// Render Exercise based on type
 function renderExercise(exercise) {
+    currentExercise = {
+        data: exercise,
+        answered: false,
+        correct: false
+    };
+
     const exerciseContent = document.getElementById('exerciseContent');
-    exerciseContent.innerHTML = `
-        <p style="text-align: center; color: #666;">
-            Упражнение для этой подтемы будет добавлено позже.
-        </p>
-        <button class="btn btn-primary" onclick="nextSlide()" style="margin-top: 20px;">
-            Продолжить →
-        </button>
+
+    // Render based on type
+    switch (exercise.type) {
+        case 'fill-blank':
+            renderFillBlankExercise(exercise, exerciseContent);
+            break;
+        case 'choose-form':
+            renderChooseFormExercise(exercise, exerciseContent);
+            break;
+        case 'accent-placement':
+            renderAccentPlacementExercise(exercise, exerciseContent);
+            break;
+        case 'ser-or-estar':
+            renderSerEstarExercise(exercise, exerciseContent);
+            break;
+        case 'true-false':
+            renderTrueFalseExercise(exercise, exerciseContent);
+            break;
+        case 'match-translation':
+            renderMatchTranslationExercise(exercise, exerciseContent);
+            break;
+        default:
+            // No exercise defined
+            exerciseContent.innerHTML = `
+                <p style="text-align: center; color: #666;">
+                    Упражнение для этой подтемы будет добавлено позже.
+                </p>
+                <button class="btn btn-primary" onclick="nextSlide()" style="margin-top: 20px;">
+                    Продолжить →
+                </button>
+            `;
+    }
+}
+
+// Type 1: Fill in the blank
+function renderFillBlankExercise(exercise, container) {
+    const { question, options, correct } = exercise;
+    container.innerHTML = `
+        <p style="font-size: 1.2em; text-align: center; margin-bottom: 30px;">${question}</p>
+        <div style="display: flex; flex-direction: column; gap: 15px; max-width: 500px; margin: 0 auto;">
+            ${options.map((option, index) => `
+                <button
+                    class="exercise-option btn"
+                    onclick="checkFillBlankAnswer(${index})"
+                    style="padding: 15px; font-size: 1.1em; text-align: left; background: white; border: 2px solid #ddd; cursor: pointer; transition: all 0.2s;"
+                    onmouseover="this.style.borderColor='#667eea'"
+                    onmouseout="if(!this.classList.contains('correct') && !this.classList.contains('incorrect')) this.style.borderColor='#ddd'"
+                >
+                    ${String.fromCharCode(65 + index)}) ${option}
+                </button>
+            `).join('')}
+        </div>
+        <div id="exerciseFeedback" style="margin-top: 20px; text-align: center;"></div>
     `;
+}
+
+function checkFillBlankAnswer(selectedIndex) {
+    if (currentExercise.answered) return;
+
+    const { correct, explanation } = currentExercise.data;
+    const options = document.querySelectorAll('.exercise-option');
+    const feedback = document.getElementById('exerciseFeedback');
+
+    currentExercise.answered = true;
+    currentExercise.correct = (selectedIndex === correct);
+
+    // Mark correct/incorrect
+    options.forEach((btn, index) => {
+        btn.style.pointerEvents = 'none';
+        if (index === correct) {
+            btn.style.borderColor = '#27ae60';
+            btn.style.background = '#d5f4e6';
+            btn.classList.add('correct');
+        } else if (index === selectedIndex) {
+            btn.style.borderColor = '#e74c3c';
+            btn.style.background = '#f8d7da';
+            btn.classList.add('incorrect');
+        }
+    });
+
+    // Show feedback
+    if (currentExercise.correct) {
+        feedback.innerHTML = `
+            <div style="color: #27ae60; font-size: 1.2em; margin-bottom: 10px;">✅ Правильно!</div>
+            ${explanation ? `<p style="color: #666;">${explanation}</p>` : ''}
+            <button class="btn btn-success" onclick="nextSlide()" style="margin-top: 15px;">Продолжить →</button>
+        `;
+    } else {
+        feedback.innerHTML = `
+            <div style="color: #e74c3c; font-size: 1.2em; margin-bottom: 10px;">❌ Неправильно</div>
+            ${explanation ? `<p style="color: #666;">${explanation}</p>` : ''}
+            <button class="btn btn-primary" onclick="nextSlide()" style="margin-top: 15px;">Продолжить →</button>
+        `;
+    }
+}
+
+// Type 2: Choose verb form (similar to fill-blank but with specific wording)
+function renderChooseFormExercise(exercise, container) {
+    renderFillBlankExercise(exercise, container); // Same implementation
+}
+
+// Type 3: Accent placement
+function renderAccentPlacementExercise(exercise, container) {
+    renderFillBlankExercise(exercise, container); // Same implementation, just shows word variants
+}
+
+// Type 4: Ser or Estar
+function renderSerEstarExercise(exercise, container) {
+    const { sentence, correct, explanation } = exercise;
+    container.innerHTML = `
+        <p style="font-size: 1.2em; text-align: center; margin-bottom: 30px;">${sentence}</p>
+        <div style="display: flex; gap: 20px; justify-content: center;">
+            <button
+                class="exercise-option btn"
+                onclick="checkSerEstarAnswer('ser')"
+                style="padding: 20px 40px; font-size: 1.3em; background: white; border: 2px solid #ddd; cursor: pointer;"
+            >
+                SER
+            </button>
+            <button
+                class="exercise-option btn"
+                onclick="checkSerEstarAnswer('estar')"
+                style="padding: 20px 40px; font-size: 1.3em; background: white; border: 2px solid #ddd; cursor: pointer;"
+            >
+                ESTAR
+            </button>
+        </div>
+        <div id="exerciseFeedback" style="margin-top: 20px; text-align: center;"></div>
+    `;
+}
+
+function checkSerEstarAnswer(selected) {
+    if (currentExercise.answered) return;
+
+    const { correct, explanation } = currentExercise.data;
+    const buttons = document.querySelectorAll('.exercise-option');
+    const feedback = document.getElementById('exerciseFeedback');
+
+    currentExercise.answered = true;
+    currentExercise.correct = (selected === correct);
+
+    // Mark correct/incorrect
+    buttons.forEach(btn => {
+        btn.style.pointerEvents = 'none';
+        const btnText = btn.textContent.trim().toLowerCase();
+        if (btnText === correct) {
+            btn.style.borderColor = '#27ae60';
+            btn.style.background = '#d5f4e6';
+        } else if (btnText === selected) {
+            btn.style.borderColor = '#e74c3c';
+            btn.style.background = '#f8d7da';
+        }
+    });
+
+    // Show feedback
+    if (currentExercise.correct) {
+        feedback.innerHTML = `
+            <div style="color: #27ae60; font-size: 1.2em; margin-bottom: 10px;">✅ Правильно!</div>
+            ${explanation ? `<p style="color: #666;">${explanation}</p>` : ''}
+            <button class="btn btn-success" onclick="nextSlide()" style="margin-top: 15px;">Продолжить →</button>
+        `;
+    } else {
+        feedback.innerHTML = `
+            <div style="color: #e74c3c; font-size: 1.2em; margin-bottom: 10px;">❌ Неправильно</div>
+            ${explanation ? `<p style="color: #666;">${explanation}</p>` : ''}
+            <button class="btn btn-primary" onclick="nextSlide()" style="margin-top: 15px;">Продолжить →</button>
+        `;
+    }
+}
+
+// Type 5: True/False
+function renderTrueFalseExercise(exercise, container) {
+    const { statement, correct, explanation } = exercise;
+    container.innerHTML = `
+        <p style="font-size: 1.2em; text-align: center; margin-bottom: 30px;">${statement}</p>
+        <div style="display: flex; gap: 20px; justify-content: center;">
+            <button
+                class="exercise-option btn"
+                onclick="checkTrueFalseAnswer(true)"
+                style="padding: 20px 40px; font-size: 1.3em; background: white; border: 2px solid #ddd; cursor: pointer;"
+            >
+                ✓ Правда
+            </button>
+            <button
+                class="exercise-option btn"
+                onclick="checkTrueFalseAnswer(false)"
+                style="padding: 20px 40px; font-size: 1.3em; background: white; border: 2px solid #ddd; cursor: pointer;"
+            >
+                ✗ Ложь
+            </button>
+        </div>
+        <div id="exerciseFeedback" style="margin-top: 20px; text-align: center;"></div>
+    `;
+}
+
+function checkTrueFalseAnswer(selected) {
+    if (currentExercise.answered) return;
+
+    const { correct, explanation } = currentExercise.data;
+    const buttons = document.querySelectorAll('.exercise-option');
+    const feedback = document.getElementById('exerciseFeedback');
+
+    currentExercise.answered = true;
+    currentExercise.correct = (selected === correct);
+
+    // Mark correct/incorrect
+    buttons[0].style.pointerEvents = 'none';
+    buttons[1].style.pointerEvents = 'none';
+
+    if (correct) {
+        buttons[0].style.borderColor = '#27ae60';
+        buttons[0].style.background = '#d5f4e6';
+        if (!currentExercise.correct) {
+            buttons[1].style.borderColor = '#e74c3c';
+            buttons[1].style.background = '#f8d7da';
+        }
+    } else {
+        buttons[1].style.borderColor = '#27ae60';
+        buttons[1].style.background = '#d5f4e6';
+        if (!currentExercise.correct) {
+            buttons[0].style.borderColor = '#e74c3c';
+            buttons[0].style.background = '#f8d7da';
+        }
+    }
+
+    // Show feedback
+    if (currentExercise.correct) {
+        feedback.innerHTML = `
+            <div style="color: #27ae60; font-size: 1.2em; margin-bottom: 10px;">✅ Правильно!</div>
+            ${explanation ? `<p style="color: #666;">${explanation}</p>` : ''}
+            <button class="btn btn-success" onclick="nextSlide()" style="margin-top: 15px;">Продолжить →</button>
+        `;
+    } else {
+        feedback.innerHTML = `
+            <div style="color: #e74c3c; font-size: 1.2em; margin-bottom: 10px;">❌ Неправильно</div>
+            ${explanation ? `<p style="color: #666;">${explanation}</p>` : ''}
+            <button class="btn btn-primary" onclick="nextSlide()" style="margin-top: 15px;">Продолжить →</button>
+        `;
+    }
+}
+
+// Type 6: Match translation
+function renderMatchTranslationExercise(exercise, container) {
+    renderFillBlankExercise(exercise, container); // Same as multiple choice
 }
 
 // Initialize Grammar Data on page load

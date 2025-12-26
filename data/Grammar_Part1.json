@@ -27,7 +27,14 @@
                 "УДАРЕНИЕ НА ТРЕТЬЕМ С КОНЦА: ВСЕГДА пишется → te-lé-fo-no"
               ]
             }
-          ]
+          ],
+          "exercise": {
+            "type": "accent-placement",
+            "question": "Как правильно написать слово 'cancion'?<br><br>(Слово заканчивается на -n, ударение на последнем слоге)",
+            "options": ["cancion", "canción", "cáncion", "cancíon"],
+            "correct": 1,
+            "explanation": "Слово заканчивается на -n, ударение на последнем слоге → нужно графическое ударение. Правильно: canción"
+          }
         },
         {
           "title_ru": "Слова из одного слога",
@@ -55,7 +62,14 @@
             "Hay un coche en la esquina. (Есть машина на углу)",
             "Hay gente en la esquina, ¡qué extraño! (Есть люди на углу, как странно!)",
             "Hay coches de policía y una ambulancia. (Есть полицейские машины и скорая помощь)"
-          ]
+          ],
+          "exercise": {
+            "type": "fill-blank",
+            "question": "Выберите правильный вариант:<br><br>Hay ___ coche delante de mi casa.",
+            "options": ["un", "el", "la", "los"],
+            "correct": 0,
+            "explanation": "Используем неопределённый артикль UN, так как говорим о машине впервые."
+          }
         },
         {
           "title_ru": "Определенные артикли",
@@ -100,7 +114,14 @@
             "CERCA (здесь): este libro, esta libreta, estos libros, estas libretas",
             "AHÍ (там): ese libro, esa libreta, esos libros, esas libretas",
             "ALLÍ (вон там): aquel libro, aquella libreta, aquellos libros, aquellas libretas"
-          ]
+          ],
+          "exercise": {
+            "type": "fill-blank",
+            "question": "Выберите правильный вариант:<br><br>___ casa (там, рядом с тобой) es muy grande.",
+            "options": ["Esta", "Esa", "Aquella", "Este"],
+            "correct": 1,
+            "explanation": "Используем ESA для указания на что-то рядом с собеседником (ahí - там). Casa - женский род."
+          }
         },
         {
           "title_ru": "Нейтральные формы: esto, eso, aquello",
@@ -136,7 +157,14 @@
             "nuestro libro, nuestra casa, nuestros libros, nuestras casas (наш/наша/наши)",
             "vuestro libro, vuestra casa, vuestros libros, vuestras casas (ваш/ваша/ваши)",
             "su libro, su casa, sus libros, sus casas (их/Ваш мн.ч.)"
-          ]
+          ],
+          "exercise": {
+            "type": "fill-blank",
+            "question": "Выберите правильный вариант:<br><br>___ hermanas viven en Madrid. (Наши сёстры живут в Мадриде)",
+            "options": ["Nuestro", "Nuestra", "Nuestros", "Nuestras"],
+            "correct": 3,
+            "explanation": "Hermanas - женский род множественное число, поэтому используем NUESTRAS."
+          }
         },
         {
           "title_ru": "Особенности использования su/sus",
@@ -185,7 +213,13 @@
             "El jersey que quiero es azul oscuro. (Свитер, который я хочу, темно-синий - цвет)",
             "El pastel es grande y redondo. (Торт большой и круглый - размер, форма)",
             "Mi hermana es más joven que yo. (Моя сестра моложе меня - возраст)"
-          ]
+          ],
+          "exercise": {
+            "type": "ser-or-estar",
+            "sentence": "Mi hermano ___ médico.",
+            "correct": "ser",
+            "explanation": "Используем SER для профессий. Правильный ответ: Mi hermano ES médico."
+          }
         },
         {
           "title_ru": "Использование ESTAR",
