@@ -1,4 +1,4 @@
-<style>
+
         * {
             margin: 0;
             padding: 0;
@@ -6,7 +6,7 @@
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Nunito', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
             display: flex;
@@ -85,6 +85,23 @@
             width: auto;
             padding: 10px 20px;
             font-size: 1em;
+        }
+
+        .btn-grammar {
+            background: #f4c430;
+            color: #333;
+            width: auto;
+            padding: 24px 22px;
+            font-size: 1em;
+            font-weight: 600;
+            position: absolute;
+            top: 20px;
+            left: 20px;
+        }
+
+        .btn-grammar:hover {
+            background: #ffd700;
+            box-shadow: 0 5px 20px rgba(244, 196, 48, 0.4);
         }
 
         .hidden {
@@ -659,4 +676,216 @@
                 margin-bottom: 20px;
             }
         }
-    </style>
+
+        /* ═══════════════════════════════════════════════════════════════
+           TIMER STYLES
+           ═══════════════════════════════════════════════════════════════ */
+        .timer-container {
+            width: 100%;
+            height: 8px;
+            background: #e0e0e0;
+            border-radius: 4px;
+            margin: 15px 0 5px 0;
+            overflow: hidden;
+        }
+
+        .timer-bar {
+            height: 100%;
+            width: 100%;
+            background: #27ae60;
+            border-radius: 4px;
+            transition: width 0.1s linear, background-color 0.3s ease;
+        }
+
+        .timer-text {
+            text-align: center;
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #27ae60;
+            margin-bottom: 15px;
+            transition: color 0.3s ease;
+        }
+
+        .timer-warning {
+            background: #f39c12 !important;
+        }
+
+        .timer-danger {
+            background: #e74c3c !important;
+        }
+
+        .timer-text-warning {
+            color: #f39c12 !important;
+        }
+
+        .timer-text-danger {
+            color: #e74c3c !important;
+        }
+
+        /* ═══════════════════════════════════════════════════════════════
+           GRAMMAR REFERENCE STYLES - Warm & Cozy Theme
+           ═══════════════════════════════════════════════════════════════ */
+
+        /* Grammar screens get a warm cream background */
+        #grammarListScreen .container,
+        #grammarDetailScreen .container {
+            background: #FFFBF5 !important;
+        }
+
+        #grammarListScreen h1,
+        #grammarDetailScreen h1 {
+            color: #8B6914;
+            font-size: 2em;
+            font-weight: 800;
+            margin-bottom: 15px;
+        }
+
+        #grammarListScreen .subtitle {
+            color: #A0826D;
+            font-size: 1.2em;
+            margin-bottom: 30px;
+        }
+
+        /* Grammar rule cards - warm beige tones */
+        #grammarRulesContainer .category-card {
+            background: linear-gradient(135deg, #FFF8E7 0%, #FFEFD5 100%);
+            border: 2px solid #FFD89C;
+            border-radius: 15px;
+            padding: 25px;
+            margin: 15px 0;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(139, 105, 20, 0.1);
+        }
+
+        #grammarRulesContainer .category-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(139, 105, 20, 0.2);
+            border-color: #FFC04D;
+            background: linear-gradient(135deg, #FFFAF0 0%, #FFE4B5 100%);
+        }
+
+        #grammarRulesContainer .category-title {
+            font-size: 1.4em;
+            color: #8B6914;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        #grammarRulesContainer .category-card p {
+            color: #A0826D;
+            font-size: 1.1em;
+            line-height: 1.6;
+        }
+
+        /* Grammar detail view */
+        #grammarDetailTitle {
+            color: #8B6914;
+            font-size: 2.2em;
+            font-weight: 800;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        #grammarDetailContent {
+            font-size: 1.2em;
+            line-height: 1.8;
+            color: #4A4A4A;
+        }
+
+        #grammarDetailContent h3 {
+            color: #8B6914;
+            font-size: 1.5em;
+            font-weight: 700;
+            margin: 25px 0 15px 0;
+            padding-left: 15px;
+            border-left: 5px solid #FFD89C;
+        }
+
+        #grammarDetailContent p {
+            color: #5A5A5A;
+            font-size: 1.15em;
+            margin: 15px 0;
+            line-height: 1.8;
+        }
+
+        /* Example boxes - soft blue-gray with warm accents */
+        #grammarDetailContent .example {
+            background: linear-gradient(135deg, #F0F8FF 0%, #E6F3FF 100%);
+            border-left: 4px solid #FFD89C;
+            padding: 18px 22px;
+            margin: 15px 0;
+            border-radius: 12px;
+            font-family: 'Nunito', sans-serif;
+            font-size: 1.1em;
+            color: #2C5F7C;
+            box-shadow: 0 3px 10px rgba(139, 105, 20, 0.08);
+        }
+
+        /* Grammar pagination */
+        #grammarPagination {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            margin-top: 35px;
+        }
+
+        #grammarPagination .btn-secondary {
+            background: #D4A574;
+            color: white;
+            font-weight: 600;
+            padding: 12px 24px;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(212, 165, 116, 0.3);
+        }
+
+        #grammarPagination .btn-secondary:hover {
+            background: #C08F5C;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(192, 143, 92, 0.4);
+        }
+
+        #grammarPagination .btn-secondary:disabled {
+            background: #E8D4BB;
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        #grammarPageIndicator {
+            font-size: 1.15em;
+            color: #8B6914;
+            font-weight: 700;
+        }
+
+        /* Back button in grammar screens */
+        #grammarListScreen .btn-back,
+        #grammarDetailScreen .btn-back {
+            background: #A0826D;
+            color: white;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        #grammarListScreen .btn-back:hover,
+        #grammarDetailScreen .btn-back:hover {
+            background: #8B6914;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(139, 105, 20, 0.3);
+        }
+
+        /* Grammar button - update to match warm theme */
+        .btn-grammar {
+            background: linear-gradient(135deg, #FFD89C 0%, #FFC04D 100%);
+            color: #5C4A2A;
+            font-weight: 700;
+            box-shadow: 0 4px 12px rgba(255, 192, 77, 0.4);
+        }
+
+        .btn-grammar:hover {
+            background: linear-gradient(135deg, #FFC04D 0%, #FFB020 100%);
+            box-shadow: 0 6px 20px rgba(255, 176, 32, 0.5);
+            transform: translateY(-2px);
+        }
+

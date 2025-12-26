@@ -1,4 +1,4 @@
-```json
+
 {
   "id": "unidad_1",
   "title": "Unidad 1",
@@ -151,7 +151,140 @@
       {"spanish": "saber", "ru": "знать, уметь"},
       {"spanish": "gustar", "ru": "нравиться"},
       {"spanish": "encantar", "ru": "очень нравиться, восхищать"}
+    ],
+    "gramatica": [
+      {
+        "id": "ejercicio_1",
+        "title": "Preposiciones: con, en, entre",
+        "hint": "con / en / entre",
+        "questions": [
+          {"sentence": "Estudio español ___ una academia de idiomas.", "answer": "en"},
+          {"sentence": "Me gusta practicar ___ mis compañeros de clase.", "answer": "con"},
+          {"sentence": "Vivo ___ Madrid desde hace dos años.", "answer": "en"},
+          {"sentence": "Trabajo ___ un equipo internacional.", "answer": "con"},
+          {"sentence": "La relación ___ nosotros es muy buena.", "answer": "entre"},
+          {"sentence": "Siempre viajo ___ mi familia.", "answer": "con"},
+          {"sentence": "Hay mucha confianza ___ los estudiantes.", "answer": "entre"},
+          {"sentence": "El libro está ___ la mesa.", "answer": "en"},
+          {"sentence": "Hablo ___ mi profesor todos los días.", "answer": "con"},
+          {"sentence": "La diferencia ___ español y portugués no es grande.", "answer": "entre"},
+          {"sentence": "Voy al cine ___ mis amigos.", "answer": "con"},
+          {"sentence": "___ tú y yo no hay secretos.", "answer": "Entre"},
+          {"sentence": "Estamos ___ una situación difícil.", "answer": "en"},
+          {"sentence": "Comparto piso ___ dos compañeros.", "answer": "con"},
+          {"sentence": "El examen es ___ las 9 y las 11.", "answer": "entre"}
+        ]
+      },
+      {
+        "id": "ejercicio_2",
+        "title": "porque vs para",
+        "hint": "porque / para",
+        "questions": [
+          {"sentence": "Estudio español ___ me gusta la cultura latinoamericana.", "answer": "porque"},
+          {"sentence": "Necesito el coche ___ ir al trabajo.", "answer": "para"},
+          {"sentence": "No puedo salir ___ tengo mucho trabajo.", "answer": "porque"},
+          {"sentence": "Este libro es ___ ti.", "answer": "para"},
+          {"sentence": "Aprendo idiomas ___ viajar por el mundo.", "answer": "para"},
+          {"sentence": "Llego tarde ___ hay mucho tráfico.", "answer": "porque"},
+          {"sentence": "Como frutas ___ estar sano.", "answer": "para"},
+          {"sentence": "No duermo bien ___ estoy preocupado.", "answer": "porque"},
+          {"sentence": "Ahorro dinero ___ comprar una casa.", "answer": "para"},
+          {"sentence": "Estudio mucho ___ quiero aprobar el examen.", "answer": "porque"},
+          {"sentence": "Uso esta aplicación ___ practicar gramática.", "answer": "para"},
+          {"sentence": "No voy a la fiesta ___ estoy enfermo.", "answer": "porque"},
+          {"sentence": "Necesitas pasaporte ___ viajar a España.", "answer": "para"},
+          {"sentence": "Me levanto temprano ___ tengo clase a las 8.", "answer": "porque"},
+          {"sentence": "Hago ejercicio ___ mantenerme en forma.", "answer": "para"}
+        ]
+      },
+      {
+        "id": "ejercicio_3",
+        "title": "Presente de indicativo",
+        "hint": "Conjuga el verbo en presente",
+        "questions": [
+          {"sentence": "Yo (hablar) ___ español muy bien.", "answer": "hablo"},
+          {"sentence": "Ella (vivir) ___ en Barcelona.", "answer": "vive"},
+          {"sentence": "Nosotros (comer) ___ en un restaurante.", "answer": "comemos"},
+          {"sentence": "Tú (estudiar) ___ medicina.", "answer": "estudias"},
+          {"sentence": "Ellos (trabajar) ___ en una oficina.", "answer": "trabajan"},
+          {"sentence": "Yo (tener) ___ dos hermanos.", "answer": "tengo"},
+          {"sentence": "Él (ser) ___ profesor de inglés.", "answer": "es"},
+          {"sentence": "Nosotros (ir) ___ al cine los viernes.", "answer": "vamos"},
+          {"sentence": "Tú (poder) ___ venir mañana?", "answer": "puedes"},
+          {"sentence": "Ella (querer) ___ aprender francés.", "answer": "quiere"},
+          {"sentence": "Yo (hacer) ___ deporte todos los días.", "answer": "hago"},
+          {"sentence": "Ellos (saber) ___ la respuesta.", "answer": "saben"},
+          {"sentence": "Nosotros (conocer) ___ bien la ciudad.", "answer": "conocemos"},
+          {"sentence": "Tú (venir) ___ a la fiesta?", "answer": "vienes"},
+          {"sentence": "Él (decir) ___ siempre la verdad.", "answer": "dice"}
+        ]
+      },
+      {
+        "id": "ejercicio_4",
+        "title": "desde / desde hace",
+        "hint": "desde / desde hace",
+        "questions": [
+          {"sentence": "Vivo en España ___ 2015.", "answer": "desde"},
+          {"sentence": "Estudio español ___ tres años.", "answer": "desde hace"},
+          {"sentence": "Trabajo aquí ___ el mes pasado.", "answer": "desde"},
+          {"sentence": "No lo veo ___ mucho tiempo.", "answer": "desde hace"},
+          {"sentence": "Conozco a María ___ la universidad.", "answer": "desde"},
+          {"sentence": "Tengo este coche ___ cinco años.", "answer": "desde hace"},
+          {"sentence": "Vivo solo ___ enero.", "answer": "desde"},
+          {"sentence": "Practico yoga ___ dos meses.", "answer": "desde hace"},
+          {"sentence": "No fumo ___ el año pasado.", "answer": "desde"},
+          {"sentence": "Estamos casados ___ diez años.", "answer": "desde hace"},
+          {"sentence": "Toco la guitarra ___ niño.", "answer": "desde"},
+          {"sentence": "Espero aquí ___ media hora.", "answer": "desde hace"},
+          {"sentence": "No como carne ___ 2020.", "answer": "desde"},
+          {"sentence": "Aprendo alemán ___ seis meses.", "answer": "desde hace"},
+          {"sentence": "Conozco este lugar ___ siempre.", "answer": "desde"}
+        ]
+      },
+      {
+        "id": "ejercicio_5",
+        "title": "ser vs estar / sentirse",
+        "hint": "ser / estar / sentirse",
+        "questions": [
+          {"sentence": "María ___ muy simpática.", "answer": "es"},
+          {"sentence": "Hoy yo ___ muy cansado.", "answer": "estoy"},
+          {"sentence": "Él ___ de Argentina.", "answer": "es"},
+          {"sentence": "La puerta ___ cerrada.", "answer": "está"},
+          {"sentence": "Yo me ___ feliz hoy.", "answer": "siento"},
+          {"sentence": "Esta casa ___ muy grande.", "answer": "es"},
+          {"sentence": "El café ___ frío.", "answer": "está"},
+          {"sentence": "Nosotros ___ estudiantes.", "answer": "somos"},
+          {"sentence": "¿Cómo te ___ hoy?", "answer": "sientes"},
+          {"sentence": "El restaurante ___ cerca de aquí.", "answer": "está"},
+          {"sentence": "Ella ___ médica.", "answer": "es"},
+          {"sentence": "Me ___ un poco nervioso.", "answer": "siento"},
+          {"sentence": "La comida ___ deliciosa.", "answer": "está"},
+          {"sentence": "Ellos ___ muy contentos.", "answer": "están"},
+          {"sentence": "Mi habitación ___ ordenada hoy.", "answer": "está"}
+        ]
+      },
+      {
+        "id": "ejercicio_6",
+        "title": "Recomendaciones: tienes que / lo mejor es / va muy bien",
+        "hint": "tienes que / lo mejor es / va muy bien",
+        "questions": [
+          {"sentence": "Para aprender español, ___ practicar todos los días.", "answer": "tienes que"},
+          {"sentence": "Para relajarte, ___ hacer yoga.", "answer": "va muy bien"},
+          {"sentence": "Si quieres aprobar, ___ estudiar más.", "answer": "lo mejor es"},
+          {"sentence": "___ hablar con nativos para mejorar.", "answer": "Tienes que"},
+          {"sentence": "Para el dolor de cabeza, ___ tomar agua.", "answer": "va muy bien"},
+          {"sentence": "___ leer libros en español.", "answer": "Lo mejor es"},
+          {"sentence": "Para estar sano, ___ comer frutas.", "answer": "tienes que"},
+          {"sentence": "Para dormir bien, ___ no usar el móvil.", "answer": "lo mejor es"},
+          {"sentence": "El té ___ para el estrés.", "answer": "va muy bien"},
+          {"sentence": "___ hacer ejercicio regularmente.", "answer": "Tienes que"},
+          {"sentence": "Para viajar, ___ ahorrar dinero.", "answer": "lo mejor es"},
+          {"sentence": "Caminar ___ para la salud.", "answer": "va muy bien"},
+          {"sentence": "___ escuchar podcasts en español.", "answer": "Tienes que"},
+          {"sentence": "___ practicar la pronunciación.", "answer": "Lo mejor es"},
+          {"sentence": "La meditación ___ para concentrarse.", "answer": "va muy bien"}
+        ]
+      }
     ]
   }
 }
-```
