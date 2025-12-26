@@ -2134,7 +2134,14 @@ async function loadGrammarData() {
         const response = await fetch('data/Grammar_Part1.json');
         const data = await response.json();
         grammarData = data.rules || [];
-        console.log(`Loaded ${grammarData.length} grammar rules`);
+        console.log(`%c📚 GRAMMAR DATA LOADED`, 'background: #4CAF50; color: white; padding: 5px; font-weight: bold;');
+        console.log(`   Version: ${data.version || 'unknown'}`);
+        console.log(`   Total rules: ${grammarData.length}`);
+        console.log(`   First rule: ${grammarData[0]?.id}`);
+        console.log(`   Last rule: ${grammarData[grammarData.length - 1]?.id}`);
+        if (grammarData.length < 31) {
+            console.warn(`%c⚠️ WARNING: Expected 31 rules, but got ${grammarData.length}`, 'background: #FF5722; color: white; padding: 5px;');
+        }
     } catch (error) {
         console.error('Error loading grammar data:', error);
         grammarData = [];
