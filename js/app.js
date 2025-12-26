@@ -1265,7 +1265,6 @@ if (
         }
 
         function generateExamQuestions() {
-            const allQuestions = [];
             const unidadData = window.unidadData;
 
             if (!unidadData || !unidadData.categories) {
@@ -1273,43 +1272,35 @@ if (
                 return [];
             }
 
-            // Collect all vocabulary from all categories
-            for (const [categoryName, items] of Object.entries(unidadData.categories)) {
-                items.forEach(item => {
-                    allQuestions.push({
-                        spanish: item.spanish,
-                        ru: item.ru,
-                        category: categoryName
-                    });
-                });
-            }
+            const examQuestions = [];
+            const targetCategories = ['sustantivos', 'adjetivos', 'verbos'];
+            const questionsPerCategory = 10;
 
-            // Shuffle and select EXAM_QUESTIONS_COUNT questions
-            const shuffled = allQuestions.sort(() => Math.random() - 0.5);
-            const selected = shuffled.slice(0, EXAM_QUESTIONS_COUNT);
+            // Get 10 questions from each category
+            targetCategories.forEach(categoryName => {
+                const categoryItems = unidadData.categories[categoryName];
 
-            // Generate options for each question
-            return selected.map(question => {
-                const correctAnswer = question.ru;
-                const incorrectAnswers = [];
-
-                // Get 3 random incorrect answers from the same pool
-                while (incorrectAnswers.length < 3) {
-                    const randomQ = shuffled[Math.floor(Math.random() * shuffled.length)];
-                    if (randomQ.ru !== correctAnswer && !incorrectAnswers.includes(randomQ.ru)) {
-                        incorrectAnswers.push(randomQ.ru);
-                    }
+                if (!categoryItems || categoryItems.length === 0) {
+                    console.warn(`Category ${categoryName} is empty`);
+                    return;
                 }
 
-                // Shuffle options
-                const options = [correctAnswer, ...incorrectAnswers].sort(() => Math.random() - 0.5);
+                // Shuffle and take 10 questions
+                const shuffled = [...categoryItems].sort(() => Math.random() - 0.5);
+                const selected = shuffled.slice(0, questionsPerCategory);
 
-                return {
-                    ...question,
-                    correctAnswer,
-                    options
-                };
+                selected.forEach(item => {
+                    examQuestions.push({
+                        spanish: item.spanish,
+                        ru: item.ru,
+                        category: categoryName,
+                        correctAnswer: item.ru
+                    });
+                });
             });
+
+            // Shuffle all questions to mix categories
+            return examQuestions.sort(() => Math.random() - 0.5);
         }
 
         function showExamQuestion() {
@@ -1327,17 +1318,19 @@ if (
             // Update question text
             document.getElementById('examQuestionText').textContent = question.spanish;
 
-            // Render options
-            const optionsContainer = document.getElementById('examOptionsContainer');
-            optionsContainer.innerHTML = '';
+            // Show category hint
+            const categoryHints = {
+                'sustantivos': '(Существительное)',
+                'adjetivos': '(Прилагательное)',
+                'verbos': '(Глагол)'
+            };
+            document.getElementById('examCategoryHint').textContent = categoryHints[question.category] || '';
 
-            question.options.forEach((option, index) => {
-                const button = document.createElement('button');
-                button.className = 'option-btn';
-                button.textContent = option;
-                button.onclick = () => handleExamAnswer(option);
-                optionsContainer.appendChild(button);
-            });
+            // Clear and focus input
+            const input = document.getElementById('examAnswerInput');
+            input.value = '';
+            input.disabled = false;
+            input.focus();
 
             // Start timer
             timeLeft = EXAM_TIMER_DURATION;
@@ -1362,17 +1355,39 @@ if (
             }
         }
 
+        function submitExamAnswer() {
+            const input = document.getElementById('examAnswerInput');
+            const userAnswer = input.value.trim();
+
+            if (!userAnswer) {
+                alert('Пожалуйста, введите ответ');
+                return;
+            }
+
+            // Disable input to prevent multiple submissions
+            input.disabled = true;
+
+            handleExamAnswer(userAnswer);
+        }
+
         function handleExamAnswer(selectedAnswer) {
             clearInterval(examTimerInterval);
 
             const question = examQuestions[examCurrentIndex];
-            const isCorrect = selectedAnswer === question.correctAnswer;
+
+            // Normalize answers for comparison (lowercase, trim)
+            const normalizedUserAnswer = (selectedAnswer || '').toLowerCase().trim();
+            const normalizedCorrectAnswer = question.correctAnswer.toLowerCase().trim();
+
+            // Check if answer is correct
+            const isCorrect = normalizedUserAnswer === normalizedCorrectAnswer;
 
             examAnswers.push({
                 question: question.spanish,
                 correctAnswer: question.correctAnswer,
-                selectedAnswer: selectedAnswer,
-                isCorrect: isCorrect
+                selectedAnswer: selectedAnswer || 'Нет ответа',
+                isCorrect: isCorrect,
+                category: question.category
             });
 
             if (isCorrect) {
@@ -1431,13 +1446,20 @@ if (
                 const icon = answer.isCorrect ? '✅' : '❌';
                 const color = answer.isCorrect ? '#4CAF50' : '#FF5722';
 
+                const categoryHints = {
+                    'sustantivos': 'Существительное',
+                    'adjetivos': 'Прилагательное',
+                    'verbos': 'Глагол'
+                };
+                const categoryName = categoryHints[answer.category] || answer.category;
+
                 resultDiv.innerHTML = `
                     <div style="display: flex; align-items: center; gap: 10px;">
                         <span style="font-size: 1.5em;">${icon}</span>
                         <div style="flex: 1;">
-                            <strong>${index + 1}. ${answer.question}</strong><br>
+                            <strong>${index + 1}. ${answer.question}</strong> <span style="color: #999; font-size: 0.9em;">(${categoryName})</span><br>
                             <span style="color: ${color};">
-                                Ваш ответ: ${answer.selectedAnswer || 'Нет ответа'}
+                                Ваш ответ: ${answer.selectedAnswer}
                             </span><br>
                             ${!answer.isCorrect ? `<span style="color: #4CAF50;">Правильный ответ: ${answer.correctAnswer}</span>` : ''}
                         </div>

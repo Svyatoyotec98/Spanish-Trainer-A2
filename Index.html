@@ -598,7 +598,19 @@
 
             <div class="question-card">
                 <h2 id="examQuestionText">Вопрос</h2>
-                <div id="examOptionsContainer" class="options-grid"></div>
+                <p class="subtitle" id="examCategoryHint" style="color: #666; margin-bottom: 20px;"></p>
+                <div style="display: flex; flex-direction: column; gap: 15px; max-width: 500px; margin: 0 auto;">
+                    <input
+                        type="text"
+                        id="examAnswerInput"
+                        placeholder="Введите перевод на русский..."
+                        style="padding: 15px; font-size: 1.2em; border: 2px solid #ddd; border-radius: 10px; text-align: center;"
+                        onkeypress="if(event.key === 'Enter') submitExamAnswer()"
+                    />
+                    <button class="btn btn-primary" onclick="submitExamAnswer()" style="font-size: 1.1em;">
+                        Ответить
+                    </button>
+                </div>
             </div>
 
             <button class="btn btn-back" onclick="confirmExitExam()" style="margin-top: 30px;">Выйти из экзамена</button>
