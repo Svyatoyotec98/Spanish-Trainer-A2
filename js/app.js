@@ -2980,7 +2980,7 @@ function renderFillBlankExercise(exercise, container) {
                 <button
                     class="exercise-option btn"
                     onclick="checkFillBlankAnswer(${index})"
-                    style="padding: 15px; font-size: 1.1em; text-align: left; background: white; border: 2px solid #ddd; cursor: pointer; transition: all 0.2s;"
+                    style="padding: 15px; font-size: 1.1em; text-align: left; background: white; border: 2px solid #ddd; cursor: pointer; transition: all 0.2s; color: #333;"
                     onmouseover="this.style.borderColor='#667eea'"
                     onmouseout="if(!this.classList.contains('correct') && !this.classList.contains('incorrect')) this.style.borderColor='#ddd'"
                 >
@@ -3051,14 +3051,14 @@ function renderSerEstarExercise(exercise, container) {
             <button
                 class="exercise-option btn"
                 onclick="checkSerEstarAnswer('ser')"
-                style="padding: 20px 40px; font-size: 1.3em; background: white; border: 2px solid #ddd; cursor: pointer;"
+                style="padding: 20px 40px; font-size: 1.3em; background: white; border: 2px solid #ddd; cursor: pointer; color: #333;"
             >
                 SER
             </button>
             <button
                 class="exercise-option btn"
                 onclick="checkSerEstarAnswer('estar')"
-                style="padding: 20px 40px; font-size: 1.3em; background: white; border: 2px solid #ddd; cursor: pointer;"
+                style="padding: 20px 40px; font-size: 1.3em; background: white; border: 2px solid #ddd; cursor: pointer; color: #333;"
             >
                 ESTAR
             </button>
@@ -3115,14 +3115,14 @@ function renderTrueFalseExercise(exercise, container) {
             <button
                 class="exercise-option btn"
                 onclick="checkTrueFalseAnswer(true)"
-                style="padding: 20px 40px; font-size: 1.3em; background: white; border: 2px solid #ddd; cursor: pointer;"
+                style="padding: 20px 40px; font-size: 1.3em; background: white; border: 2px solid #ddd; cursor: pointer; color: #333;"
             >
                 ✓ Правда
             </button>
             <button
                 class="exercise-option btn"
                 onclick="checkTrueFalseAnswer(false)"
-                style="padding: 20px 40px; font-size: 1.3em; background: white; border: 2px solid #ddd; cursor: pointer;"
+                style="padding: 20px 40px; font-size: 1.3em; background: white; border: 2px solid #ddd; cursor: pointer; color: #333;"
             >
                 ✗ Ложь
             </button>
