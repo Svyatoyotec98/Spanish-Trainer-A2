@@ -511,6 +511,7 @@ function showProfileSelect() {
         let examTimerInterval = null;
         let breakTimerInterval = null;
         let breakTimeLeft = 30;
+        let breaksTaken = new Set(); // Track which breaks have been shown
         const EXAM_QUESTIONS_COUNT = 60;
         const EXAM_TIMER_DURATION = 15;
         const BREAK_DURATION = 30; // 30 seconds break
@@ -1289,6 +1290,7 @@ if (
             examCurrentIndex = 0;
             examScore = 0;
             examAnswers = [];
+            breaksTaken.clear(); // Reset breaks tracker
             examStartTime = Date.now();
 
             // Show exam screen
@@ -1441,8 +1443,9 @@ if (
                 return;
             }
 
-            // Check if we need a break (after questions 10, 20, 30)
-            if (examCurrentIndex > 0 && examCurrentIndex % 10 === 0) {
+            // Check if we need a break (after questions 10, 20, 30) and haven't shown it yet
+            if (examCurrentIndex > 0 && examCurrentIndex % 10 === 0 && !breaksTaken.has(examCurrentIndex)) {
+                breaksTaken.add(examCurrentIndex);
                 startBreak();
                 return;
             }
