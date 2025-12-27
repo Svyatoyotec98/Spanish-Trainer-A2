@@ -511,7 +511,7 @@ function showProfileSelect() {
         let examTimerInterval = null;
         let breakTimerInterval = null;
         let breakTimeLeft = 30;
-        const EXAM_QUESTIONS_COUNT = 30;
+        const EXAM_QUESTIONS_COUNT = 60;
         const EXAM_TIMER_DURATION = 15;
         const BREAK_DURATION = 30; // 30 seconds break
 
@@ -1441,22 +1441,36 @@ if (
                 return;
             }
 
+            // Check if we need a break (after questions 10, 20, 30)
+            if (examCurrentIndex > 0 && examCurrentIndex % 10 === 0) {
+                startBreak();
+                return;
+            }
+
             const question = examQuestions[examCurrentIndex];
 
             // Update progress
             document.getElementById('examProgress').textContent =
                 `Вопрос ${examCurrentIndex + 1} из ${EXAM_QUESTIONS_COUNT}`;
 
-            // Update question text
-            document.getElementById('examQuestionText').textContent = question.spanish;
+            // Show different UI based on question type
+            if (question.type === 'grammar') {
+                // Grammar question: show sentence with blank
+                document.getElementById('examQuestionText').textContent = question.sentence;
+                document.getElementById('examCategoryHint').textContent = question.hint || '';
+                document.getElementById('examAnswerInput').placeholder = 'Введите пропущенное слово...';
+            } else {
+                // Vocabulary question: show Spanish word
+                document.getElementById('examQuestionText').textContent = question.spanish;
 
-            // Show category hint
-            const categoryHints = {
-                'sustantivos': '(Существительное)',
-                'adjetivos': '(Прилагательное)',
-                'verbos': '(Глагол)'
-            };
-            document.getElementById('examCategoryHint').textContent = categoryHints[question.category] || '';
+                const categoryHints = {
+                    'sustantivos': '(Существительное)',
+                    'adjetivos': '(Прилагательное)',
+                    'verbos': '(Глагол)'
+                };
+                document.getElementById('examCategoryHint').textContent = categoryHints[question.category] || '';
+                document.getElementById('examAnswerInput').placeholder = 'Введите перевод на русский...';
+            }
 
             // Clear and focus input
             const input = document.getElementById('examAnswerInput');
@@ -1487,6 +1501,42 @@ if (
             }
         }
 
+        function startBreak() {
+            // Hide exam screen, show break screen
+            document.getElementById('examScreen').classList.add('hidden');
+            document.getElementById('breakScreen').classList.remove('hidden');
+
+            // Reset break timer
+            breakTimeLeft = BREAK_DURATION;
+            document.getElementById('breakTimerDisplay').textContent = breakTimeLeft;
+
+            // Start countdown
+            clearInterval(breakTimerInterval);
+            breakTimerInterval = setInterval(() => {
+                breakTimeLeft--;
+                document.getElementById('breakTimerDisplay').textContent = breakTimeLeft;
+
+                if (breakTimeLeft <= 0) {
+                    clearInterval(breakTimerInterval);
+                    endBreak();
+                }
+            }, 1000);
+        }
+
+        function skipBreak() {
+            clearInterval(breakTimerInterval);
+            endBreak();
+        }
+
+        function endBreak() {
+            // Hide break screen, show exam screen
+            document.getElementById('breakScreen').classList.add('hidden');
+            document.getElementById('examScreen').classList.remove('hidden');
+
+            // Continue with next question
+            showExamQuestion();
+        }
+
         function submitExamAnswer() {
             const input = document.getElementById('examAnswerInput');
             const userAnswer = input.value.trim();
@@ -1514,12 +1564,16 @@ if (
             // Check if answer is correct
             const isCorrect = normalizedUserAnswer === normalizedCorrectAnswer;
 
+            // Store answer with appropriate question text
+            const questionText = question.type === 'grammar' ? question.sentence : question.spanish;
+
             examAnswers.push({
-                question: question.spanish,
+                question: questionText,
                 correctAnswer: question.correctAnswer,
                 selectedAnswer: selectedAnswer || 'Нет ответа',
                 isCorrect: isCorrect,
-                category: question.category
+                category: question.category || question.cluster,
+                type: question.type
             });
 
             if (isCorrect) {
