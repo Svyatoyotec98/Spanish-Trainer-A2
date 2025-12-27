@@ -1275,11 +1275,20 @@ if (
         // ═══════════════════════════════════════════════════════════════
 
         async function startExam() {
+            // Ensure currentUnidad is set (default to unidad_1)
+            if (!currentUnidad) {
+                currentUnidad = 'unidad_1';
+                console.warn('currentUnidad was not set, defaulting to unidad_1');
+            }
+
+            console.log('Starting exam for:', currentUnidad);
+
             // Load Unidad1 data if not loaded
             if (!window.unidadData) {
                 try {
                     const response = await fetch('data/Unidad1.json');
                     window.unidadData = await response.json();
+                    console.log('✅ Loaded Unidad1.json:', window.unidadData);
                 } catch (error) {
                     console.error('Error loading Unidad1 data:', error);
                     alert('Ошибка загрузки данных для экзамена');
@@ -1289,6 +1298,13 @@ if (
 
             // Generate exam questions
             examQuestions = generateExamQuestions();
+            console.log(`Total exam questions generated: ${examQuestions.length}`);
+
+            if (examQuestions.length === 0) {
+                alert('Ошибка: не удалось сгенерировать вопросы для экзамена');
+                return;
+            }
+
             examCurrentIndex = 0;
             examScore = 0;
             examAnswers = [];
@@ -1305,20 +1321,31 @@ if (
 
         // Get 5 questions from a grammar cluster
         function get5QuestionsFromCluster(cluster, unidadData) {
+            console.log(`get5QuestionsFromCluster called for: ${cluster.name}`);
+            console.log('Cluster exercises:', cluster.exercises);
+
             if (!unidadData || !unidadData.gramatica) {
-                console.error('No grammar data available');
+                console.error('No grammar data available in unidadData');
+                console.log('unidadData:', unidadData);
                 return [];
             }
 
             const allGrammarExercises = unidadData.gramatica;
+            console.log(`Total grammar exercises in data: ${allGrammarExercises.length}`);
             const clusterQuestions = [];
             const questionCounts = {}; // Track how many questions taken from each exercise
 
             // Get exercises for this cluster
             const exerciseIds = cluster.exercises;
             const availableExercises = exerciseIds
-                .map(id => allGrammarExercises.find(ex => ex.id === id))
+                .map(id => {
+                    const found = allGrammarExercises.find(ex => ex.id === id);
+                    console.log(`Looking for ${id}: ${found ? 'found' : 'NOT FOUND'}`);
+                    return found;
+                })
                 .filter(ex => ex && ex.questions && ex.questions.length > 0);
+
+            console.log(`Found ${availableExercises.length} available exercises for cluster ${cluster.name}`);
 
             if (availableExercises.length === 0) {
                 console.warn(`No exercises found for cluster: ${cluster.name}`);
@@ -1328,13 +1355,16 @@ if (
             // If only one exercise, take 5 questions from it
             if (availableExercises.length === 1) {
                 const exercise = availableExercises[0];
+                console.log(`Single exercise mode: ${exercise.id} has ${exercise.questions.length} questions`);
                 const shuffled = [...exercise.questions].sort(() => Math.random() - 0.5);
-                return shuffled.slice(0, 5).map(q => ({
+                const selected = shuffled.slice(0, 5).map(q => ({
                     ...q,
                     type: 'grammar',
                     cluster: cluster.name,
                     hint: exercise.hint
                 }));
+                console.log(`Returning ${selected.length} questions from single exercise`);
+                return selected;
             }
 
             // Multiple exercises: take max 2 from each
