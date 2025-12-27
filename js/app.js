@@ -509,8 +509,41 @@ function showProfileSelect() {
         let examAnswers = [];
         let examStartTime = null;
         let examTimerInterval = null;
+        let breakTimerInterval = null;
+        let breakTimeLeft = 30;
         const EXAM_QUESTIONS_COUNT = 30;
         const EXAM_TIMER_DURATION = 15;
+        const BREAK_DURATION = 30; // 30 seconds break
+
+        // Grammar clusters for exam
+        const GRAMMAR_CLUSTERS = {
+            unidad_1: [
+                {
+                    name: "Предлоги",
+                    exercises: ["ejercicio_1", "ejercicio_2"] // con/en/entre, porque/para
+                },
+                {
+                    name: "Presente de indicativo",
+                    exercises: ["ejercicio_3", "ejercicio_7"] // базовые формы, возвратные
+                },
+                {
+                    name: "Desde / desde hace",
+                    exercises: ["ejercicio_4"] // только одно упражнение
+                },
+                {
+                    name: "Ser/estar/sentirse",
+                    exercises: ["ejercicio_5"] // только одно упражнение
+                },
+                {
+                    name: "Согласование глагола",
+                    exercises: ["ejercicio_8", "ejercicio_9"] // me cuesta/cuestan, me da/dan
+                },
+                {
+                    name: "Рекомендации и состояния",
+                    exercises: ["ejercicio_6", "ejercicio_10"] // tienes que/lo mejor es, me cuesta/me da miedo
+                }
+            ]
+        };
 
         const vocabularyData = {
             unidad_1: {
@@ -1266,6 +1299,80 @@ if (
             showExamQuestion();
         }
 
+        // Get 5 questions from a grammar cluster
+        function get5QuestionsFromCluster(cluster, unidadData) {
+            if (!unidadData || !unidadData.gramatica) {
+                console.error('No grammar data available');
+                return [];
+            }
+
+            const allGrammarExercises = unidadData.gramatica;
+            const clusterQuestions = [];
+            const questionCounts = {}; // Track how many questions taken from each exercise
+
+            // Get exercises for this cluster
+            const exerciseIds = cluster.exercises;
+            const availableExercises = exerciseIds
+                .map(id => allGrammarExercises.find(ex => ex.id === id))
+                .filter(ex => ex && ex.questions && ex.questions.length > 0);
+
+            if (availableExercises.length === 0) {
+                console.warn(`No exercises found for cluster: ${cluster.name}`);
+                return [];
+            }
+
+            // If only one exercise, take 5 questions from it
+            if (availableExercises.length === 1) {
+                const exercise = availableExercises[0];
+                const shuffled = [...exercise.questions].sort(() => Math.random() - 0.5);
+                return shuffled.slice(0, 5).map(q => ({
+                    ...q,
+                    type: 'grammar',
+                    cluster: cluster.name,
+                    hint: exercise.hint
+                }));
+            }
+
+            // Multiple exercises: take max 2 from each
+            const maxPerExercise = 2;
+            let attempts = 0;
+            const maxAttempts = 100;
+
+            while (clusterQuestions.length < 5 && attempts < maxAttempts) {
+                attempts++;
+
+                // Pick random exercise
+                const randomExercise = availableExercises[Math.floor(Math.random() * availableExercises.length)];
+                const exerciseId = randomExercise.id;
+
+                // Initialize counter
+                if (!questionCounts[exerciseId]) {
+                    questionCounts[exerciseId] = 0;
+                }
+
+                // Check if we can still take from this exercise
+                if (questionCounts[exerciseId] < maxPerExercise) {
+                    // Get random question that hasn't been used
+                    const availableQuestions = randomExercise.questions.filter(q =>
+                        !clusterQuestions.some(cq => cq.sentence === q.sentence)
+                    );
+
+                    if (availableQuestions.length > 0) {
+                        const randomQuestion = availableQuestions[Math.floor(Math.random() * availableQuestions.length)];
+                        clusterQuestions.push({
+                            ...randomQuestion,
+                            type: 'grammar',
+                            cluster: cluster.name,
+                            hint: randomExercise.hint
+                        });
+                        questionCounts[exerciseId]++;
+                    }
+                }
+            }
+
+            return clusterQuestions;
+        }
+
         function generateExamQuestions() {
             const unidadData = window.unidadData;
 
@@ -1275,10 +1382,13 @@ if (
             }
 
             const examQuestions = [];
+
+            // ========================================
+            // PART 1: VOCABULARY (30 questions)
+            // ========================================
             const targetCategories = ['sustantivos', 'adjetivos', 'verbos'];
             const questionsPerCategory = 10;
 
-            // Get 10 questions from each category
             targetCategories.forEach(categoryName => {
                 const categoryItems = unidadData.categories[categoryName];
 
@@ -1296,13 +1406,33 @@ if (
                         spanish: item.spanish,
                         ru: item.ru,
                         category: categoryName,
+                        type: 'vocabulary',
                         correctAnswer: item.ru
                     });
                 });
             });
 
-            // Shuffle all questions to mix categories
-            return examQuestions.sort(() => Math.random() - 0.5);
+            // ========================================
+            // PART 2: GRAMMAR (5 questions per cluster)
+            // ========================================
+            const clusters = GRAMMAR_CLUSTERS[currentUnidad];
+            if (clusters) {
+                clusters.forEach(cluster => {
+                    const clusterQuestions = get5QuestionsFromCluster(cluster, unidadData);
+                    clusterQuestions.forEach(q => {
+                        examQuestions.push({
+                            sentence: q.sentence,
+                            correctAnswer: q.answer,
+                            type: 'grammar',
+                            cluster: q.cluster,
+                            hint: q.hint
+                        });
+                    });
+                });
+            }
+
+            console.log(`✅ Generated ${examQuestions.length} exam questions (30 vocabulary + ${clusters ? clusters.length * 5 : 0} grammar)`);
+            return examQuestions;
         }
 
         function showExamQuestion() {
@@ -2120,21 +2250,36 @@ let gramTimerInterval = null;
 let gramTimeLeft = 10;
 let __gramIsAwaitingNext = false;
 
-// Load grammar data from vocabulary data (loaded from JSON)
+// Load grammar data from JSON file
 function loadGramaticaExercises() {
-    const unidadData = vocabularyData[currentUnidad];
+    const unidadData = window.unidadData;
     if (unidadData && unidadData.gramatica) {
         gramaticaExercises = unidadData.gramatica;
+        console.log(`✅ Loaded ${gramaticaExercises.length} grammar exercises from JSON`);
     } else {
         gramaticaExercises = [];
+        console.warn('⚠️ No grammar exercises found in unidadData');
     }
 }
 
 // Show Gramática menu with pagination
-function showGramaticaMenu() {
+async function showGramaticaMenu() {
     if (!currentUnidad) {
         console.error('showGramaticaMenu called without currentUnidad');
         return;
+    }
+
+    // Load Unidad data if not loaded
+    if (!window.unidadData) {
+        try {
+            const response = await fetch('data/Unidad1.json');
+            window.unidadData = await response.json();
+            console.log('✅ Loaded Unidad1.json for grammar exercises');
+        } catch (error) {
+            console.error('Error loading Unidad1 data:', error);
+            alert('Ошибка загрузки данных для упражнений');
+            return;
+        }
     }
 
     loadGramaticaExercises();

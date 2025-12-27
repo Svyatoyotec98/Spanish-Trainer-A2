@@ -644,6 +644,30 @@
         </div>
 
         <!-- ═══════════════════════════════════════════════════════════════
+             BREAK SCREEN
+             ═══════════════════════════════════════════════════════════════ -->
+        <div id="breakScreen" class="question-container hidden">
+            <div style="text-align: center; padding: 40px;">
+                <h1 style="font-size: 3em; margin-bottom: 20px;">☕ Перерыв</h1>
+                <p style="font-size: 1.3em; color: #666; margin-bottom: 40px;">
+                    Отдохните немного перед следующим блоком вопросов
+                </p>
+
+                <div style="font-size: 8em; font-weight: bold; color: #667eea; margin: 40px 0;" id="breakTimerDisplay">
+                    30
+                </div>
+
+                <p style="font-size: 1.1em; color: #999;">
+                    Экзамен автоматически продолжится через...
+                </p>
+
+                <button class="btn btn-primary" onclick="skipBreak()" style="margin-top: 40px; font-size: 1.1em;">
+                    Пропустить перерыв →
+                </button>
+            </div>
+        </div>
+
+        <!-- ═══════════════════════════════════════════════════════════════
              EXAM RESULTS SCREEN
              ═══════════════════════════════════════════════════════════════ -->
         <div id="examResultsScreen" class="results-container hidden">
