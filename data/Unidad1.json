@@ -284,6 +284,94 @@
           {"sentence": "___ practicar la pronunciación.", "answer": "Lo mejor es"},
           {"sentence": "La meditación ___ para concentrarse.", "answer": "va muy bien"}
         ]
+      },
+      {
+        "id": "ejercicio_7",
+        "title": "Presente: verbos reflexivos e irregulares",
+        "hint": "Conjuga el verbo en presente",
+        "questions": [
+          {"sentence": "(Vivir/yo) ___ en Madrid desde hace 15 años.", "answer": "Vivo"},
+          {"sentence": "(Conocer/yo) ___ a mucha gente aquí.", "answer": "Conozco"},
+          {"sentence": "No (pensar/yo) ___ volver a Francia.", "answer": "pienso"},
+          {"sentence": "(Levantarse/yo) ___ a las 8 h cada día.", "answer": "Me levanto"},
+          {"sentence": "(Ducharse/yo) ___ antes de salir.", "answer": "Me ducho"},
+          {"sentence": "(Vestirse/yo) ___ rápidamente.", "answer": "Me visto"},
+          {"sentence": "Sobre las 9 h (salir/yo) ___ de casa.", "answer": "salgo"},
+          {"sentence": "(Tener/yo) ___ la clínica muy cerca.", "answer": "Tengo"},
+          {"sentence": "(Poder/yo) ___ desayunar tranquilamente.", "answer": "Puedo"},
+          {"sentence": "(Empezar/yo) ___ a trabajar a las 9:30 h.", "answer": "Empiezo"},
+          {"sentence": "A mediodía (cerrar/yo) ___ de 14 h a 16:30 h.", "answer": "cierro"},
+          {"sentence": "Por la tarde (trabajar/yo) ___ hasta las 20 h.", "answer": "trabajo"},
+          {"sentence": "Desde pequeña (sentir/yo) ___ un cariño especial por los animales.", "answer": "siento"},
+          {"sentence": "¿A qué hora (acostarse/tú) ___ normalmente?", "answer": "te acuestas"},
+          {"sentence": "Mi hermano (despertarse) ___ muy temprano.", "answer": "se despierta"}
+        ]
+      },
+      {
+        "id": "ejercicio_8",
+        "title": "Concordancia: me cuesta/cuestan, va/van",
+        "hint": "cuesta / cuestan / va / van",
+        "questions": [
+          {"sentence": "Me ___ aprender los verbos.", "answer": "cuesta"},
+          {"sentence": "Para aprender vocabulario ___ muy bien leer.", "answer": "va"},
+          {"sentence": "Me ___ algunos sonidos del español.", "answer": "cuestan"},
+          {"sentence": "A Peer y a mí nos ___ mucho entender a la gente.", "answer": "cuesta"},
+          {"sentence": "Para recordar una palabra ___ bien escribirla.", "answer": "va"},
+          {"sentence": "A casi todos nos ___ hablar rápido.", "answer": "cuesta"},
+          {"sentence": "Para estudiar ___ bien tener una gramática.", "answer": "va"},
+          {"sentence": "A Linnéa también le ___ las palabras muy largas.", "answer": "cuestan"},
+          {"sentence": "Me ___ la pronunciación de la erre.", "answer": "cuesta"},
+          {"sentence": "Para practicar ___ muy bien ver películas.", "answer": "va"},
+          {"sentence": "Nos ___ los verbos irregulares.", "answer": "cuestan"},
+          {"sentence": "Para mejorar ___ bien hablar con nativos.", "answer": "va"},
+          {"sentence": "Le ___ mucho recordar el vocabulario.", "answer": "cuesta"},
+          {"sentence": "Para la gramática ___ muy bien hacer ejercicios.", "answer": "va"},
+          {"sentence": "Me ___ las conjugaciones del subjuntivo.", "answer": "cuestan"}
+        ]
+      },
+      {
+        "id": "ejercicio_9",
+        "title": "Concordancia: me da / me dan",
+        "hint": "da / dan",
+        "questions": [
+          {"sentence": "No me ___ vergüenza salir a la pizarra.", "answer": "da"},
+          {"sentence": "Me ___ miedo los exámenes.", "answer": "dan"},
+          {"sentence": "Me ___ miedo hablar con un nativo.", "answer": "da"},
+          {"sentence": "Te ___ vergüenza estas situaciones.", "answer": "dan"},
+          {"sentence": "Le ___ miedo hablar en inglés por teléfono.", "answer": "da"},
+          {"sentence": "Nos ___ miedo ir a vivir a un país extranjero.", "answer": "da"},
+          {"sentence": "Me ___ mucha alegría aprender idiomas.", "answer": "da"},
+          {"sentence": "Le ___ miedo los errores en público.", "answer": "dan"},
+          {"sentence": "Te ___ vergüenza hacer preguntas al profesor.", "answer": "da"},
+          {"sentence": "Nos ___ alegría los progresos en español.", "answer": "dan"},
+          {"sentence": "Me ___ pena no poder practicar más.", "answer": "da"},
+          {"sentence": "Le ___ vergüenza las exposiciones orales.", "answer": "dan"},
+          {"sentence": "Te ___ miedo el examen oral.", "answer": "da"},
+          {"sentence": "Nos ___ miedo los trabajos en grupo.", "answer": "dan"},
+          {"sentence": "Me ___ tristeza no tener tiempo para estudiar.", "answer": "da"}
+        ]
+      },
+      {
+        "id": "ejercicio_10",
+        "title": "Expresar dificultad y miedo",
+        "hint": "me cuesta / me da miedo / me siento",
+        "questions": [
+          {"sentence": "___ mucho entender a gente nativa cuando habla.", "answer": "Me cuesta"},
+          {"sentence": "___ mucho miedo el examen del lunes.", "answer": "Me da"},
+          {"sentence": "___ muy frustrada porque tengo mucho acento.", "answer": "Me siento"},
+          {"sentence": "___ entender los documentos oficiales.", "answer": "Me cuesta"},
+          {"sentence": "___ ridículo cuando pronuncio la erre.", "answer": "Me siento"},
+          {"sentence": "___ mucho miedo hablar en público.", "answer": "Me da"},
+          {"sentence": "___ muy bien cuando hablo con nativos.", "answer": "Me siento"},
+          {"sentence": "___ recordar todas las conjugaciones.", "answer": "Me cuesta"},
+          {"sentence": "___ inseguro cuando tengo que escribir.", "answer": "Me siento"},
+          {"sentence": "___ vergüenza cometer errores.", "answer": "Me da"},
+          {"sentence": "___ fatal cuando no entiendo nada.", "answer": "Me siento"},
+          {"sentence": "___ mucho la gramática avanzada.", "answer": "Me cuesta"},
+          {"sentence": "___ alegría cuando apruebo un examen.", "answer": "Me da"},
+          {"sentence": "___ seguro cuando practico en casa.", "answer": "Me siento"},
+          {"sentence": "___ mucho pronunciar correctamente.", "answer": "Me cuesta"}
+        ]
       }
     ]
   }
