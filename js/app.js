@@ -512,9 +512,11 @@ function showProfileSelect() {
         let breakTimerInterval = null;
         let breakTimeLeft = 30;
         let breaksTaken = new Set(); // Track which breaks have been shown
+        let resultsCurrentPage = 0; // For pagination in results
         const EXAM_QUESTIONS_COUNT = 60;
         const EXAM_TIMER_DURATION = 15;
         const BREAK_DURATION = 30; // 30 seconds break
+        const RESULTS_PER_PAGE = 10; // Show 10 results per page
 
         // Grammar clusters for exam
         const GRAMMAR_CLUSTERS = {
@@ -1414,13 +1416,20 @@ if (
                 });
             });
 
+            console.log(`✅ Generated ${examQuestions.length} vocabulary questions`);
+
             // ========================================
             // PART 2: GRAMMAR (5 questions per cluster)
             // ========================================
+            console.log('Current unidad:', currentUnidad);
             const clusters = GRAMMAR_CLUSTERS[currentUnidad];
+            console.log('Clusters found:', clusters);
+
             if (clusters) {
                 clusters.forEach(cluster => {
+                    console.log(`Processing cluster: ${cluster.name}`);
                     const clusterQuestions = get5QuestionsFromCluster(cluster, unidadData);
+                    console.log(`Got ${clusterQuestions.length} questions from cluster ${cluster.name}`);
                     clusterQuestions.forEach(q => {
                         examQuestions.push({
                             sentence: q.sentence,
@@ -1431,9 +1440,11 @@ if (
                         });
                     });
                 });
+            } else {
+                console.warn('No clusters found for unidad:', currentUnidad);
             }
 
-            console.log(`✅ Generated ${examQuestions.length} exam questions (30 vocabulary + ${clusters ? clusters.length * 5 : 0} grammar)`);
+            console.log(`✅ Generated ${examQuestions.length} total questions (30 vocabulary + ${examQuestions.length - 30} grammar)`);
             return examQuestions;
         }
 
@@ -1596,7 +1607,9 @@ if (
             const seconds = examTime % 60;
             const timeString = `${minutes}:${seconds.toString().padStart(2, '0')}`;
 
-            const percentage = Math.round((examScore / EXAM_QUESTIONS_COUNT) * 100);
+            // Use actual number of answered questions
+            const totalQuestions = examAnswers.length;
+            const percentage = Math.round((examScore / totalQuestions) * 100);
 
             // Show results screen
             hideAllScreens();
@@ -1605,7 +1618,7 @@ if (
             // Update results
             document.getElementById('examScorePercent').textContent = percentage + '%';
             document.getElementById('examCorrect').textContent = examScore;
-            document.getElementById('examTotal').textContent = EXAM_QUESTIONS_COUNT;
+            document.getElementById('examTotal').textContent = totalQuestions;
             document.getElementById('examTimeSpent').textContent = timeString;
 
             // Set grade
@@ -1624,11 +1637,22 @@ if (
                 gradeElement.style.color = '#FF5722';
             }
 
-            // Show detailed results
+            // Reset to first page
+            resultsCurrentPage = 0;
+            renderResultsPage();
+        }
+
+        function renderResultsPage() {
             const detailedResults = document.getElementById('examDetailedResults');
             detailedResults.innerHTML = '<h3>Детальные результаты:</h3>';
 
-            examAnswers.forEach((answer, index) => {
+            const totalPages = Math.ceil(examAnswers.length / RESULTS_PER_PAGE);
+            const startIdx = resultsCurrentPage * RESULTS_PER_PAGE;
+            const endIdx = Math.min(startIdx + RESULTS_PER_PAGE, examAnswers.length);
+            const pageAnswers = examAnswers.slice(startIdx, endIdx);
+
+            pageAnswers.forEach((answer, pageIndex) => {
+                const index = startIdx + pageIndex;
                 const resultDiv = document.createElement('div');
                 resultDiv.style.cssText = 'margin: 10px 0; padding: 15px; border-radius: 8px; background: #f5f5f5;';
 
@@ -1657,6 +1681,43 @@ if (
 
                 detailedResults.appendChild(resultDiv);
             });
+
+            // Add pagination controls
+            if (totalPages > 1) {
+                const paginationDiv = document.createElement('div');
+                paginationDiv.style.cssText = 'display: flex; justify-content: center; align-items: center; gap: 20px; margin-top: 20px;';
+
+                const prevButton = document.createElement('button');
+                prevButton.className = 'btn btn-primary';
+                prevButton.textContent = '← Назад';
+                prevButton.disabled = resultsCurrentPage === 0;
+                prevButton.onclick = () => {
+                    if (resultsCurrentPage > 0) {
+                        resultsCurrentPage--;
+                        renderResultsPage();
+                    }
+                };
+
+                const pageInfo = document.createElement('span');
+                pageInfo.textContent = `Страница ${resultsCurrentPage + 1} из ${totalPages}`;
+                pageInfo.style.fontSize = '1.1em';
+
+                const nextButton = document.createElement('button');
+                nextButton.className = 'btn btn-primary';
+                nextButton.textContent = 'Вперед →';
+                nextButton.disabled = resultsCurrentPage >= totalPages - 1;
+                nextButton.onclick = () => {
+                    if (resultsCurrentPage < totalPages - 1) {
+                        resultsCurrentPage++;
+                        renderResultsPage();
+                    }
+                };
+
+                paginationDiv.appendChild(prevButton);
+                paginationDiv.appendChild(pageInfo);
+                paginationDiv.appendChild(nextButton);
+                detailedResults.appendChild(paginationDiv);
+            }
         }
 
         function confirmExitExam() {
