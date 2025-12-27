@@ -1324,13 +1324,13 @@ if (
             console.log(`get5QuestionsFromCluster called for: ${cluster.name}`);
             console.log('Cluster exercises:', cluster.exercises);
 
-            if (!unidadData || !unidadData.gramatica) {
-                console.error('No grammar data available in unidadData');
+            if (!unidadData || !unidadData.categories || !unidadData.categories.gramatica) {
+                console.error('No grammar data available in unidadData.categories');
                 console.log('unidadData:', unidadData);
                 return [];
             }
 
-            const allGrammarExercises = unidadData.gramatica;
+            const allGrammarExercises = unidadData.categories.gramatica;
             console.log(`Total grammar exercises in data: ${allGrammarExercises.length}`);
             const clusterQuestions = [];
             const questionCounts = {}; // Track how many questions taken from each exercise
@@ -2401,12 +2401,12 @@ let __gramIsAwaitingNext = false;
 // Load grammar data from JSON file
 function loadGramaticaExercises() {
     const unidadData = window.unidadData;
-    if (unidadData && unidadData.gramatica) {
-        gramaticaExercises = unidadData.gramatica;
+    if (unidadData && unidadData.categories && unidadData.categories.gramatica) {
+        gramaticaExercises = unidadData.categories.gramatica;
         console.log(`✅ Loaded ${gramaticaExercises.length} grammar exercises from JSON`);
     } else {
         gramaticaExercises = [];
-        console.warn('⚠️ No grammar exercises found in unidadData');
+        console.warn('⚠️ No grammar exercises found in unidadData.categories');
     }
 }
 
